@@ -82,4 +82,5 @@ class UserController extends Controller
 
         return $stmt ? 1 : 0;
     }
+
 }
