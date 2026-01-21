@@ -20,6 +20,7 @@ class UserController extends Controller
             "login" => $this->login($json),
             "update" => $this->updateUser($json),
             "setUserStatus" => $this->setUserStatus($json),
+            "getAllUsers" => $this->getAllUsers($json),
             default => "Invalid Operation"
         };
     }
@@ -87,14 +88,21 @@ class UserController extends Controller
 
     protected function setUserStatus($json)
     {
-        // {"userId": 2, "task": "active"}
+        // {"userId": 2, "operator": "active"}
         $data = json_decode($json, true);
-        $userId = $data["userId"];
-        $task = $data["task"];
-        $stmt = User::where("user_id", $userId)
+        $stmt = User::where("user_id", $data["userId"])
             ->update([
-                "user_status" => $task
+                "user_status" => $data["operator"]
             ]);
         return $stmt ? 1 : 0;
+    }
+
+    protected function getAllUsers($json)
+    {
+        // {"operator": "active"}
+        $data = json_decode($json, true);
+        $stmt = User::where("user_status", $data["operator"])
+            ->orderByDesc("user_id")->get();
+        return $stmt;
     }
 }
