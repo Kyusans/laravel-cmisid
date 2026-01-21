@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -16,6 +17,7 @@ class UserController extends Controller
 
         return match ($operation) {
             "signup" => $this->signup($json),
+            "login" => $this->login($json),
             default => "Invalid Operation"
         };
     }
@@ -38,9 +40,17 @@ class UserController extends Controller
             "user_lastName" => $data["lastName"],
             "user_email" => $data["email"],
             "user_password" => $data["password"],
-            "user_birthdate" =>$data["birthdate"],
+            "user_birthdate" => $data["birthdate"],
             "user_role" => $data["userRole"]
         ]);
         return $stmt ? 1 : 0;
+    }
+
+    protected function login($json)
+    {
+        // {"email":"beasabellach@gmail.com", "password":"beagwapa"}
+        $data = json_decode($json, true);
+        $user = User::where("user_email", $data["email"])->first();
+        return $user && Hash::check($data["password"], $user->user_password) ? $user : 0;
     }
 }
