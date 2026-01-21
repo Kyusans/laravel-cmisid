@@ -18,6 +18,7 @@ class UserController extends Controller
         return match ($operation) {
             "signup" => $this->signup($json),
             "login" => $this->login($json),
+            "update" => $this->updateUser($json),
             default => "Invalid Operation"
         };
     }
@@ -31,7 +32,7 @@ class UserController extends Controller
             "email" => "required|email|unique:tblusers,user_email"
         ]);
         if ($validator->fails()) {
-            return -1;
+            return -1; // email exist 
         }
 
         $stmt = User::create([
@@ -52,5 +53,33 @@ class UserController extends Controller
         $data = json_decode($json, true);
         $user = User::where("user_email", $data["email"])->first();
         return $user && Hash::check($data["password"], $user->user_password) ? $user : 0;
+    }
+
+    protected function updateUser($json)
+    {
+        // {"userId": 1, "firstName":"Beas", "middleName":"Macalua", "lastName":"lacheca", "email":"beasabellach@gmail.com", "birthdate":"2004-01-01", "password":"beagwapa", "userRole": 1}
+        $data = json_decode($json, true);
+        $userId = $data["userId"];
+        $user = User::find($userId ?? 0);
+        if (!$user) {
+            return 0; // walay user
+        }
+
+        // $validator = Validator::make($data, [
+        //     "email" => "required|email|unique:tblusers,user_email," . $userId . ",user_id"
+        // ]);
+        // if ($validator->fails()) {
+        //     return -1; // email exist 
+        // }
+
+        $stmt = User::where("user_id", $userId)->update([
+            "user_firstName" => $data["firstName"] ?? $user->user_firstName,
+            "user_middleName" => $data["middleName"] ?? $user->user_middleName,
+            "user_lastName" => $data["lastName"] ?? $user->user_lastName,
+            "user_birthdate" => $data["birthdate"] ?? $user->user_birthdate,
+            "user_role" => $data["userRole"] ?? $user->user_role
+        ]);
+
+        return $stmt ? 1 : 0;
     }
 }
