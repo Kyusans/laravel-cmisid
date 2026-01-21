@@ -15,6 +15,7 @@ class User extends Model
         "user_lastName",
         "user_email",
         "user_password",
+        "user_birthdate",
         "user_role"
     ];
 
@@ -26,5 +27,10 @@ class User extends Model
     public function role()
     {
         return $this->belongsTo(Role::class, "user_role", "role_id");
+    }
+
+    public function setUserPasswordAttribute($value)
+    {
+        $this->attributes["user_password"] = bcrypt($value);
     }
 }
