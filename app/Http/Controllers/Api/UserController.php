@@ -103,6 +103,6 @@ class UserController extends Controller
         $data = json_decode($json, true);
         $stmt = User::where("user_status", $data["operator"])
             ->orderByDesc("user_id")->get();
-        return $stmt;
+        return $stmt->isNotEmpty() ? $stmt : 0;
     }
 }
