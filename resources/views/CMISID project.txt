@@ -1,0 +1,93 @@
+Project Name: Information System Management System
+
+-management of all the records nga gi utilize sa city government nga information system
+-each office nay gina propose nga information system or gina plan out
+-sa ilang plan kay makita kung kinsa ang mga developers
+-an information system that will record information system plans, information system nga currently gina gamit, information system ma track siya if na conduct na siya og PIA
+
+REPORT:
+-pila ka information system nasa plan palang
+-pila ka information system gi utilize na (up and running)
+-pila ka up and running ang naka PIA
+
+USERS:
+System Admin - maka kita tanan reports
+Office User - report kay filtered according sa office
+
+tblroles
+- role_id
+- role_name
+
+tbloffices
+- office_id
+- office_name
+
+
+tblusers
+- user_id
+- user_firstName
+- user_middleName
+- user_lastName
+- user_email
+- user_password
+- user_roleId
+- user_officeId
+
+tblsystemtypes
+- systemType_id
+- systemType_name
+- systemType_description
+
+tblworkingenvironments
+- workEnv_id
+- workEnv_name
+- workEnv_description
+
+tblsystemstatus
+- sysStatus_id
+- sysStatus_name
+
+tblriseagendas
+- rise_id
+- rise_name
+
+tblinformationsystems
+- infoSys_id
+- infoSys_rank (priority)
+- infoSys_isSmartCityInitiative (BOOLEAN)
+- infoSys_systemName (VARCHAR)
+- infoSys_description (TEXT)
+- infoSys_riseAgendaId (FK)
+- infoSys_connectToRiseAgenda (TEXT)
+- infoSys_systemTypeId (FK)
+- infoSys_officeId (FK)
+- infoSys_systemStatusId (FK)
+- infoSys_workEnvId (FK)
+- infoSys_internalUsers (TEXT)
+- infoSys_externalUsers (TEXT)
+- infoSys_MFO (TEXT)
+- infoSys_PPA (TEXT)
+- infoSys_connectWithMFO (TEXT)
+- infoSys_fundingSource (TEXT)
+- infoSys_hasPIA (BOOLEAN)
+- infoSys_datePia (DATE)
+- infoSys_initationYear (DATE)
+
+tblsystemproblems
+- sysprob_id
+- sysprob_infoSysId (FK)
+- sysprob_problem 
+
+tblinfosysdevelopers
+- infodev_id
+- infodev_infoSystemId
+- infodev_firstName
+- infodev_lastName
+
+
+
+
+
+
+
+

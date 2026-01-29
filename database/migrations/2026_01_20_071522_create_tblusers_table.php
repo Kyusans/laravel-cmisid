@@ -14,13 +14,15 @@ return new class extends Migration
         Schema::create('tblusers', function (Blueprint $table) {
             $table->id("user_id");
             $table->string("user_firstName");
-            $table->string("user_middleName");
+            $table->string("user_middleName")->nullable();
             $table->string("user_lastName");
             $table->string("user_email")->unique();
             $table->string("user_password");
-            $table->date("user_birthdate");
-            $table->foreignId("user_role")
+            $table->foreignId("user_roleId")
                 ->constrained("tblroles", "role_id")
+                ->onDelete("cascade");
+            $table->foreignId("user_officeId")
+                ->constrained("tbloffices", "office_id")
                 ->onDelete("cascade");
             $table->rememberToken();
             $table->timestamps();

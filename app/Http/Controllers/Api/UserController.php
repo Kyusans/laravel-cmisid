@@ -82,7 +82,6 @@ class UserController extends Controller
                 "user_birthdate" => $data["birthdate"] ?? $user->user_birthdate,
                 "user_role" => $data["userRole"] ?? $user->user_role
             ]);
-
         return $stmt ? 1 : 0;
     }
 
