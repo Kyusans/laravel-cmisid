@@ -42,13 +42,13 @@ tblworkingenvironments-
 - workEnv_name
 - workEnv_description
 
-tblsystemstatus
+tblsystemstatus-
 - sysStatus_id
 - sysStatus_name
 
-tblriseagendas
-- rise_id
-- rise_name
+tblriseagendas-
+- riseAgenda_id
+- riseAgenda_name
 
 tblinformationsystems
 - infoSys_id
