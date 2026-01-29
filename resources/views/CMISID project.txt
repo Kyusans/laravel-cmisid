@@ -1,4 +1,4 @@
-Project Name: Information System Management System
+Project: Information System Management System
 
 -management of all the records nga gi utilize sa city government nga information system
 -each office nay gina propose nga information system or gina plan out
@@ -14,88 +14,136 @@ USERS:
 System Admin - maka kita tanan reports
 Office User - report kay filtered according sa office
 
-tblroles -
-- role_id
-- role_name
+MASTERFILES
 
-tbloffices-
-- office_id
-- office_name
+tblroles
+  role_id
+	role_name
 
-tblusers -
-- user_id
-- user_firstName
-- user_middleName
-- user_lastName
-- user_email
-- user_password
-- user_roleId
-- user_officeId
+tbloffices
+	office_id
+	office_name
 
-tblsystemtypes -
-- systemType_id
-- systemType_name
-- systemType_description
+tblusers
+	user_id
+	user_firstName
+	user_middleName
+	user_lastName
+	user_email
+	user_password
+	user_roleId
+	user_officeId
 
-tblworkingenvironments-
-- workEnv_id
-- workEnv_name
-- workEnv_description
+tblsystemtypes
+	systemType_id
+	systemType_name
+	systemType_description
 
-tblsystemstatus-
-- sysStatus_id
-- sysStatus_name
+tblworkingenvironments
+	workEnv_id
+	workEnv_name
+	workEnv_description
 
-tblriseagendas-
-- riseAgenda_id
-- riseAgenda_name
+tblsystemstatus
+	sysStatus_id
+	sysStatus_name
 
-tblinformationsystems -
-- infoSys_id
-- infoSys_rank (priority)
-- infoSys_isSmartCityInitiative (BOOLEAN)
-- infoSys_systemName (VARCHAR)
-- infoSys_description (TEXT)
-- infoSys_riseAgendaId (FK)
-- infoSys_connectToRiseAgenda (TEXT)
-- infoSys_systemTypeId (FK)
-- infoSys_officeId (FK)
-- infoSys_systemStatusId (FK)
-- infoSys_workEnvId (FK)
-- infoSys_internalUsers (TEXT)
-- infoSys_externalUsers (TEXT)
-- infoSys_MFO (TEXT)
-- infoSys_PPA (TEXT)
-- infoSys_connectWithMFO (TEXT)
-- infoSys_fundingSource (TEXT)
-- infoSys_hasPIA (BOOLEAN)
-- infoSys_datePia (DATE)
-- infoSys_initationYear (DATE)
-
-tblsystemproblems -
-- sysprob_id
-- sysprob_infoSysId (FK)
-- sysprob_problem
+tblriseagendas
+	riseAgenda_id
+	riseAgenda_name
 
 tblspecializations
-- spec_id
-- spec_name
+	spec_id
+	spec_name
 
 tbldevelopers
-- dev_id
-- dev_firstName
-- dev_middleName
-- dev_specId
+	dev_id
+	dev_firstName
+	dev_middleName
+	dev_lastName
+	dev_officeId
+	dev_specId
+
+tblfundingsource
+	funding_id
+	funding_name
+
+tblinternalusers
+	internal_id
+	internal_name
+
+tblexternalusers
+	external_id
+	external_name
+
+tblmfo
+	mfo_id
+	mfo_name
+
+tblppa
+	ppa_id
+	ppa_name
+
+tbldevelopmentstrategies
+  devStrategy_id
+  devStrategy_name 
+
+
+TRANSACTIONS
+
+tblinformationsystems
+	infoSys_id
+	infoSys_rank
+	infoSys_isSmartCityInitiative
+	infoSys_systemName
+	infoSys_description
+	infoSys_systemTypeId
+	infoSys_officeId
+	infoSys_systemStatusId
+	infoSys_workEnvId
+  infoSys_devStrategyId
+	infoSys_hasPIA
+	infoSys_datePia
+	infoSys_initiationYear
+
+tblsystemproblems
+	sysprob_id
+	sysprob_problem
+	sysprob_infoSysId
 
 tblinfosysdevelopers
-- infodev_id
-- infodev_infoSystemId
-- infodev_devId
+	infodev_id
+	infodev_devId
+	infodev_infoSysId
 
+tblinfosysfundings
+	infoFund_id
+	infoFund_fundingId
+	infoFund_infoSysId
 
+tblinfosysinternalusers
+	infoInternal_id
+	infoInternal_internalId
+	infoInternal_infoSysId
 
+tblinfosysexternalusers
+	infoExternal_id
+	infoExternal_externalId
+	infoExternal_infoSysId
 
+tblinfosysmfo
+	infoMfo_id
+	infoMfo_mfoId
+	infoMfo_infoSysId
+	infoMfo_connectWithMFO
 
+tblinfosysppa
+	infoPpa_id
+	infoPpa_ppaId
+	infoPpa_infoSysId
 
-
-
+tblinfosysriseagenda
+	infoAgenda_id
+	infoAgenda_riseAgendaId
+	infoAgenda_infoSysId
+	infoAgenda_connectToRiseAgenda

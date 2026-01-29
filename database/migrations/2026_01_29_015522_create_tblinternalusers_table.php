@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tblroles', function (Blueprint $table) {
-            $table->id("role_id");
-            $table->string("role_name")->unique();
+        Schema::create('tblinternalusers', function (Blueprint $table) {
+            $table->id("internal_id");
+            $table->string("internal_name")->unique();
             $table->timestamps();
         });
     }
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tblroles');
+        Schema::dropIfExists('tblinternalusers');
     }
 };

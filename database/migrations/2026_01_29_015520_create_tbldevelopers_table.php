@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+
+    public function up(): void
+    {
+        Schema::create('tbldevelopers', function (Blueprint $table) {
+            $table->id("dev_id");
+            $table->string("dev_firstName");
+            $table->string("dev_middleName")->nullable();
+            $table->string("dev_lastName");
+            $table->foreignId("dev_officeId")
+                ->constrained("tbloffices", "office_id")
+                ->onDelete("cascade");
+            $table->foreignId("dev_specId")
+                ->constrained("tblspecializations", "spec_id")
+                ->onDelete("cascade");
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('tbldevelopers');
+    }
+};
