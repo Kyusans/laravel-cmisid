@@ -14,16 +14,15 @@ USERS:
 System Admin - maka kita tanan reports
 Office User - report kay filtered according sa office
 
-tblroles
+tblroles -
 - role_id
 - role_name
 
-tbloffices
+tbloffices-
 - office_id
 - office_name
 
-
-tblusers
+tblusers -
 - user_id
 - user_firstName
 - user_middleName
@@ -33,12 +32,12 @@ tblusers
 - user_roleId
 - user_officeId
 
-tblsystemtypes
+tblsystemtypes -
 - systemType_id
 - systemType_name
 - systemType_description
 
-tblworkingenvironments
+tblworkingenvironments-
 - workEnv_id
 - workEnv_name
 - workEnv_description
