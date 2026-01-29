@@ -50,7 +50,7 @@ tblriseagendas-
 - riseAgenda_id
 - riseAgenda_name
 
-tblinformationsystems
+tblinformationsystems -
 - infoSys_id
 - infoSys_rank (priority)
 - infoSys_isSmartCityInitiative (BOOLEAN)

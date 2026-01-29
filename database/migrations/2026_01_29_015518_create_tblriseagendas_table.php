@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tblriseagendas', function (Blueprint $table) {
-            $table->id("rise_id");
-            $table->string("rise_name")->unique();
+            $table->id("riseAgenda_id");
+            $table->string("riseAgenda_name")->unique();
             $table->timestamps();
         });
     }
