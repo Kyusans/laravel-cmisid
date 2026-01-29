@@ -72,7 +72,7 @@ tblinformationsystems -
 - infoSys_datePia (DATE)
 - infoSys_initationYear (DATE)
 
-tblsystemproblems
+tblsystemproblems -
 - sysprob_id
 - sysprob_infoSysId (FK)
 - sysprob_problem 
