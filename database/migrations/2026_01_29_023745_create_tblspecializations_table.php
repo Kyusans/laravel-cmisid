@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tblsystemproblems', function (Blueprint $table) {
-            $table->id("sysprob_id");
-            $table->foreignId("sysprob_infoSysId")
-                ->constrained("tblinformationsystems", "infoSys_id")
-                ->onDelete("cascade");
-            $table->string("sysprob_problem");
+        Schema::create('tblspecializations', function (Blueprint $table) {
+            $table->id("spec_id");
+            $table->string("spec_name")->unique();
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tblsystemproblems');
+        Schema::dropIfExists('tblspecializations');
     }
 };

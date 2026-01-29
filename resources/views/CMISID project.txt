@@ -75,13 +75,22 @@ tblinformationsystems -
 tblsystemproblems -
 - sysprob_id
 - sysprob_infoSysId (FK)
-- sysprob_problem 
+- sysprob_problem
+
+tblspecializations
+- spec_id
+- spec_name
+
+tbldevelopers
+- dev_id
+- dev_firstName
+- dev_middleName
+- dev_specId
 
 tblinfosysdevelopers
 - infodev_id
 - infodev_infoSystemId
-- infodev_firstName
-- infodev_lastName
+- infodev_devId
 
 
 
