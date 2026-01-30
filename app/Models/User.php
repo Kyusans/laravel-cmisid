@@ -16,7 +16,7 @@ class User extends Model
         "user_email",
         "user_password",
         "user_birthdate",
-        "user_role",
+        "user_roleId",
         "user_status"
     ];
 
@@ -25,12 +25,17 @@ class User extends Model
         "remember_token"
     ];
 
-    public function role()
+    protected function role()
     {
-        return $this->belongsTo(Role::class, "user_role", "role_id");
+        return $this->belongsTo(Role::class, "user_roleId", "role_id");
     }
 
-    public function setUserPasswordAttribute($value)
+    protected function office()
+    {
+        return $this->belongsTo(Office::class, "user_officeId", "office_id");
+    }
+
+    protected function setUserPasswordAttribute($value)
     {
         $this->attributes["user_password"] = bcrypt($value);
     }
