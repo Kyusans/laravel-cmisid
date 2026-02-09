@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+class User extends Authenticatable
 {
     protected $table = "tblusers";
     protected $primaryKey = "user_id";
@@ -24,6 +24,11 @@ class User extends Model
         "user_password",
         "remember_token"
     ];
+
+    public function getAuthPassword()
+    {
+        return $this->user_password;
+    }
 
     protected function role()
     {

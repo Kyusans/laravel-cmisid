@@ -22,7 +22,7 @@ class AuthController extends Controller
 
         if (Auth::attempt([
             "user_email" => $validated["email"],
-            "user_password" => $validated["password"]
+            "password" => $validated["password"]
         ])) {
             $request->session()->regenerate();
             return redirect()->route('dashboard');
