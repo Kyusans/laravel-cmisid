@@ -1,4 +1,5 @@
 <x-layout>
+    <x-slot:title>Users</x-slot:title>
     <div class="card col-6 mx-auto">
         <div class="card-header">Search User</div>
         <div class="card-body text-center">
