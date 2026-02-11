@@ -1,9 +1,9 @@
 <x-layout>
-    <x-slot:title>Users</x-slot:title>
+    <x-slot:title>Information Systems</x-slot:title>
 
-    <!-- Search User Card -->
+    <!-- Search Information System Card -->
     <div class="card col-6 mx-auto">
-        <div class="card-header">Search User</div>
+        <div class="card-header">Search Information System</div>
         <div class="card-body text-center">
             <div class="container">
                 <div class="row">
@@ -11,7 +11,7 @@
                         <form class="d-flex">
                             <div class="input-group">
                                 <input class="form-control form-control-md" type="search"
-                                    placeholder="Firstname/Lastname" aria-label="Search">
+                                    placeholder="Information System Name" aria-label="Search">
                                 <button class="btn btn-primary px-4" type="submit">
                                     <i class="bi bi-search"></i>
                                 </button>
@@ -25,7 +25,7 @@
     </div>
 
     <div class="card col-6 mt-3 mx-auto">
-        <div class="card-header">Users</div>
+        <div class="card-header">Information Systems</div>
         <div class="card-body">
 
             <!-- Pagination -->

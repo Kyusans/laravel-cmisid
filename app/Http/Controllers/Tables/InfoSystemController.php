@@ -5,40 +5,35 @@ namespace App\Http\Controllers\Tables;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class UsersController extends Controller
+class InfoSystemController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // Sample table data. Replace it with table_data
         $table_data = [
             "columns" => [
-                "Firstname",
-                "Lastname",
-                "Role",
+                "Rank",
+                "Name",
+                "Type",
+                "Office",
+                "Initiation Year",
+                "PIA Status",
             ],
             "rows" => [
                 [
-                    "Mark",
+                    1,
                     "Otto",
-                    "Office User",
-                ],
-                [
-                    "Jacob",
-                    "Thornton",
-                    "Office User",
-                ],
-                [
-                    "John",
-                    "Doe",
-                    "System Admin",
+                    "Type 1",
+                    "Office Name",
+                    "2025",
+                    "IN PROGRESS",
                 ],
             ],
         ];
 
-        return view('tables.users', ['table_data' => $table_data]);
+        return view('tables.infosystems', ['table_data' => $table_data]);
     }
 
     /**
