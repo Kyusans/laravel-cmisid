@@ -1,16 +1,16 @@
 <?php
 
-use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Masterfiles\OfficeMasterController;
+use App\Http\Controllers\Masterfiles\UserMasterController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:sanctum');
 
-Route::post("/user/login", [UserController::class, "login"]);
+// office masterfile
+Route::get("/office-master", [OfficeMasterController::class, "index"])->name("office-master");
+Route::post("/add-office", [OfficeMasterController::class, "addOffice"])->name("add-office");
+Route::post("/update-office", [OfficeMasterController::class, "updateOffice"])->name("update-office");
 
-// Route::middleware('auth:sanctum')->prefix('user')->group(function () {
-//     Route::put('/{id}', [UserController::class, 'updateUser']);
-//     Route::patch('/{id}/status', [UserController::class, 'setUserStatus']);
-//     Route::get('/', [UserController::class, 'getAllUsers']);
-// });
+// user masterfile
+Route::get("/user-master", [UserMasterController::class, "index"])->name("user-master");
+Route::post("/add-user", [UserMasterController::class, "addUser"])->name("add-user");
+Route::post("/update-user", [UserMasterController::class, "updateUser"])->name("update-user");
