@@ -2,39 +2,54 @@
 
 <x-layout>
     <!-- Replace title with variable -->
-    <x-slot:title>Firstname's Details</x-slot:title>
+    <x-slot:title> {{ $user_data['firstname'] }}'s Details</x-slot:title>
 
-    <div class="card col-6 mt-3 mx-auto">
-        <div class="card-header d-flex justify-content-between align-items-center">
+    <div class="card mx-auto" style="max-width: 500px;">
+        <div class="card-header">
             <h5 class="mb-0">{{ $user_data['firstname'] . ' ' . $user_data['lastname']}}</h5>
-            <a href="#" class="text-decoration-none text-muted">
-                <i class="bi bi-pencil"></i>
-            </a>
         </div>
 
         <div class="card-body">
             <form>
-                <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">Email</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" value="john@email.com">
+                <div class="d-flex mb-2 form-group">
+                    <label class="col-sm-3 col-form-label fw-semibold">First Name:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" value="{{ $user_data['firstname'] }}">
+                    </div>
+                </div>
+                <div class="d-flex mb-2 form-group">
+                    <label class="col-sm-3 col-form-label fw-semibold">Last Name:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" value="{{ $user_data['lastname'] }}">
+                    </div>
+                </div>
+                <div class="d-flex mb-2 form-group">
+                    <label class="col-sm-3 col-form-label fw-semibold">Email:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" value="{{ $user_data['email'] }}">
                     </div>
                 </div>
 
-                <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">Phone</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" value="123-456-7890">
+                <div class="d-flex mb-2 form-group">
+                    <label class="col-sm-3 col-form-label fw-semibold">Role:</label>
+                    <div class="col-sm-8">
+                        <select class="form-select">
+                            <option selected value="{{ $user_data['role'] }}">{{ $user_data['role'] }}</option>
+                            <option value="System Admin">System Admin</option>
+                        </select>
                     </div>
                 </div>
 
-                <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">Address</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" value="123 Main St">
+                <div class="d-flex mb-2 form-group">
+                    <label class="col-sm-3 col-form-label fw-semibold">Office:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" value="{{ $user_data['office'] }}">
                     </div>
                 </div>
             </form>
+            <div class="col-2 mx-auto">
+            <button type="button" class="btn btn-primary mt-3">Update</button>
+            </div>
         </div>
     </div>
     </div>
