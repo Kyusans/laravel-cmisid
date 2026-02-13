@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Masterfiles\OfficeMasterController;
+use App\Http\Controllers\Masterfiles\SystemStatusController;
 use App\Http\Controllers\Masterfiles\SystemTypesController;
 use App\Http\Controllers\Masterfiles\UserMasterController;
 use App\Http\Controllers\Masterfiles\WorkingEnvironmentController;
@@ -24,3 +25,7 @@ Route::post("/update-system-types", [SystemTypesController::class, "updateSystem
 // working environment masterfile
 Route::post("/add-working-environment", [WorkingEnvironmentController::class, "addWorkingEnvironment"])->name("add-working-environment");
 Route::post("/update-working-environment", [WorkingEnvironmentController::class, "updateWorkingEnvironment"])->name("update-working-environment");
+
+// system status masterfile
+Route::post("/add-system-status", [SystemStatusController::class, "addSystemStatus"])->name("add-system-status");
+Route::post("/update-system-status", [SystemStatusController::class, "updateSystemStatus"])->name("update-system-status");
