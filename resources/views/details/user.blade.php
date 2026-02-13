@@ -14,20 +14,25 @@
     <!-- Body -->
     <div class="card-body">
 
-      <div class="d-flex mb-2">
-        <div class="fw-semibold col-sm-3">Email:</div>
-        <div>{{ $user_data['email'] }}</div>
-      </div>
+      <dl class="d-flex mb-2 row">
+        <dt class="fw-semibold col-sm-3">Full Name:</dt>
+        <dd class="col-sm-8">{{ $user_data['firstname'] }} {{ $user_data['middlename'] }} {{ $user_data['lastname'] }}</dd>
+      </dl>
 
-      <div class="d-flex mb-2">
-        <div class="fw-semibold col-sm-3">Role:</div>
-        <div>{{ $user_data['role'] }}</div>
-      </div>
+      <dl class="d-flex mb-2 row">
+        <dt class="fw-semibold col-sm-3">Email:</dt>
+        <dd class="col-sm-8">{{ $user_data['email'] }}</dd>
+      </dl>
 
-      <div class="d-flex mb-2">
-        <div class="fw-semibold col-sm-3">Office:</div>
-        <div>{{ $user_data['office'] }}</div>
-      </div>
+      <dl class="d-flex mb-2 row">
+        <dt class="fw-semibold col-sm-3">Role:</dt>
+        <dd class="col-sm-8">{{ $user_data['role'] }}</dd>
+      </dl>
+
+      <dl class="d-flex mb-2 row">
+        <dt class="fw-semibold col-sm-3">Office:</dt>
+        <dd class="col-sm-8">{{ $user_data['office'] }}</dd>
+      </dl>
 
     </div>
 

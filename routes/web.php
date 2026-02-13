@@ -25,3 +25,7 @@ Route::get('/information_systems', [App\Http\Controllers\Tables\InfoSystemContro
 // Edit these into a variable for specific users 
 Route::get('/user/details', [App\Http\Controllers\Details\UserController::class,'index']);
 Route::get('/user/edit', [App\Http\Controllers\Edit\UserController::class,'index']);
+
+// Edit these into a variable for specific information system
+Route::get('/information_system/details', [App\Http\Controllers\Details\InfoSystemController::class,'index']);
+Route::get('/information_system/edit', [App\Http\Controllers\Edit\InfoSystemController::class,'index']);
