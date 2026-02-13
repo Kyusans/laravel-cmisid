@@ -22,5 +22,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/users', [App\Http\Controllers\Tables\UsersController::class,'index'])->name('users');
 Route::get('/information_systems', [App\Http\Controllers\Tables\InfoSystemController::class,'index'])->name('infosystems');
 
-// Edit this into a variable for specific users 
+// Edit these into a variable for specific users 
 Route::get('/user/details', [App\Http\Controllers\Details\UserController::class,'index']);
+Route::get('/user/edit', [App\Http\Controllers\Edit\UserController::class,'index']);
