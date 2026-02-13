@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Masterfiles\OfficeMasterController;
+use App\Http\Controllers\Masterfiles\SystemTypesController;
 use App\Http\Controllers\Masterfiles\UserMasterController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,3 +15,7 @@ Route::post("/update-office", [OfficeMasterController::class, "updateOffice"])->
 Route::get("/user-master", [UserMasterController::class, "index"])->name("user-master");
 Route::post("/add-user", [UserMasterController::class, "addUser"])->name("add-user");
 Route::post("/update-user", [UserMasterController::class, "updateUser"])->name("update-user");
+
+// system types masterfile
+Route::get("/system-types-master", [SystemTypesController::class, "index"])->name("system-types");
+Route::post("/add-system-types", [SystemTypesController::class, "addSystemType"])->name("add-system-types");
