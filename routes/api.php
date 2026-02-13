@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Masterfiles\OfficeMasterController;
+use App\Http\Controllers\Masterfiles\RiseAgendaController;
 use App\Http\Controllers\Masterfiles\SystemStatusController;
 use App\Http\Controllers\Masterfiles\SystemTypesController;
 use App\Http\Controllers\Masterfiles\UserMasterController;
@@ -29,3 +30,7 @@ Route::post("/update-working-environment", [WorkingEnvironmentController::class,
 // system status masterfile
 Route::post("/add-system-status", [SystemStatusController::class, "addSystemStatus"])->name("add-system-status");
 Route::post("/update-system-status", [SystemStatusController::class, "updateSystemStatus"])->name("update-system-status");
+
+// rise agenda masterfile
+Route::post("/add-rise-agenda", [RiseAgendaController::class, "addRiseAgenda"])->name("add-rise-agenda");
+Route::post("/update-rise-agenda", [RiseAgendaController::class, "updateRiseAgenda"])->name("update-rise-agenda");
