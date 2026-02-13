@@ -8,13 +8,6 @@ use Illuminate\Http\Request;
 
 class UserMasterController extends Controller
 {
-	public function index()
-	{
-		$users = User::orderBy("user_lastname", "asc")
-			->where("user_status", 1)
-			->get();
-		return view("masterfiles.user.index", compact("users"));
-	}
 
 	public function addUser(Request $request)
 	{
@@ -37,7 +30,7 @@ class UserMasterController extends Controller
 			"user_officeId" => $validated["userOfficeId"],
 			"user_roleId" => $validated["userRoleId"],
 		]);
-		return redirect()->back()->with("success", "User added successfully");
+		session()->flash("success", "User added successfully");
 	}
 
 	public function updateUser(Request $request)
@@ -63,6 +56,6 @@ class UserMasterController extends Controller
 				"user_officeId" => $validated["userOfficeId"],
 				"user_roleId" => $validated["userRoleId"],
 			]);
-		return redirect()->back()->with("success", "User updated successfully");
+		session()->flash("success", "Users updated successfully");
 	}
 }

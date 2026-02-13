@@ -3,6 +3,7 @@
 use App\Http\Controllers\Masterfiles\OfficeMasterController;
 use App\Http\Controllers\Masterfiles\SystemTypesController;
 use App\Http\Controllers\Masterfiles\UserMasterController;
+use App\Http\Controllers\Masterfiles\WorkingEnvironmentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -17,5 +18,9 @@ Route::post("/add-user", [UserMasterController::class, "addUser"])->name("add-us
 Route::post("/update-user", [UserMasterController::class, "updateUser"])->name("update-user");
 
 // system types masterfile
-Route::get("/system-types-master", [SystemTypesController::class, "index"])->name("system-types");
 Route::post("/add-system-types", [SystemTypesController::class, "addSystemType"])->name("add-system-types");
+Route::post("/update-system-types", [SystemTypesController::class, "updateSystemType"])->name("update-system-types");
+
+// working environment masterfile
+Route::post("/add-working-environment", [WorkingEnvironmentController::class, "addWorkingEnvironment"])->name("add-working-environment");
+Route::post("/update-working-environment", [WorkingEnvironmentController::class, "updateWorkingEnvironment"])->name("update-working-environment");

@@ -8,24 +8,33 @@ use Illuminate\Http\Request;
 
 class SystemTypesController extends Controller
 {
-  public function index()
-  {
-
-    return view("masterfiles.systemtypes.index");
-  }
 
   public function addSystemType(Request $request)
   {
     // {"systemTypeName":"System Type 1", "systemTypeDescription":"Description 1"}
     $validated = $request->validate([
-      "systemTypeName" => "required|string",
-      "systemTypeDescription" => "required|string"
+      "systemTypeName" => "required|unique:tblsystemtypes,systemType_name",
+      "systemTypeDescription" => "required"
     ]);
     SystemType::create([
       "systemType_name" => $validated["systemTypeName"],
       "systemType_description" => $validated["systemTypeDescription"]
     ]);
+    session()->flash("success", "System type added successfully");
+  }
 
-    return redirect()->back()->with("success", "System Type added successfully");
+  public function updateSystemType(Request $request)
+  {
+    // {"systemTypeId":1, "systemTypeName":"System Type 1", "systemTypeDescription":"Description 1"}
+    $validated = $request->validate([
+      "systemTypeName" => "required|unique:tblsystemtypes,systemType_name,$request->systemTypeId,systemType_id",
+      "systemTypeDescription" => "required"
+    ]);
+
+    SystemType::where("systemType_id", $request->systemTypeId)->update([
+      "systemType_name" => $validated["systemTypeName"],
+      "systemType_description" => $validated["systemTypeDescription"]
+    ]);
+    session()->flash("success", "System type added successfully");
   }
 }
