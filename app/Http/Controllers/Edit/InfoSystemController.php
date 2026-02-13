@@ -5,23 +5,14 @@ namespace App\Http\Controllers\Edit;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class InfoSystemController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $user_data = [
-            "firstname" => "John",
-            "middlename" => "Bee",
-            "lastname" => "Doe",
-            "email" => "johndoe@email.com",
-            "role" => "Office Manager",
-            "office" => "Office name",
-        ];
-
-        return view("edit.user", ["user_data" => $user_data]);
+        return view("edit.infosystem");
     }
 
     /**

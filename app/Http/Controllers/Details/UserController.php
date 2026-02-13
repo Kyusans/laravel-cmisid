@@ -14,6 +14,7 @@ class UserController extends Controller
     {
         $user_data = [
             "firstname" => "John",
+            "middlename" => "Bee",
             "lastname" => "Doe",
             "email" => "johndoe@email.com",
             "role" => "Office Manager",
