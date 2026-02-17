@@ -19,22 +19,16 @@ class OfficeMasterController extends Controller
   //         </div>
   //     @endif
 
-  public function index()
-  {
-    $offices = Office::all();
-    return view("masterfiles.office.index", compact("offices"));
-  }
-
   public function addOffice(Request $request)
   {
     // {"officeName":"CMISID"}
     $validated = $request->validate([
       "officeName" => "required|string|unique:tbloffices,office_name",
     ]);
-    $stmt = Office::create([
+    Office::create([
       "office_name" => $validated["officeName"]
     ]);
-    return redirect()->back()->with("success", "Office added successfully");
+    session()->flash("success", "Office added successfully");
   }
 
   public function updateOffice(Request $request)
@@ -43,9 +37,9 @@ class OfficeMasterController extends Controller
     $validated = $request->validate([
       "officeName" => "required|string|unique:tbloffices,office_name,$request->office_id",
     ]);
-    $stmt = Office::where("officeId", $request->office_id)->update([
+    Office::where("officeId", $request->office_id)->update([
       "office_name" => $validated["officeName"]
     ]);
-    return redirect()->back()->with("success", "Office updated successfully");
+    session()->flash("success", "Office added successfully");
   }
 }
