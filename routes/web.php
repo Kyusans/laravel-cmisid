@@ -29,3 +29,7 @@ Route::get('/user/edit', [App\Http\Controllers\Edit\UserController::class,'index
 // Edit these into a variable for specific information system
 Route::get('/information_system/details', [App\Http\Controllers\Details\InfoSystemController::class,'index']);
 Route::get('/information_system/edit', [App\Http\Controllers\Edit\InfoSystemController::class,'index']);
+
+// User Creation and Login
+Route::get('/create/user', [App\Http\Controllers\Tables\UsersController::class, 'create'])->name('create.user');
+Route::post('/create/user', [App\Http\Controllers\Masterfiles\UserMasterController::class, 'addUser'])->name('store.user');
