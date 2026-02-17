@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Masterfiles\DeveloperController;
+use App\Http\Controllers\Masterfiles\ExternalUserMasterController;
 use App\Http\Controllers\Masterfiles\FundingSourceController;
 use App\Http\Controllers\Masterfiles\InternalUserMasterController;
 use App\Http\Controllers\Masterfiles\OfficeMasterController;
@@ -54,3 +55,7 @@ Route::post("/update-funding-source", [FundingSourceController::class, "updateFu
 // internal user masterfile
 Route::post("/add-internal-user", [InternalUserMasterController::class, "addInternalUser"])->name("add-internal-user");
 Route::post("/update-internal-user", [InternalUserMasterController::class, "updateInternalUser"])->name("update-internal-user");
+
+// external user masterfile
+Route::post("/add-external-user", [ExternalUserMasterController::class, "addExternalUser"])->name("add-external-user");
+Route::post("/update-external-user", [ExternalUserMasterController::class, "updateExternalUser"])->name("update-external-user");
