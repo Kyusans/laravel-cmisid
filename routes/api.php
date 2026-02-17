@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Masterfiles\DeveloperController;
 use App\Http\Controllers\Masterfiles\OfficeMasterController;
 use App\Http\Controllers\Masterfiles\RiseAgendaController;
 use App\Http\Controllers\Masterfiles\SpecializationController;
@@ -39,3 +40,8 @@ Route::post("/update-rise-agenda", [RiseAgendaController::class, "updateRiseAgen
 // specialization masterfile
 Route::post("/add-specialization", [SpecializationController::class, "addSpecialization"])->name("add-specialization");
 Route::post("/update-specialization", [SpecializationController::class, "updateSpecialization"])->name("update-specialization");
+
+// developort masterfile
+
+Route::post("/add-developer", [DeveloperController::class, "addDeveloper"])->name("add-developer");
+Route::post("/update-developer", [DeveloperController::class, "updateDeveloper"])->name("update-developer");
