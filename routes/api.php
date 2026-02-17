@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Masterfiles\DeveloperController;
+use App\Http\Controllers\Masterfiles\DevelopmentStrategyMasterController;
 use App\Http\Controllers\Masterfiles\ExternalUserMasterController;
 use App\Http\Controllers\Masterfiles\FundingSourceController;
 use App\Http\Controllers\Masterfiles\InternalUserMasterController;
@@ -69,3 +70,7 @@ Route::post("/update-mfo", [MfoMasterController::class, "updateMfo"])->name("upd
 // ppa masterfile
 Route::post("/add-ppa", [PpaMasterController::class, "addPpa"])->name("add-ppa");
 Route::post("/update-ppa", [PpaMasterController::class, "updatePpa"])->name("update-ppa");
+
+// development strategy masterfile
+Route::post("/add-development-strategy", [DevelopmentStrategyMasterController::class, "addDevelopmentStrategy"])->name("add-development-strategy");
+Route::post("/update-development-strategy", [DevelopmentStrategyMasterController::class, "updateDevelopmentStrategy"])->name("update-development-strategy");
