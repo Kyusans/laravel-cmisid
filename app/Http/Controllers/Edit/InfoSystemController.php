@@ -1,44 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Tables;
+namespace App\Http\Controllers\Edit;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class UsersController extends Controller
+class InfoSystemController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // Sample table data. Replace it with table_data
-        $table_data = [
-            "columns" => [
-                "Firstname",
-                "Lastname",
-                "Role",
-            ],
-            "rows" => [
-                [
-                    "Mark",
-                    "Otto",
-                    "Office User",
-                ],
-                [
-                    "Jacob",
-                    "Thornton",
-                    "Office User",
-                ],
-                [
-                    "John",
-                    "Doe",
-                    "System Admin",
-                ],
-            ],
-        ];
-
-        return view('tables.users', ['table_data' => $table_data]);
+        return view("edit.infosystem");
     }
 
     /**
