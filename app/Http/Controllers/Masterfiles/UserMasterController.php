@@ -30,7 +30,7 @@ class UserMasterController extends Controller
 			"user_officeId" => $validated["userOfficeId"],
 			"user_roleId" => $validated["userRoleId"],
 		]);
-		session()->flash("success", "User added successfully");
+		return redirect('/create/user')->with('success','User added successfully');
 	}
 
 	public function updateUser(Request $request)

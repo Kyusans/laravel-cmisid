@@ -29,6 +29,7 @@
         <div class="card-body">
 
             <!-- Pagination -->
+            <div class="d-flex justify-content-between align-items-center">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
@@ -38,6 +39,8 @@
                     <li class="page-item"><a class="page-link" href="#">Next</a></li>
                 </ul>
             </nav>
+            <a href="{{ route("create.user") }}"><button class="btn btn-secondary">Create User</button></a>
+            </div>
 
             <!-- Table -->
             <x-table :table_data="$table_data" />

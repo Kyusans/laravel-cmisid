@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Tables;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Role;
+use App\Models\Office;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
@@ -46,7 +50,9 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        $roles = Role::all();
+        $offices = Office::all();
+        return view("tables.create_user", compact("roles","offices"));
     }
 
     /**
