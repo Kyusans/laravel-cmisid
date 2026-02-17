@@ -1,7 +1,15 @@
 <?php
 
+use App\Http\Controllers\Masterfiles\DeveloperController;
+use App\Http\Controllers\Masterfiles\DevelopmentStrategyMasterController;
+use App\Http\Controllers\Masterfiles\ExternalUserMasterController;
+use App\Http\Controllers\Masterfiles\FundingSourceController;
+use App\Http\Controllers\Masterfiles\InternalUserMasterController;
+use App\Http\Controllers\Masterfiles\MfoMasterController;
 use App\Http\Controllers\Masterfiles\OfficeMasterController;
+use App\Http\Controllers\Masterfiles\PpaMasterController;
 use App\Http\Controllers\Masterfiles\RiseAgendaController;
+use App\Http\Controllers\Masterfiles\SpecializationController;
 use App\Http\Controllers\Masterfiles\SystemStatusController;
 use App\Http\Controllers\Masterfiles\SystemTypesController;
 use App\Http\Controllers\Masterfiles\UserMasterController;
@@ -34,3 +42,35 @@ Route::post("/update-system-status", [SystemStatusController::class, "updateSyst
 // rise agenda masterfile
 Route::post("/add-rise-agenda", [RiseAgendaController::class, "addRiseAgenda"])->name("add-rise-agenda");
 Route::post("/update-rise-agenda", [RiseAgendaController::class, "updateRiseAgenda"])->name("update-rise-agenda");
+
+// specialization masterfile
+Route::post("/add-specialization", [SpecializationController::class, "addSpecialization"])->name("add-specialization");
+Route::post("/update-specialization", [SpecializationController::class, "updateSpecialization"])->name("update-specialization");
+
+// developer masterfile
+Route::post("/add-developer", [DeveloperController::class, "addDeveloper"])->name("add-developer");
+Route::post("/update-developer", [DeveloperController::class, "updateDeveloper"])->name("update-developer");
+
+// funding source masterfile
+Route::post("/add-funding-source", [FundingSourceController::class, "addFundingSource"])->name("add-funding-source");
+Route::post("/update-funding-source", [FundingSourceController::class, "updateFundingSource"])->name("update-funding-source");
+
+// internal user masterfile
+Route::post("/add-internal-user", [InternalUserMasterController::class, "addInternalUser"])->name("add-internal-user");
+Route::post("/update-internal-user", [InternalUserMasterController::class, "updateInternalUser"])->name("update-internal-user");
+
+// external user masterfile
+Route::post("/add-external-user", [ExternalUserMasterController::class, "addExternalUser"])->name("add-external-user");
+Route::post("/update-external-user", [ExternalUserMasterController::class, "updateExternalUser"])->name("update-external-user");
+
+// mfo masterfile
+Route::post("/add-mfo", [MfoMasterController::class, "addMfo"])->name("add-mfo");
+Route::post("/update-mfo", [MfoMasterController::class, "updateMfo"])->name("update-mfo");
+
+// ppa masterfile
+Route::post("/add-ppa", [PpaMasterController::class, "addPpa"])->name("add-ppa");
+Route::post("/update-ppa", [PpaMasterController::class, "updatePpa"])->name("update-ppa");
+
+// development strategy masterfile
+Route::post("/add-development-strategy", [DevelopmentStrategyMasterController::class, "addDevelopmentStrategy"])->name("add-development-strategy");
+Route::post("/update-development-strategy", [DevelopmentStrategyMasterController::class, "updateDevelopmentStrategy"])->name("update-development-strategy");
