@@ -1,4 +1,5 @@
 <x-layout>
+    <x-slot:title>Sign In</x-slot:title>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
