@@ -25,7 +25,7 @@ class ExternalUserMasterController extends Controller
     {
         // {"externalId":1, "externalName":"External User 1"}
         $validated = $request->validate([
-            "externalName" => "required|string|unique:tblexternalusers,external_name",
+            "externalName" => "required|string|unique:tblexternalusers,external_name,$request->externalId,external_id",
         ]);
 
         ExternalUser::where("external_id", $request->externalId)->update([

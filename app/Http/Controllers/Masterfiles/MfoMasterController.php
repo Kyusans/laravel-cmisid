@@ -24,7 +24,7 @@ class MfoMasterController extends Controller
     {
         // {"mfoId":1, "mfoName":"MFO 2"}
         $validated = $request->validate([
-            "mfoName" => "required|string|unique:tblmfo,mfo_name",
+            "mfoName" => "required|string|unique:tblmfo,mfo_name,$request->mfoId,mfo_id",
         ]);
         Mfo::where("mfo_id", $request->mfoId)->update([
             "mfo_name" => $validated["mfoName"]

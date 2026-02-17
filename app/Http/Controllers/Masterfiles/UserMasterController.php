@@ -41,7 +41,7 @@ class UserMasterController extends Controller
 			"userFirstName" => "required|string",
 			"userMiddleName" => "nullable|string",
 			"userLastName" => "required|string",
-			// "userEmail" => "required|email|unique:tblusers,user_email,$request->userId",
+			// "userEmail" => "required|email|unique:tblusers,user_email,$request->userId,user_id",
 			// "userPassword" => "required|string|min:8",
 			"userOfficeId" => "required|integer|exists:tbloffices,office_id",
 			"userRoleId" => "required|integer|exists:tblroles,role_id",

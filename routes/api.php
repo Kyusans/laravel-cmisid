@@ -6,6 +6,7 @@ use App\Http\Controllers\Masterfiles\FundingSourceController;
 use App\Http\Controllers\Masterfiles\InternalUserMasterController;
 use App\Http\Controllers\Masterfiles\MfoMasterController;
 use App\Http\Controllers\Masterfiles\OfficeMasterController;
+use App\Http\Controllers\Masterfiles\PpaMasterController;
 use App\Http\Controllers\Masterfiles\RiseAgendaController;
 use App\Http\Controllers\Masterfiles\SpecializationController;
 use App\Http\Controllers\Masterfiles\SystemStatusController;
@@ -65,4 +66,6 @@ Route::post("/update-external-user", [ExternalUserMasterController::class, "upda
 Route::post("/add-mfo", [MfoMasterController::class, "addMfo"])->name("add-mfo");
 Route::post("/update-mfo", [MfoMasterController::class, "updateMfo"])->name("update-mfo");
 
-
+// ppa masterfile
+Route::post("/add-ppa", [PpaMasterController::class, "addPpa"])->name("add-ppa");
+Route::post("/update-ppa", [PpaMasterController::class, "updatePpa"])->name("update-ppa");

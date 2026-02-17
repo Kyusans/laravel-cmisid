@@ -35,7 +35,7 @@ class OfficeMasterController extends Controller
   {
     // {"officeName":"CITE", "officeId":1}
     $validated = $request->validate([
-      "officeName" => "required|string|unique:tbloffices,office_name,$request->office_id",
+      "officeName" => "required|string|unique:tbloffices,office_name,$request->office_id,office_id",
     ]);
     Office::where("officeId", $request->office_id)->update([
       "office_name" => $validated["officeName"]

@@ -24,7 +24,7 @@ class InternalUserMasterController extends Controller
     {
         // {"internalId":1, "internalName":"Internal User 2"}
         $validated = $request->validate([
-            "internalName" => "required|string|unique:tblinternalusers,internal_name",
+            "internalName" => "required|string|unique:tblinternalusers,internal_name,$request->internalId,internal_id",
         ]);
         InternalUser::where("internal_id", $request->internalId)->update([
             "internal_name" => $validated["internalName"]

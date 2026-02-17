@@ -24,7 +24,7 @@ class FundingSourceController extends Controller
     {
         // {"fundingId":1, "fundingName":"Funding Source 1"}
         $validated = $request->validate([
-            "fundingName" => "required|string|unique:tblfundingsource,funding_name",
+            "fundingName" => "required|string|unique:tblfundingsource,funding_name,$request->fundingId,funding_id",
         ]);
         FundingSource::where("funding_id", $request->fundingId)->update([
             "funding_name" => $validated["fundingName"]
