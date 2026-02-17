@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Masterfiles\OfficeMasterController;
 use App\Http\Controllers\Masterfiles\RiseAgendaController;
+use App\Http\Controllers\Masterfiles\SpecializationController;
 use App\Http\Controllers\Masterfiles\SystemStatusController;
 use App\Http\Controllers\Masterfiles\SystemTypesController;
 use App\Http\Controllers\Masterfiles\UserMasterController;
@@ -34,3 +35,7 @@ Route::post("/update-system-status", [SystemStatusController::class, "updateSyst
 // rise agenda masterfile
 Route::post("/add-rise-agenda", [RiseAgendaController::class, "addRiseAgenda"])->name("add-rise-agenda");
 Route::post("/update-rise-agenda", [RiseAgendaController::class, "updateRiseAgenda"])->name("update-rise-agenda");
+
+// specialization masterfile
+Route::post("/add-specialization", [SpecializationController::class, "addSpecialization"])->name("add-specialization");
+Route::post("/update-specialization", [SpecializationController::class, "updateSpecialization"])->name("update-specialization");
