@@ -4,6 +4,7 @@ use App\Http\Controllers\Masterfiles\DeveloperController;
 use App\Http\Controllers\Masterfiles\ExternalUserMasterController;
 use App\Http\Controllers\Masterfiles\FundingSourceController;
 use App\Http\Controllers\Masterfiles\InternalUserMasterController;
+use App\Http\Controllers\Masterfiles\MfoMasterController;
 use App\Http\Controllers\Masterfiles\OfficeMasterController;
 use App\Http\Controllers\Masterfiles\RiseAgendaController;
 use App\Http\Controllers\Masterfiles\SpecializationController;
@@ -59,3 +60,9 @@ Route::post("/update-internal-user", [InternalUserMasterController::class, "upda
 // external user masterfile
 Route::post("/add-external-user", [ExternalUserMasterController::class, "addExternalUser"])->name("add-external-user");
 Route::post("/update-external-user", [ExternalUserMasterController::class, "updateExternalUser"])->name("update-external-user");
+
+// mfo masterfile
+Route::post("/add-mfo", [MfoMasterController::class, "addMfo"])->name("add-mfo");
+Route::post("/update-mfo", [MfoMasterController::class, "updateMfo"])->name("update-mfo");
+
+
