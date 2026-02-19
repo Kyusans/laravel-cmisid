@@ -54,4 +54,9 @@ class InformationSystem extends Model
     {
         return $this->belongsTo(DevelopmentStrategy::class, "infoSys_devStrategyId", "devStrategy_id");
     }
+
+    public function systemProblems()
+    {
+        return $this->hasMany(SystemProblem::class, "sysprob_infoSysId", "infoSys_id");
+    }
 }
