@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Transaction\InfoSysDeveloper;
 use Illuminate\Database\Eloquent\Model;
 
 class Developer extends Model
@@ -25,5 +26,10 @@ class Developer extends Model
     public function specialization()
     {
         return $this->belongsTo(Specialization::class, "dev_specId", "spec_id");
+    }
+
+    public function infoSysDevelopers()
+    {
+        return $this->hasMany(InfoSysDeveloper::class, "infodev_devId", "dev_id");
     }
 }

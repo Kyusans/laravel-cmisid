@@ -25,7 +25,6 @@ class InformationSystemController extends Controller
         //     ->join('tbldevelopmentstrategies as f', 'f.devStrategy_id', '=', 'a.infoSys_devStrategyId')
         //     ->select('a.infoSys_id, a.infosys_rank, a.infoSys_systemName', 'a.infoSys_hasPIA', 'a.infoSys_initiationYear', 'b.systemType_name', 'c.office_name', 'd.sysStatus_name', 'd.sysStatus_id', 'e.workEnv_name', 'f.devStrategy_name')
         //     ->get();
-   
         try {
             $validated = $request->validate([
                 "rank" => "required",
