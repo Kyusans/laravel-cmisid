@@ -42,7 +42,7 @@ return new class extends Migration
 
             $table->boolean("infoSys_hasPIA")->default(false);
             $table->date("infoSys_datePia")->nullable();
-            $table->year("infoSys_initationYear")->nullable();
+            $table->year("infoSys_initiationYear")->nullable();
 
             $table->timestamps();
         });
