@@ -14,8 +14,10 @@ use App\Http\Controllers\Masterfiles\SystemStatusController;
 use App\Http\Controllers\Masterfiles\SystemTypesController;
 use App\Http\Controllers\Masterfiles\UserMasterController;
 use App\Http\Controllers\Masterfiles\WorkingEnvironmentController;
+use App\Http\Controllers\Transaction\InformationSystemController;
 use Illuminate\Support\Facades\Route;
 
+// -- masterfiles
 
 // office masterfile
 Route::get("/office-master", [OfficeMasterController::class, "index"])->name("office-master");
@@ -74,3 +76,9 @@ Route::post("/update-ppa", [PpaMasterController::class, "updatePpa"])->name("upd
 // development strategy masterfile
 Route::post("/add-development-strategy", [DevelopmentStrategyMasterController::class, "addDevelopmentStrategy"])->name("add-development-strategy");
 Route::post("/update-development-strategy", [DevelopmentStrategyMasterController::class, "updateDevelopmentStrategy"])->name("update-development-strategy");
+
+// -- transactions
+
+// information system transaction
+Route::post("/add-information-system", [InformationSystemController::class, "addInformationSystem"])->name("add-information-system");
+Route::post("/update-information-system", [InformationSystemController::class, "updateInformationSystem"])->name("update-information-system");
