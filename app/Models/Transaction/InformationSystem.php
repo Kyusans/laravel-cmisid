@@ -66,4 +66,9 @@ class InformationSystem extends Model
     {
         return $this->hasMany(InfoSysDeveloper::class, "infodev_infoSysId", "infoSys_id");
     }
+
+    public function fundingSource()
+    {
+        return $this->hasMany(InfoSysFunding::class, "infoFund_id", "infoSys_id");
+    }
 }
