@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Transaction\InformationSystem;
 use Illuminate\Database\Eloquent\Model;
 
 class Office extends Model
@@ -13,12 +14,18 @@ class Office extends Model
         "office_name"
     ];
 
-    protected function users(){
+    protected function users()
+    {
         return $this->hasMany(User::class, "user_officeId", "office_id");
     }
 
-    protected function developers(){
+    protected function developers()
+    {
         return $this->hasMany(Developer::class, "developer_officeId", "office_id");
     }
-    
+
+    protected function informationSystems()
+    {
+        return $this->hasMany(InformationSystem::class, "infoSys_officeId", "office_id");
+    }
 }

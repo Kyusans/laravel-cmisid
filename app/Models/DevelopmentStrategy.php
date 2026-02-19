@@ -15,6 +15,6 @@ class DevelopmentStrategy extends Model
     ];
 
     public function informationSystems(){
-        return $this->hasMany("InformationSystem", "infoSys_devStrategyId", "devStrategy_id");
+        return $this->hasMany(InformationSystem::class, "infoSys_devStrategyId", "devStrategy_id");
     }
 }

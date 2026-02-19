@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Transaction\InformationSystem;
 use Illuminate\Database\Eloquent\Model;
 
 class SystemType extends Model
@@ -13,4 +14,9 @@ class SystemType extends Model
         "systemType_name",
         "systemType_description"
     ];
+
+    public function informationSystems()
+    {
+        return $this->hasMany(InformationSystem::class, "infoSys_systemTypeId", "systemType_id");
+    }
 }
