@@ -16,7 +16,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/sass/app.scss', 'resources/js/app.js'])
+    @livewireStyles
 </head>
 
 <body>
@@ -105,6 +106,8 @@
             {{ $slot }}
         </main>
     </div>
+
+    @livewireScripts
 </body>
 
 </html>
