@@ -26,10 +26,10 @@ class UsersController extends Controller
             ->get();
 
         // Log::info("data ni users:", $users->toArray());
-        $rows = [];
+        $userTableRows = [];
 
         foreach ($users as $user) {
-            $rows[] = [
+            $userTableRows[] = [
                 $user->user_firstName,
                 $user->user_lastName,
                 $user->role_name,
@@ -43,7 +43,7 @@ class UsersController extends Controller
                 "Role",
                 "Office",
             ],
-            "rows" => $rows
+            "rows" => $userTableRows
         ];
 
         return view('tables.users', ['table_data' => $table_data, "users" => $users]);

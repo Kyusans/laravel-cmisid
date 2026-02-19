@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Tables;
 
 use App\Http\Controllers\Controller;
+use App\Models\Transaction\InformationSystem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class InfoSystemController extends Controller
 {
@@ -12,6 +14,21 @@ class InfoSystemController extends Controller
      */
     public function index()
     {
+        $systemsTableRow = [];
+        $systems = InformationSystem::with(
+            "systemType",
+            "office",
+        )->get();
+        foreach ($systems as $item) {
+            $systemsTableRow[] = [
+                $item->infoSys_rank,
+                $item->infoSys_systemName,
+                $item->systemType->systemType_name,
+                $item->office->office_name,
+                $item->infoSys_initiationYear,
+                $item->infoSys_hasPIA ? "Yes" : "No",
+            ];
+        }
         $table_data = [
             "columns" => [
                 "Rank",
@@ -21,16 +38,7 @@ class InfoSystemController extends Controller
                 "Initiation Year",
                 "PIA Status",
             ],
-            "rows" => [
-                [
-                    1,
-                    "Otto",
-                    "Type 1",
-                    "Office Name",
-                    "2025",
-                    "IN PROGRESS",
-                ],
-            ],
+            "rows" => $systemsTableRow,
         ];
 
         return view('tables.infosystems', ['table_data' => $table_data]);

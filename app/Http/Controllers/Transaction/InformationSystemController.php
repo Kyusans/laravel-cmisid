@@ -10,6 +10,21 @@ class InformationSystemController extends Controller
 {
     public function addInformationSystem(Request $request)
     {
+        // SELECT a.infoSys_systemName, a.infoSys_hasPIA, a.infoSys_initiationYear, b.systemType_name, c.office_name, d.sysStatus_name, e.workEnv_name, d.sysStatus_id, f.devStrategy_name FROM tblinformationsystems a
+        // INNER JOIN tblsystemtypes b ON b.systemType_id = a.infoSys_systemTypeId
+        // INNER JOIN tbloffices c ON c.office_id = a.infoSys_officeId
+        // INNER JOIN tblsystemstatus d ON d.sysStatus_id = a.infoSys_systemStatusId
+        // INNER JOIN tblworkingenvironments e ON e.workEnv_id = a.infoSys_workEnvId
+        // INNER JOIN tbldevelopmentstrategies f ON f.devStrategy_id = a.infoSys_devStrategyId
+
+        // $systems = InformationSystem::from('tblinformationsystems as a')
+        //     ->join('tblsystemtypes as b', 'b.systemType_id', '=', 'a.infoSys_systemTypeId')
+        //     ->join('tbloffices as c', 'c.office_id', '=', 'a.infoSys_officeId')
+        //     ->join('tblsystemstatus as d', 'd.sysStatus_id', '=', 'a.infoSys_systemStatusId')
+        //     ->join('tblworkingenvironments as e', 'e.workEnv_id', '=', 'a.infoSys_workEnvId')
+        //     ->join('tbldevelopmentstrategies as f', 'f.devStrategy_id', '=', 'a.infoSys_devStrategyId')
+        //     ->select('a.infoSys_id, a.infosys_rank, a.infoSys_systemName', 'a.infoSys_hasPIA', 'a.infoSys_initiationYear', 'b.systemType_name', 'c.office_name', 'd.sysStatus_name', 'd.sysStatus_id', 'e.workEnv_name', 'f.devStrategy_name')
+        //     ->get();
         try {
             $validated = $request->validate([
                 "rank" => "required",
