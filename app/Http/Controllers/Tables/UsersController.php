@@ -6,9 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\Office;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
@@ -19,31 +17,32 @@ class UsersController extends Controller
     public function index()
     {
         // Sample table data. Replace it with table_data
-
-        $users = User::with('role', 'office')->get();
-
-        // Log::info("data ni users:", $users->toArray());
-        $userTableRows = [];
-
-        foreach ($users as $user) {
-            $userTableRows[] = [
-                $user->user_firstName,
-                $user->user_lastName,
-                $user->role->role_name,
-                $user->office->office_name
-            ];
-        }
         $table_data = [
             "columns" => [
                 "Firstname",
                 "Lastname",
                 "Role",
-                "Office",
             ],
-            "rows" => $userTableRows
+            "rows" => [
+                [
+                    "Mark",
+                    "Otto",
+                    "Office User",
+                ],
+                [
+                    "Jacob",
+                    "Thornton",
+                    "Office User",
+                ],
+                [
+                    "John",
+                    "Doe",
+                    "System Admin",
+                ],
+            ],
         ];
 
-        return view('tables.users', ['table_data' => $table_data, "users" => $users]);
+        return view('tables.users', ['table_data' => $table_data]);
     }
 
     /**
@@ -53,7 +52,7 @@ class UsersController extends Controller
     {
         $roles = Role::all();
         $offices = Office::all();
-        return view("tables.create_user", compact("roles", "offices"));
+        return view("tables.create_user", compact("roles","offices"));
     }
 
     /**
