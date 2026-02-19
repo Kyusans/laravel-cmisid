@@ -20,10 +20,7 @@ class UsersController extends Controller
     {
         // Sample table data. Replace it with table_data
 
-        $users = User::join("tblroles as a", "a.role_id", "=", "tblusers.user_roleId")
-            ->join("tbloffices as b", "b.office_id", "=", "tblusers.user_officeId")
-            ->select("tblusers.*", "a.role_name", "b.office_name")
-            ->get();
+        $users = User::with('role', 'office')->get();
 
         // Log::info("data ni users:", $users->toArray());
         $userTableRows = [];
@@ -32,8 +29,8 @@ class UsersController extends Controller
             $userTableRows[] = [
                 $user->user_firstName,
                 $user->user_lastName,
-                $user->role_name,
-                $user->office_name
+                $user->role->role_name,
+                $user->office->office_name
             ];
         }
         $table_data = [

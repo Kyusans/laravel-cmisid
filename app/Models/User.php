@@ -29,17 +29,17 @@ class User extends Authenticatable
         return $this->user_password;
     }
 
-    protected function role()
+    public function role()
     {
         return $this->belongsTo(Role::class, "user_roleId", "role_id");
     }
 
-    protected function office()
+    public function office()
     {
         return $this->belongsTo(Office::class, "user_officeId", "office_id");
     }
 
-    protected function setUserPasswordAttribute($value)
+    public function setUserPasswordAttribute($value)
     {
         $this->attributes["user_password"] = bcrypt($value);
     }
