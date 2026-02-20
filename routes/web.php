@@ -35,17 +35,18 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/users', [App\Http\Controllers\Tables\UsersController::class, 'index'])->name('users');
 Route::get('/information_systems', [App\Http\Controllers\Tables\InfoSystemController::class, 'index'])->name('infosystems');
 
-// Edit these into a variable for specific users 
-Route::get('/user/details', [App\Http\Controllers\Details\UserController::class, 'index']);
-Route::get('/user/edit', [App\Http\Controllers\Edit\UserController::class, 'index']);
-
-// Edit these into a variable for specific information system
-Route::get('/information_system/details', [App\Http\Controllers\Details\InfoSystemController::class, 'index']);
-Route::get('/information_system/edit', [App\Http\Controllers\Edit\InfoSystemController::class, 'index']);
-
-// User Creation and Login
-Route::get('/create/user', [App\Http\Controllers\Tables\UsersController::class, 'create'])->name('create.user');
+// Users (Revising)
+Route::livewire('/users','pages::users.show_users')->name('users');
+Route::get('/create/user', [App\Http\Controllers\Masterfiles\UserMasterController::class, 'create'])->name('create.user');
 Route::post('/create/user', [App\Http\Controllers\Masterfiles\UserMasterController::class, 'addUser'])->name('store.user');
+Route::get('/user/details/{user}', [App\Http\Controllers\Masterfiles\UserMasterController::class,'details'])->name('details.user');
+Route::get('/user/edit/{user}', [App\Http\Controllers\Masterfiles\UserMasterController::class,'edit'])->name('edit.user');
+Route::put('/user/details/{user}', [App\Http\Controllers\Masterfiles\UserMasterController::class,'updateUser'])->name('update.user');
+
+// Information System (Revising)
+//Route::get('/information_system/details', [App\Http\Controllers\Details\InfoSystemController::class,'index']);
+//Route::get('/information_system/edit', [App\Http\Controllers\Edit\InfoSystemController::class,'index']);
+Route::get('/information_systems', [App\Http\Controllers\Masterfiles\InformationSystemsMasterController::class,'index'])->name('infosystems');
 
 // -- masterfiles
 
