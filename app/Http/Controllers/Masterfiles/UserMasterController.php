@@ -35,7 +35,7 @@ class UserMasterController extends Controller
 		return redirect('/create/user')->with('success','User added successfully');
 	}
 
-	public function updateUser(Request $request)
+	public function updateUser(Request $request, User $user)
 	{
 		// {"userId": 3, "userFirstName": "Bea Ysabel", "userMiddleName": "Macalua", "userLastName": "Lacheca", "userOfficeId": 2,"userRoleId": 1}
 		$validated = $request->validate([
@@ -48,8 +48,8 @@ class UserMasterController extends Controller
 			"userOfficeId" => "required|integer|exists:tbloffices,office_id",
 			"userRoleId" => "required|integer|exists:tblroles,role_id",
 		]);
-		User::where("user_id", $request->userId)
-			->update([
+		dd("hoy");
+		$user->update([
 				"user_firstName" => $validated["userFirstName"],
 				"user_middleName" => $validated["userMiddleName"],
 				"user_lastName" => $validated["userLastName"],
@@ -58,7 +58,7 @@ class UserMasterController extends Controller
 				"user_officeId" => $validated["userOfficeId"],
 				"user_roleId" => $validated["userRoleId"],
 			]);
-		return redirect('/user/details/' . $request->userId)->with("success", "Users updated successfully");
+		return redirect('/users' . $user->user_id)->with("success", "User updated successfully");
 	}
 
 	public function create() {
@@ -72,6 +72,8 @@ class UserMasterController extends Controller
 	}
 
 	public function edit(User $user) {
-		return view("pages.users.edit_user", compact("user"));
+        $roles = Role::all();
+        $offices = Office::all();
+		return view("pages.users.edit_user", compact("user","roles","offices"));
 	}
 }

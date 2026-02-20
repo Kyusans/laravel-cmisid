@@ -32,16 +32,13 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/users', [App\Http\Controllers\Tables\UsersController::class, 'index'])->name('users');
-Route::get('/information_systems', [App\Http\Controllers\Tables\InfoSystemController::class, 'index'])->name('infosystems');
-
 // Users (Revising)
 Route::livewire('/users','pages::users.show_users')->name('users');
 Route::get('/create/user', [App\Http\Controllers\Masterfiles\UserMasterController::class, 'create'])->name('create.user');
 Route::post('/create/user', [App\Http\Controllers\Masterfiles\UserMasterController::class, 'addUser'])->name('store.user');
-Route::get('/user/details/{user}', [App\Http\Controllers\Masterfiles\UserMasterController::class,'details'])->name('details.user');
-Route::get('/user/edit/{user}', [App\Http\Controllers\Masterfiles\UserMasterController::class,'edit'])->name('edit.user');
-Route::put('/user/details/{user}', [App\Http\Controllers\Masterfiles\UserMasterController::class,'updateUser'])->name('update.user');
+Route::get('/details/user/{user}', [App\Http\Controllers\Masterfiles\UserMasterController::class,'details'])->name('details.user');
+Route::get('/edit/user/{user}', [App\Http\Controllers\Masterfiles\UserMasterController::class,'edit'])->name('edit.user');
+Route::put('/update/user/{user}', [App\Http\Controllers\Masterfiles\UserMasterController::class,'updateUser'])->name('update.user');
 
 // Information System (Revising)
 //Route::get('/information_system/details', [App\Http\Controllers\Details\InfoSystemController::class,'index']);

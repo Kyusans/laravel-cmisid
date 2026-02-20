@@ -79,7 +79,7 @@ new class extends Component {
                                 <td>{{ $user->role->role_name }}</td>
                                 <td>{{ $user->office->office_name }}</td>
                                 <td>
-                                    <a href="/user/details/{{ $user->user_id }}"><button type="button" class="btn btn-primary">View More</button></a>
+                                    <a href="{{ route("details.user", $user) }}"><button type="button" class="btn btn-primary">View More</button></a>
                                     <button type="button" class="btn btn-danger" wire:confirm="Are you sure to delete this user?" wire:click="delete({{ $user->user_id }})">Delete</button>
                                 </td>
                             </tr>
