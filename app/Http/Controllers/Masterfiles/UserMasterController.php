@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Masterfiles;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Role;
+use App\Models\Office;
 
 class UserMasterController extends Controller
 {
@@ -56,6 +58,20 @@ class UserMasterController extends Controller
 				"user_officeId" => $validated["userOfficeId"],
 				"user_roleId" => $validated["userRoleId"],
 			]);
-		session()->flash("success", "Users updated successfully");
+		return redirect('/user/details/' . $request->userId)->with("success", "Users updated successfully");
+	}
+
+	public function create() {
+        $roles = Role::all();
+        $offices = Office::all();
+        return view("pages.users.create_user", compact("roles","offices"));
+	}
+
+	public function details(User $user) {
+		return view("pages.users.details_user", compact("user"));
+	}
+
+	public function edit(User $user) {
+		return view("pages.users.edit_user", compact("user"));
 	}
 }
