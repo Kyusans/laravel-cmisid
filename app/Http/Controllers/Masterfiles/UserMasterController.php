@@ -39,7 +39,6 @@ class UserMasterController extends Controller
 	{
 		// {"userId": 3, "userFirstName": "Bea Ysabel", "userMiddleName": "Macalua", "userLastName": "Lacheca", "userOfficeId": 2,"userRoleId": 1}
 		$validated = $request->validate([
-			"userId" => "required",
 			"userFirstName" => "required|string",
 			"userMiddleName" => "nullable|string",
 			"userLastName" => "required|string",
@@ -48,7 +47,6 @@ class UserMasterController extends Controller
 			"userOfficeId" => "required|integer|exists:tbloffices,office_id",
 			"userRoleId" => "required|integer|exists:tblroles,role_id",
 		]);
-		dd("hoy");
 		$user->update([
 				"user_firstName" => $validated["userFirstName"],
 				"user_middleName" => $validated["userMiddleName"],
@@ -58,7 +56,7 @@ class UserMasterController extends Controller
 				"user_officeId" => $validated["userOfficeId"],
 				"user_roleId" => $validated["userRoleId"],
 			]);
-		return redirect('/users' . $user->user_id)->with("success", "User updated successfully");
+		return redirect('/details/user/' . $user->user_id)->with("success", "User updated successfully");
 	}
 
 	public function create() {
