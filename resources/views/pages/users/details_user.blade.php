@@ -6,7 +6,7 @@
     <!-- Header -->
     <div class="card-header d-flex justify-content-between align-items-center">
       <h5 class="mb-0">{{ $user->user_firstName . ' ' . $user->user_lastName }}</h5>
-      <a href="/user/edit/{{ $user->user_id }}" class="text-decoration-none text-muted">
+      <a href="{{ route("edit.user", $user) }}" class="text-decoration-none text-muted">
         <i class="bi bi-pencil"></i>
       </a>
     </div>
