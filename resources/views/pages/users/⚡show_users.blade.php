@@ -10,18 +10,36 @@ new class extends Component {
 
     protected $paginationTheme = 'bootstrap';
 
+    public $query;
+    public $searchFilter = 'Name';
     public $id;
 
     #[Computed]
     public function users()
     {
-        return User::paginate(10);
+        if (empty($this->query)){
+            return User::paginate(10);
+        } elseif ($this->searchFilter == 'Name' && !empty($this->query)) {
+            return User::where('user_firstName', 'like', '%' . $this->query . '%')
+                ->orWhere('user_middleName', 'like', '%' . $this->query . '%')
+                ->orWhere('user_lastName', 'like', '%' . $this->query . '%')
+                ->paginate(10);
+        } elseif ($this->searchFilter == 'Email' && !empty($this->query)) {
+            return User::where('user_email', 'like', '%' . $this->query . '%')
+                ->paginate(10);
+        } 
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $user = User::find($id);
         $user->delete();
         session()->flash('success', 'Successfully deleted student!');
+    }
+
+    public function search()
+    {
+        $this->resetPage();
     }
 };
 ?>
@@ -36,10 +54,15 @@ new class extends Component {
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <form class="d-flex">
+                        <form wire:submit="search" class="d-flex">
                             <div class="input-group">
-                                <input class="form-control form-control-md" type="search"
-                                    placeholder="Firstname/Lastname" aria-label="Search">
+                                <input wire:model="query" class="form-control form-control-md" type="search"
+                                    placeholder="Search..." aria-label="Search">
+                                <select wire:model="searchFilter" class="form-select bg-light"
+                                    style="max-width: 130px;">
+                                    <option selected>Name</option>
+                                    <option>Email</option>
+                                </select>
                                 <button class="btn btn-primary px-4" type="submit">
                                     <i class="bi bi-search"></i>
                                 </button>
@@ -57,7 +80,7 @@ new class extends Component {
 
             <!-- Pagination -->
             <a href="{{ route("create.user") }}"><button class="btn btn-secondary">Create User</button></a>
-            {{ $this->users->links()  }}
+            {{ $this->users->links() }}
 
             <!-- Table -->
             <div class="table-responsive">
@@ -79,8 +102,11 @@ new class extends Component {
                                 <td>{{ $user->role->role_name }}</td>
                                 <td>{{ $user->office->office_name }}</td>
                                 <td>
-                                    <a href="{{ route("details.user", $user) }}"><button type="button" class="btn btn-primary">View More</button></a>
-                                    <button type="button" class="btn btn-danger" wire:confirm="Are you sure to delete this user?" wire:click="delete({{ $user->user_id }})">Delete</button>
+                                    <a href="{{ route("details.user", $user) }}"><button type="button"
+                                            class="btn btn-primary">View More</button></a>
+                                    <button type="button" class="btn btn-danger"
+                                        wire:confirm="Are you sure to delete this user?"
+                                        wire:click="delete({{ $user->user_id }})">Delete</button>
                                 </td>
                             </tr>
                         @endforeach

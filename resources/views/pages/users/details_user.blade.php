@@ -15,8 +15,18 @@
     <div class="card-body">
 
       <dl class="d-flex mb-2 row">
-        <dt class="fw-semibold col-sm-3">Full Name:</dt>
-        <dd class="col-sm-8">{{ $user->user_firstName }} {{ $user->user_middleName }} {{ $user->user_lastName }}</dd>
+        <dt class="fw-semibold col-sm-3">First Name:</dt>
+        <dd class="col-sm-8">{{ $user->user_firstName }}</dd>
+      </dl>
+
+      <dl class="d-flex mb-2 row">
+        <dt class="fw-semibold col-sm-3">Middle Name:</dt>
+        <dd class="col-sm-8">{{ $user->user_middleName }}</dd>
+      </dl>
+
+      <dl class="d-flex mb-2 row">
+        <dt class="fw-semibold col-sm-3">Last Name:</dt>
+        <dd class="col-sm-8">{{ $user->user_lastName }}</dd>
       </dl>
 
       <dl class="d-flex mb-2 row">
