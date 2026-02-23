@@ -41,9 +41,10 @@ Route::get('/edit/user/{user}', [App\Http\Controllers\Masterfiles\UserMasterCont
 Route::put('/update/user/{user}', [App\Http\Controllers\Masterfiles\UserMasterController::class,'updateUser'])->name('update.user');
 
 // Information System (Revising)
-//Route::get('/information_system/details', [App\Http\Controllers\Details\InfoSystemController::class,'index']);
 //Route::get('/information_system/edit', [App\Http\Controllers\Edit\InfoSystemController::class,'index']);
-Route::get('/information_systems', [App\Http\Controllers\Masterfiles\InformationSystemsMasterController::class,'index'])->name('infosystems');
+Route::livewire('/information_system/details','pages::infosys.show_infosystems')->name('infosystems');
+//Route::get('/information_system/details', [App\Http\Controllers\Details\InfoSystemController::class,'index']);
+//Route::get('/information_systems', [App\Http\Controllers\Masterfiles\InformationSystemsMasterController::class,'index'])->name('infosystems');
 
 // -- masterfiles
 

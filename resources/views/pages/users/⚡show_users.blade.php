@@ -9,7 +9,7 @@ new class extends Component {
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
-    protected $queryString = ['query','searchFilter'];
+    protected $queryString = ['query', 'searchFilter'];
 
     public $query;
     public $searchFilter = 'Name';
@@ -18,7 +18,7 @@ new class extends Component {
     #[Computed]
     public function users()
     {
-        if (empty($this->query)){
+        if (empty($this->query)) {
             return User::paginate(10);
         } elseif ($this->searchFilter == 'Name' && !empty($this->query)) {
             return User::where('user_firstName', 'like', '%' . $this->query . '%')
@@ -28,7 +28,7 @@ new class extends Component {
         } elseif ($this->searchFilter == 'Email' && !empty($this->query)) {
             return User::where('user_email', 'like', '%' . $this->query . '%')
                 ->paginate(10);
-        } 
+        }
     }
 
     public function delete($id)
