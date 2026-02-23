@@ -9,6 +9,7 @@ new class extends Component {
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
+    protected $queryString = ['query','searchFilter'];
 
     public $query;
     public $searchFilter = 'Name';
