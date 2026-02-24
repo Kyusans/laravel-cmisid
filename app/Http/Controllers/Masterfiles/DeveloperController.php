@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class DeveloperController extends Controller
 {
+
+    public function getAllDevelopers()
+    {
+        $developers = Developer::with("office", "specialization")->paginate(10);
+        return response()->json(["developers" => $developers]);
+    }
+
     public function addDeveloper(Request $request)
     {
         // {"devFirstName":"Bea Ysabel", "devMiddleName": "Macalua", "devLastName": "Lacheca", "devOfficeId": 2,"devSpecId": 1}
@@ -30,7 +37,6 @@ class DeveloperController extends Controller
         // return response()->json($stmt);
 
         session()->flash("success", "Developer added successfully");
-
     }
 
     public function updateDeveloper(Request $request)
