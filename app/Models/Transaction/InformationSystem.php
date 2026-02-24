@@ -67,18 +67,23 @@ class InformationSystem extends Model
         return $this->hasMany(InfoSysDeveloper::class, "infodev_infoSysId", "infoSys_id");
     }
 
-    public function fundingSources()
+    public function infoSysFundingSources()
     {
         return $this->hasMany(InfoSysFunding::class, "infoFund_id", "infoSys_id");
     }
 
-    public function internalUsers()
+    public function infoSysInternalUsers()
     {
         return $this->hasMany(InfoSysInternalUser::class, "infoInternal_infoSysId", "infoSys_id");
     }
 
-    public function externalUsers()
+    public function infoSysExternalUsers()
     {
         return $this->hasMany(InfoSysExternalUser::class, "infoExternal_infoSysId", "infoSys_id");
+    }
+
+    public function infoSysMfos()
+    {
+        return $this->hasMany(InfoSysMfo::class, "infoMfo_infoSysId", "infoSys_id");
     }
 }

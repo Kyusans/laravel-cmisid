@@ -11,7 +11,6 @@ class InfoSysExternalUser extends Model
     protected $primaryKey = 'infoExternal_id';
 
     protected $fillable = [
-        "infoExternal_id",
         "infoExternal_externalId",
         "infoExternal_infoSysId"
     ];
