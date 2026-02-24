@@ -86,4 +86,9 @@ class InformationSystem extends Model
     {
         return $this->hasMany(InfoSysMfo::class, "infoMfo_infoSysId", "infoSys_id");
     }
+
+    public function infoSysPpas()
+    {
+        return $this->hasMany(InfoSysPpa::class, "infoPpa_infoSysId", "infoSys_id");
+    }
 }
