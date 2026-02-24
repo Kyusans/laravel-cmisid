@@ -40,7 +40,6 @@
             </nav>
 
             <!-- Table -->
-            <x-table :table_data="$table_data" />
 
             <!-- Pagination -->
             <nav aria-label="Page navigation example">

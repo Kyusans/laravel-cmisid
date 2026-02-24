@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Details;
+namespace App\Http\Controllers\Masterfiles;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class InfoSystemController extends Controller
+class InformationSystemsMasterController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view("details.infosystem");
+        return view("pages.infosys.infosystems");
     }
 
     /**
