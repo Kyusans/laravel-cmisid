@@ -91,4 +91,9 @@ class InformationSystem extends Model
     {
         return $this->hasMany(InfoSysPpa::class, "infoPpa_infoSysId", "infoSys_id");
     }
+
+    public function infoSysRiseAgendas()
+    {
+        return $this->hasMany(InfoSysRiseAgenda::class, "infoAgenda_infoSysId", "infoSys_id");
+    }
 }
