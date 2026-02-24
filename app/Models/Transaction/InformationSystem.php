@@ -76,4 +76,9 @@ class InformationSystem extends Model
     {
         return $this->hasMany(InfoSysInternalUser::class, "infoInternal_infoSysId", "infoSys_id");
     }
+
+    public function externalUsers()
+    {
+        return $this->hasMany(InfoSysExternalUser::class, "infoExternal_infoSysId", "infoSys_id");
+    }
 }
