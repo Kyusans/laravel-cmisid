@@ -3,6 +3,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\Computed;
 use App\Models\User;
+use App\Models\Tables;
 
 
 new class extends Component {
@@ -55,7 +56,6 @@ new class extends Component {
 
     public function updated()
     {
-        dd($this->roleFilter);
         $this->resetPage();
     }
 
@@ -134,21 +134,21 @@ new class extends Component {
                 <span class="mb-3">Include:</span>
                 <div class="col">
                     <select wire:model.live="officeFilter" class="form-select">
+                        <option value="">All Offices</option>
                         @foreach (\App\Models\Office::all() as $office)
-                            <option value="{{ $office->id }}">
+                            <option value="{{ $office->office_id }}">
                                 {{ $office->office_name }}
                             </option>
                         @endforeach
-                        <option value="">All Offices</option>
                     </select>
                 </div>
 
                 <div class="col">
                 <div class="col">
                     <select wire:model.live="roleFilter" class="form-select">
-                        <option value=1>Choose</option>
-                        <option value=1>Admin</option>
-                        <option value=2>Office User</option>
+                        <option value="">All Roles</option>
+                        <option value="1">Admin</option>
+                        <option value="2">Office User</option>
                     </select>
                 </div>
             </div>
