@@ -144,7 +144,6 @@ new class extends Component {
                 </div>
 
                 <div class="col">
-                <div class="col">
                     <select wire:model.live="roleFilter" class="form-select">
                         <option value="">All Roles</option>
                         <option value="1">Admin</option>
