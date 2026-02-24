@@ -9,26 +9,41 @@ new class extends Component {
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
-    protected $queryString = ['query', 'searchFilter'];
+    protected $queryString = ['query', 'sortField', 'sortDirection'];
 
     public $query;
     public $searchFilter = 'Name';
     public $id;
+    public $sortField = 'user_lastName';
+    public $sortDirection = 'asc';
+    public $officeFilter = '';
+    public $roleFilter = '';
 
     #[Computed]
     public function users()
     {
-        if (empty($this->query)) {
-            return User::paginate(10);
-        } elseif ($this->searchFilter == 'Name' && !empty($this->query)) {
-            return User::where('user_firstName', 'like', '%' . $this->query . '%')
-                ->orWhere('user_middleName', 'like', '%' . $this->query . '%')
-                ->orWhere('user_lastName', 'like', '%' . $this->query . '%')
-                ->paginate(10);
-        } elseif ($this->searchFilter == 'Email' && !empty($this->query)) {
-            return User::where('user_email', 'like', '%' . $this->query . '%')
-                ->paginate(10);
-        }
+        return User::query()
+            ->with(['role', 'office']) // no need for user->role->role_name ..., making it shorter
+            ->when($this->query, function ($query) { // search query
+                $query->where(function ($q) {
+                    if ($this->searchFilter == 'Name') {
+                        $q->where('user_firstName', 'like', '%' . $this->query . '%')
+                            ->orWhere('user_middleName', 'like', '%' . $this->query . '%')
+                            ->orWhere('user_lastName', 'like', '%' . $this->query . '%');
+                    }
+                    if ($this->searchFilter == 'Email') {
+                        $q->where('user_email', 'like', '%' . $this->query . '%');
+                    }
+                });
+            })
+            ->when($this->officeFilter, function ($q) {
+                $q->where('user_officeId', $this->officeFilter);
+            })
+            ->when($this->roleFilter, function ($q) {
+                $q->where('user_roleId', $this->roleFilter);
+            })
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->paginate(10);
     }
 
     public function delete($id)
@@ -38,9 +53,40 @@ new class extends Component {
         session()->flash('success', 'Successfully deleted student!');
     }
 
+    public function updated()
+    {
+        dd($this->roleFilter);
+        $this->resetPage();
+    }
+
     public function search()
     {
         $this->resetPage();
+    }
+
+    public function sortBy($field)
+    {
+        // If still same column as original selected sorting column
+        if ($this->sortField === $field) {
+            // Change it to the opp (e.g., if asc change to desc and vice versa)
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+
+        $this->sortField = $field;
+        $this->resetPage();
+    }
+
+    public function sortIcon($field)
+    {
+        if ($this->sortField !== $field) {
+            return null;
+        }
+
+        return $this->sortDirection === 'asc'
+            ? 'bi bi-arrow-up'
+            : 'bi bi-arrow-down';
     }
 };
 ?>
@@ -83,13 +129,47 @@ new class extends Component {
             <a href="{{ route("create.user") }}"><button class="btn btn-secondary">Create User</button></a>
             {{ $this->users->links() }}
 
+            <!-- Table Filter -->
+            <div class="row mt-3 mb-3">
+                <span class="mb-3">Include:</span>
+                <div class="col">
+                    <select wire:model.live="officeFilter" class="form-select">
+                        @foreach (\App\Models\Office::all() as $office)
+                            <option value="{{ $office->id }}">
+                                {{ $office->office_name }}
+                            </option>
+                        @endforeach
+                        <option value="">All Offices</option>
+                    </select>
+                </div>
+
+                <div class="col">
+                <div class="col">
+                    <select wire:model.live="roleFilter" class="form-select">
+                        <option value=1>Choose</option>
+                        <option value=1>Admin</option>
+                        <option value=2>Office User</option>
+                    </select>
+                </div>
+            </div>
+
             <!-- Table -->
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Email</th>
+                            <th wire:click="sortBy('user_lastName')" style="cursor:pointer" scope="col">
+                                Name
+                                @if ($icon = $this->sortIcon('user_lastName'))
+                                    <i class="{{ $icon }} ms-1"></i>
+                                @endif
+                            </th>
+                            <th wire:click="sortBy('user_email')" style="cursor:pointer" scope="col">
+                                Email
+                                @if ($icon = $this->sortIcon('user_email'))
+                                    <i class="{{ $icon }} ms-1"></i>
+                                @endif
+                            </th>
                             <th scope="col">Role</th>
                             <th scope="col">Office</th>
                             <th scope="col">Actions</th>
@@ -98,7 +178,8 @@ new class extends Component {
                     <tbody>
                         @foreach ($this->users as $user)
                             <tr>
-                                <td>{{ $user->user_firstName }} {{ $user->user_lastName }}</td>
+                                <td>{{ $user->user_lastName }}, {{ $user->user_firstName }} {{ $user->user_middleName }}
+                                </td>
                                 <td>{{ $user->user_email }}</td>
                                 <td>{{ $user->role->role_name }}</td>
                                 <td>{{ $user->office->office_name }}</td>
