@@ -18,6 +18,8 @@ class InformationSystem extends Model
     protected $fillable = [
         "infoSys_rank",
         "infoSys_isSmartCityInitiative",
+        "infoSys_mfoConnection",
+        "infoSys_riseAgendaConnection",
         "infoSys_systemName",
         "infoSys_description",
         "infoSys_systemTypeId",

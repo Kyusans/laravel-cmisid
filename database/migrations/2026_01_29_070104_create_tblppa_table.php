@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('tblppa', function (Blueprint $table) {
             $table->id("ppa_id");
             $table->string("ppa_name")->unique();
+            $table->foreignId("ppa_officeId")
+                ->constrained("tbloffices", "office_id")
+                ->onDelete("cascade");
             $table->timestamps();
         });
     }

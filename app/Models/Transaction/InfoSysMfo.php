@@ -13,7 +13,6 @@ class InfoSysMfo extends Model
     protected $fillable = [
         "infoMfo_mfoId",
         "infoMfo_infoSysId",
-        "infoMfo_connectWithMFO"
     ];
 
     public function informationSystem()

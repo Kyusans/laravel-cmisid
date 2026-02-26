@@ -15,17 +15,11 @@ class Developer extends Model
         "dev_middleName",
         "dev_lastName",
         "dev_officeId",
-        "dev_specId",
     ];
 
     public function office()
     {
         return $this->belongsTo(Office::class, "dev_officeId", "office_id");
-    }
-
-    public function specialization()
-    {
-        return $this->belongsTo(Specialization::class, "dev_specId", "spec_id");
     }
 
     public function infoSysDevelopers()

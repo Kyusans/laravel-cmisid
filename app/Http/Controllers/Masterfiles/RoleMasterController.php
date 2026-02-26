@@ -35,7 +35,7 @@ class RoleMasterController extends Controller
             Role::where("role_id", $request->roleId)->update([
                 "role_name" => $validated["roleName"]
             ]);
-            return response()->json(["message" => "Role updated successfully"]);
+            // return response()->json(["message" => "Role updated successfully"]);
             session()->flash("success", "Role updated successfully");
         } catch (\Exception $e) {
             return $e->getMessage();

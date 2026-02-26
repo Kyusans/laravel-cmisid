@@ -19,8 +19,8 @@ return new class extends Migration
         Schema::create('tblinfosysinternalusers', function (Blueprint $table) {
             $table->id("infoInternal_id");
             
-            $table->foreignId("infoInternal_internalId")
-            ->constrained("tblinternalusers", "internal_id")
+            $table->foreignId("infoInternal_officeId")
+            ->constrained("tbloffices", "office_id")
             ->onDelete("cascade");
 
             $table->foreignId("infoInternal_infoSysId")

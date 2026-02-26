@@ -11,21 +11,21 @@ return new class extends Migration
      */
 
     // tblinfosysexternalusers
-	// infoExternal_id
-	// infoExternal_externalId
-	// infoExternal_infoSysId
+    // infoExternal_id
+    // infoExternal_externalId
+    // infoExternal_infoSysId
     public function up(): void
     {
         Schema::create('tblinfosysexternalusers', function (Blueprint $table) {
             $table->id("infoExternal_id");
 
-            $table->foreignId("infoExternal_externalId")
-            ->constrained("tblexternalusers", "external_id")
-            ->onDelete("cascade");
+            $table->foreignId("infoExternal_officeId")
+                ->constrained("tbloffices", "office_id")
+                ->onDelete("cascade");
 
             $table->foreignId("infoExternal_infoSysId")
-            ->constrained("tblinformationsystems", "infoSys_id")
-            ->onDelete("cascade");
+                ->constrained("tblinformationsystems", "infoSys_id")
+                ->onDelete("cascade");
 
             $table->timestamps();
         });

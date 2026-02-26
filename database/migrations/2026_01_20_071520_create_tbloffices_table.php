@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tbloffices', function (Blueprint $table) {
             $table->id("office_id");
             $table->string("office_name")->unique();
+            // $table->string("office_image")->default("no-image.jpg");
             $table->timestamps();
         });
     }
