@@ -7,6 +7,7 @@ use App\Models\Transaction\InformationSystem;
 use App\Models\Transaction\InfoSysDeveloper;
 use App\Models\Transaction\InfoSysExternalUser;
 use App\Models\Transaction\InfoSysFunding;
+use App\Models\Transaction\InfoSysInternalUser;
 use App\Models\Transaction\InfoSysRiseAgenda;
 use App\Models\Transaction\SystemProblem;
 use Illuminate\Http\Request;
@@ -17,10 +18,10 @@ class InformationSystemController extends Controller
     public function addInformationSystem(Request $request)
     {
         // {   
-        //   "master": {"rank": 1, "isSmartCityInitiative": true, "systemName": "Information System Management System", "description": "Main system for managing all information systems", "mfoConnection": "MFO connection", "riseAgendaConnection": "Rise Agenda connection", "systemTypeId": 1, "officeId": 2, "systemStatusId": 1, "workEnvId": 1, "devStrategyId": 1, "hasPIA": false, "datePia": null, "initiationYear": "2024"},
+        //   "master": {"userId": 1, "rank": 1, "isSmartCityInitiative": true, "systemName": "Information System Management System", "description": "Main system for managing all information systems", "mfoConnection": "MFO connection", "riseAgendaConnection": "Rise Agenda connection", "systemTypeId": 1, "officeId": 2, "systemStatusId": 1, "workEnvId": 1, "devStrategyId": 1, "hasPIA": false, "datePia": null, "initiationYear": "2024"},
         //   "details":{
         //               "systemproblems": [{"systemProblemName":"System Problem 1"}, {"systemProblemName":"System Problem 2"}, {"systemProblemName":"System Problem 3"}],
-        //               "developers": [{"devId": 1},{"devId": 2},{"devId": 3}],
+        //               "developers": [{"devId": 1}],
         //               "fundingSources": [{"fundingSourceId": 1}, {"fundingSourceId": 2}, {"fundingSourceId": 3}],
         //               "riseAgendas": [{"riseAgendaId": 1}, {"riseAgendaId": 2}, {"riseAgendaId": 3}],
         //               "internalUsers": [{"internalUserId": 1}, {"internalUserId": 2}, {"internalUserId": 3}],
@@ -40,6 +41,7 @@ class InformationSystemController extends Controller
                 "master.systemStatusId" => "required|integer",
                 "master.workEnvId" => "required|integer",
                 "master.devStrategyId" => "required|integer",
+                "master.userId" => "required|integer",
                 "master.hasPIA" => "required|boolean",
                 "master.datePia" => "nullable|date",
                 "master.initiationYear" => "required|date_format:Y",
@@ -75,6 +77,7 @@ class InformationSystemController extends Controller
                     "infoSys_systemStatusId" => $master["systemStatusId"],
                     "infoSys_workEnvId" => $master["workEnvId"],
                     "infoSys_devStrategyId" => $master["devStrategyId"],
+                    "infoSys_userId" => $master["userId"],
                     "infoSys_hasPIA" => $master["hasPIA"],
                     "infoSys_datePia" => $master["datePia"],
                     "infoSys_initiationYear" => $master["initiationYear"],
@@ -137,7 +140,7 @@ class InformationSystemController extends Controller
     public function saveInternalUsers($infoSysId, $internalUsers)
     {
         foreach ($internalUsers as $internalUser) {
-            InfoSysExternalUser::create([
+            InfoSysInternalUser::create([
                 "infoInternal_infoSysId" => $infoSysId,
                 "infoInternal_officeId" => $internalUser["internalUserId"],
             ]);

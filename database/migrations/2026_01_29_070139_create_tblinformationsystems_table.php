@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('tblinformationsystems', function (Blueprint $table) {
             $table->id("infoSys_id");
             $table->integer("infoSys_rank");
+            $table->string("infoSys_systemName")->unique();
+            $table->text("infoSys_description");
             $table->boolean("infoSys_isSmartCityInitiative")->default(false);
             $table->text("infoSys_mfoConnection");
             $table->text("infoSys_riseAgendaConnection");
-            $table->string("infoSys_systemName")->unique();
-            $table->text("infoSys_description");
 
             $table->foreignId("infoSys_systemTypeId")
                 ->constrained("tblsystemtypes", "systemType_id")
