@@ -49,11 +49,6 @@ Route::post("/update-system-status", [SystemStatusController::class, "updateSyst
 // rise agenda masterfile
 Route::post("/add-rise-agenda", [RiseAgendaController::class, "addRiseAgenda"])->name("add-rise-agenda");
 Route::post("/update-rise-agenda", [RiseAgendaController::class, "updateRiseAgenda"])->name("update-rise-agenda");
-
-// specialization masterfile
-Route::post("/add-specialization", [SpecializationController::class, "addSpecialization"])->name("add-specialization");
-Route::post("/update-specialization", [SpecializationController::class, "updateSpecialization"])->name("update-specialization");
-
 // developer masterfile
 Route::get("/get-developers", [DeveloperController::class, "getAllDevelopers"])->name("get-developers");
 Route::post("/add-developer", [DeveloperController::class, "addDeveloper"])->name("add-developer");
@@ -63,13 +58,13 @@ Route::post("/update-developer", [DeveloperController::class, "updateDeveloper"]
 Route::post("/add-funding-source", [FundingSourceController::class, "addFundingSource"])->name("add-funding-source");
 Route::post("/update-funding-source", [FundingSourceController::class, "updateFundingSource"])->name("update-funding-source");
 
-// internal user masterfile
-Route::post("/add-internal-user", [InternalUserMasterController::class, "addInternalUser"])->name("add-internal-user");
-Route::post("/update-internal-user", [InternalUserMasterController::class, "updateInternalUser"])->name("update-internal-user");
+// // internal user masterfile
+// Route::post("/add-internal-user", [InternalUserMasterController::class, "addInternalUser"])->name("add-internal-user");
+// Route::post("/update-internal-user", [InternalUserMasterController::class, "updateInternalUser"])->name("update-internal-user");
 
-// external user masterfile
-Route::post("/add-external-user", [ExternalUserMasterController::class, "addExternalUser"])->name("add-external-user");
-Route::post("/update-external-user", [ExternalUserMasterController::class, "updateExternalUser"])->name("update-external-user");
+// // external user masterfile
+// Route::post("/add-external-user", [ExternalUserMasterController::class, "addExternalUser"])->name("add-external-user");
+// Route::post("/update-external-user", [ExternalUserMasterController::class, "updateExternalUser"])->name("update-external-user");
 
 // mfo masterfile
 Route::post("/add-mfo", [MfoMasterController::class, "addMfo"])->name("add-mfo");

@@ -17,47 +17,51 @@ class DeveloperController extends Controller
 
     public function addDeveloper(Request $request)
     {
-        // {"devFirstName":"Bea Ysabel", "devMiddleName": "Macalua", "devLastName": "Lacheca", "devOfficeId": 2,"devSpecId": 1}
-        $validated = $request->validate([
-            "devFirstName" => "required|string",
-            "devMiddleName" => "nullable|string",
-            "devLastName" => "required|string",
-            "devOfficeId" => "required|integer|exists:tbloffices,office_id",
-            "devSpecId" => "required|integer|exists:tblspecializations,spec_id",
-        ]);
+        // {"devFirstName":"Bea Ysabel", "devMiddleName": "Macalua", "devLastName": "Lacheca", "devOfficeId": 2}
+        try {
+            $validated = $request->validate([
+                "devFirstName" => "required|string",
+                "devMiddleName" => "nullable|string",
+                "devLastName" => "required|string",
+                "devOfficeId" => "required|integer|exists:tbloffices,office_id",
+            ]);
 
-        $stmt = Developer::create([
-            "dev_firstName" => $validated["devFirstName"],
-            "dev_middleName" => $validated["devMiddleName"],
-            "dev_lastName" => $validated["devLastName"],
-            "dev_officeId" => $validated["devOfficeId"],
-            "dev_specId" => $validated["devSpecId"],
-        ]);
+            Developer::create([
+                "dev_firstName" => $validated["devFirstName"],
+                "dev_middleName" => $validated["devMiddleName"],
+                "dev_lastName" => $validated["devLastName"],
+                "dev_officeId" => $validated["devOfficeId"],
+            ]);
 
-        // return response()->json($stmt);
+            // return response()->json($stmt);
 
-        session()->flash("success", "Developer added successfully");
+            session()->flash("success", "Developer added successfully");
+        } catch (\Exception $th) {
+            return $th->getMessage();
+        }
     }
 
     public function updateDeveloper(Request $request)
     {
-        // {"devId": 1, "devFirstName": "Bea Ysabel", "devMiddleName": "Macalua", "devLastName": "Macario", "devOfficeId": 2,"devSpecId": 1}
-        $validated = $request->validate([
-            "devFirstName" => "required|string",
-            "devMiddleName" => "nullable|string",
-            "devLastName" => "required|string",
-            "devOfficeId" => "required|integer|exists:tbloffices,office_id",
-            "devSpecId" => "required|integer|exists:tblspecializations,spec_id",
-        ]);
+        // {"devId": 1, "devFirstName": "Bea Ysabel", "devMiddleName": "Macalua", "devLastName": "Macario", "devOfficeId": 2}
+        try {
+            $validated = $request->validate([
+                "devFirstName" => "required|string",
+                "devMiddleName" => "nullable|string",
+                "devLastName" => "required|string",
+                "devOfficeId" => "required|integer|exists:tbloffices,office_id",
+            ]);
 
-        Developer::where("dev_id", $request->devId)->update([
-            "dev_firstName" => $validated["devFirstName"],
-            "dev_middleName" => $validated["devMiddleName"],
-            "dev_lastName" => $validated["devLastName"],
-            "dev_officeId" => $validated["devOfficeId"],
-            "dev_specId" => $validated["devSpecId"],
-        ]);
+            Developer::where("dev_id", $request->devId)->update([
+                "dev_firstName" => $validated["devFirstName"],
+                "dev_middleName" => $validated["devMiddleName"],
+                "dev_lastName" => $validated["devLastName"],
+                "dev_officeId" => $validated["devOfficeId"],
+            ]);
 
-        session()->flash("success", "Developer updated successfully");
+            session()->flash("success", "Developer updated successfully");
+        } catch (\Exception $th) {
+            return $th->getMessage();
+        }
     }
 }

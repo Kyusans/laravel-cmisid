@@ -22,24 +22,32 @@ class OfficeMasterController extends Controller
   public function addOffice(Request $request)
   {
     // {"officeName":"CMISID"}
-    $validated = $request->validate([
-      "officeName" => "required|string|unique:tbloffices,office_name",
-    ]);
-    Office::create([
-      "office_name" => $validated["officeName"]
-    ]);
-    session()->flash("success", "Office added successfully");
+    try {
+      $validated = $request->validate([
+        "officeName" => "required|string|unique:tbloffices,office_name",
+      ]);
+      Office::create([
+        "office_name" => $validated["officeName"]
+      ]);
+      session()->flash("success", "Office added successfully");
+    } catch (\Exception $e) {
+      return $e->getMessage();
+    }
   }
 
   public function updateOffice(Request $request)
   {
     // {"officeName":"CITE", "officeId":1}
-    $validated = $request->validate([
-      "officeName" => "required|string|unique:tbloffices,office_name,$request->office_id,office_id",
-    ]);
-    Office::where("officeId", $request->office_id)->update([
-      "office_name" => $validated["officeName"]
-    ]);
-    session()->flash("success", "Office added successfully");
+    try {
+      $validated = $request->validate([
+        "officeName" => "required|string|unique:tbloffices,office_name,$request->office_id,office_id",
+      ]);
+      Office::where("office_id", $request->officeId)->update([
+        "office_name" => $validated["officeName"]
+      ]);
+      session()->flash("success", "Office added successfully");
+    } catch (\Exception $e) {
+      return $e->getMessage();
+    }
   }
 }

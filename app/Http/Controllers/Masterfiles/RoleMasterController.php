@@ -28,7 +28,7 @@ class RoleMasterController extends Controller
     public function updateRole(Request $request)
     {
         try {
-            // {"roleId":1, "roleName":"Role 2"}
+            // {"roleId":1, "roleName":"Role 5"}
             $validated = $request->validate([
                 "roleName" => "required|string|unique:tblroles,role_name,$request->roleId,role_id",
             ]);

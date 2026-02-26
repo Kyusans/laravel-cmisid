@@ -42,6 +42,10 @@ return new class extends Migration
                 ->constrained("tbldevelopmentstrategies", "devStrategy_id")
                 ->onDelete("cascade");
 
+            $table->foreignId("infoSys_userId")
+                ->constrained("tblusers", "user_id")
+                ->onDelete("cascade");
+
             $table->boolean("infoSys_hasPIA")->default(false);
             $table->date("infoSys_datePia")->nullable();
             $table->year("infoSys_initiationYear")->nullable();
