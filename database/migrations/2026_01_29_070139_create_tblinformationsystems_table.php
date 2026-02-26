@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id("infoSys_id");
             $table->integer("infoSys_rank");
             $table->boolean("infoSys_isSmartCityInitiative")->default(false);
+            $table->text("infoSys_mfoConnection");
+            $table->text("infoSys_riseAgendaConnection");
             $table->string("infoSys_systemName")->unique();
             $table->text("infoSys_description");
 

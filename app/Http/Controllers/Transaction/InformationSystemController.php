@@ -5,31 +5,32 @@ namespace App\Http\Controllers\Transaction;
 use App\Http\Controllers\Controller;
 use App\Models\Transaction\InformationSystem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InformationSystemController extends Controller
 {
     public function addInformationSystem(Request $request)
     {
-        // SELECT a.infoSys_systemName, a.infoSys_hasPIA, a.infoSys_initiationYear, b.systemType_name, c.office_name, d.sysStatus_name, e.workEnv_name, d.sysStatus_id, f.devStrategy_name FROM tblinformationsystems a
-        // INNER JOIN tblsystemtypes b ON b.systemType_id = a.infoSys_systemTypeId
-        // INNER JOIN tbloffices c ON c.office_id = a.infoSys_officeId
-        // INNER JOIN tblsystemstatus d ON d.sysStatus_id = a.infoSys_systemStatusId
-        // INNER JOIN tblworkingenvironments e ON e.workEnv_id = a.infoSys_workEnvId
-        // INNER JOIN tbldevelopmentstrategies f ON f.devStrategy_id = a.infoSys_devStrategyId
-
-        // $systems = InformationSystem::from('tblinformationsystems as a')
-        //     ->join('tblsystemtypes as b', 'b.systemType_id', '=', 'a.infoSys_systemTypeId')
-        //     ->join('tbloffices as c', 'c.office_id', '=', 'a.infoSys_officeId')
-        //     ->join('tblsystemstatus as d', 'd.sysStatus_id', '=', 'a.infoSys_systemStatusId')
-        //     ->join('tblworkingenvironments as e', 'e.workEnv_id', '=', 'a.infoSys_workEnvId')
-        //     ->join('tbldevelopmentstrategies as f', 'f.devStrategy_id', '=', 'a.infoSys_devStrategyId')
-        //     ->select('a.infoSys_id, a.infosys_rank, a.infoSys_systemName', 'a.infoSys_hasPIA', 'a.infoSys_initiationYear', 'b.systemType_name', 'c.office_name', 'd.sysStatus_name', 'd.sysStatus_id', 'e.workEnv_name', 'f.devStrategy_name')
-        //     ->get();
-   
+        // {   
+        //     "master": {"rank": 1, "isSmartCityInitiative": true, "systemName": "Information System Management System", "description": "Main system for managing all information systems", "systemTypeId": 1, "officeId": 2, "systemStatusId": 1, "workEnvId": 1, "devStrategyId": 1, "hasPIA": false, "datePia": null, "initiationYear": "2024"},
+        //     "details":{
+        //                  "systemproblems": [{"systemProblemName":"System Problem 1"}, {"systemProblemName":"System Problem 2"}, {"systemProblemName":"System Problem 3"}]
+        //                  "developers: [{"devId": 1},{"devId": 2},{"devId": 3}]
+        //                  "fundingSources: [{"fundingSourceId": 1}, {"fundingSourceId": 2}, {"fundingSourceId": 3}]
+        //               }
+        // }
+        DB::beginTransaction();
         try {
-            $validated = $request->validate([
+            $master = $request->master;
+            $details = $request->details;
+
+            // return response()->json(["master" => $master, "details" => $details, "systemProblems" => $systemProblems]);
+
+            $validatedMaster = $master->validate([
                 "rank" => "required",
                 "isSmartCityInitiative" => "required|boolean",
+                "mfoConnection" => "required",
+                "riseAgendaConnection" => "required",
                 "systemName" => "required|string|unique:tblinformationsystems,infoSys_systemName",
                 "description" => "required",
                 "systemTypeId" => "required",
@@ -42,23 +43,25 @@ class InformationSystemController extends Controller
                 "initiationYear" => "required|date_format:Y",
             ]);
 
-            $item = InformationSystem::create([
-                "infoSys_rank" => $validated["rank"],
-                "infoSys_isSmartCityInitiative" => $validated["isSmartCityInitiative"],
-                "infoSys_systemName" => $validated["systemName"],
-                "infoSys_description" => $validated["description"],
-                "infoSys_systemTypeId" => $validated["systemTypeId"],
-                "infoSys_officeId" => $validated["officeId"],
-                "infoSys_systemStatusId" => $validated["systemStatusId"],
-                "infoSys_workEnvId" => $validated["workEnvId"],
-                "infoSys_devStrategyId" => $validated["devStrategyId"],
-                "infoSys_hasPIA" => $validated["hasPIA"],
-                "infoSys_datePia" => $validated["datePia"],
-                "infoSys_initiationYear" => $validated["initiationYear"],
-            ]);
+            InformationSystem::create([
+                "infoSys_rank" => $validatedMaster["rank"],
+                "infoSys_isSmartCityInitiative" => $validatedMaster["isSmartCityInitiative"],
 
-            return response()->json(["message" => "Success", "data" => $item], 201);
+                "infoSys_systemName" => $validatedMaster["systemName"],
+                "infoSys_description" => $validatedMaster["description"],
+                "infoSys_systemTypeId" => $validatedMaster["systemTypeId"],
+                "infoSys_officeId" => $validatedMaster["officeId"],
+                "infoSys_systemStatusId" => $validatedMaster["systemStatusId"],
+                "infoSys_workEnvId" => $validatedMaster["workEnvId"],
+                "infoSys_devStrategyId" => $validatedMaster["devStrategyId"],
+                "infoSys_hasPIA" => $validatedMaster["hasPIA"],
+                "infoSys_datePia" => $validatedMaster["datePia"],
+                "infoSys_initiationYear" => $validatedMaster["initiationYear"],
+            ]);
+            DB::commit();
+            return response()->json(["message" => "Success"], 201);
         } catch (\Exception $e) {
+            DB::rollBack();
             return $e->getMessage();
         }
     }

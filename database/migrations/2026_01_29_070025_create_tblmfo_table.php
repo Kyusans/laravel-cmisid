@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('tblmfo', function (Blueprint $table) {
             $table->id("mfo_id");
             $table->string("mfo_name")->unique();
+            $table->foreignId("mfo_officeId")
+                ->constrained("tbloffices", "office_id")
+                ->onDelete("cascade");
             $table->timestamps();
         });
     }

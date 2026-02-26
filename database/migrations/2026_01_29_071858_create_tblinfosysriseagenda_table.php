@@ -28,7 +28,7 @@ return new class extends Migration
             ->constrained("tblinformationsystems", "infoSys_id")
             ->onDelete("cascade");
             
-            $table->text("infoAgenda_connectToRiseAgenda");
+            // $table->text("infoAgenda_connectToRiseAgenda");
             $table->timestamps();
         });
     }

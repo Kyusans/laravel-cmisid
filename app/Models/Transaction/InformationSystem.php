@@ -18,6 +18,8 @@ class InformationSystem extends Model
     protected $fillable = [
         "infoSys_rank",
         "infoSys_isSmartCityInitiative",
+        "infoSys_mfoConnection",
+        "infoSys_riseAgendaConnection",
         "infoSys_systemName",
         "infoSys_description",
         "infoSys_systemTypeId",
@@ -55,8 +57,45 @@ class InformationSystem extends Model
         return $this->belongsTo(DevelopmentStrategy::class, "infoSys_devStrategyId", "devStrategy_id");
     }
 
+    // transaction relations
+
     public function systemProblems()
     {
         return $this->hasMany(SystemProblem::class, "sysprob_infoSysId", "infoSys_id");
+    }
+
+    public function infoSysDevelopers()
+    {
+        return $this->hasMany(InfoSysDeveloper::class, "infodev_infoSysId", "infoSys_id");
+    }
+
+    public function infoSysFundingSources()
+    {
+        return $this->hasMany(InfoSysFunding::class, "infoFund_id", "infoSys_id");
+    }
+
+    public function infoSysInternalUsers()
+    {
+        return $this->hasMany(InfoSysInternalUser::class, "infoInternal_infoSysId", "infoSys_id");
+    }
+
+    public function infoSysExternalUsers()
+    {
+        return $this->hasMany(InfoSysExternalUser::class, "infoExternal_infoSysId", "infoSys_id");
+    }
+
+    public function infoSysMfos()
+    {
+        return $this->hasMany(InfoSysMfo::class, "infoMfo_infoSysId", "infoSys_id");
+    }
+
+    public function infoSysPpas()
+    {
+        return $this->hasMany(InfoSysPpa::class, "infoPpa_infoSysId", "infoSys_id");
+    }
+
+    public function infoSysRiseAgendas()
+    {
+        return $this->hasMany(InfoSysRiseAgenda::class, "infoAgenda_infoSysId", "infoSys_id");
     }
 }

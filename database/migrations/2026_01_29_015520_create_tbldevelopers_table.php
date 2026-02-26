@@ -20,9 +20,6 @@ return new class extends Migration
             $table->foreignId("dev_officeId")
                 ->constrained("tbloffices", "office_id")
                 ->onDelete("cascade");
-            $table->foreignId("dev_specId")
-                ->constrained("tblspecializations", "spec_id")
-                ->onDelete("cascade");
             $table->timestamps();
         });
     }

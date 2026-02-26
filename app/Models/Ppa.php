@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Transaction\InfoSysPpa;
 use Illuminate\Database\Eloquent\Model;
 
 class Ppa extends Model
@@ -10,6 +11,17 @@ class Ppa extends Model
     protected $primaryKey = 'ppa_id';
 
     protected $fillable = [
-        'ppa_name'
+        "ppa_name",
+        "ppa_officeId"
     ];
+
+    public function infoSysPpas()
+    {
+        return $this->hasMany(InfoSysPpa::class, "infoPpa_ppaId", "ppa_id");
+    }
+
+    public function office()
+    {
+        return $this->belongsTo(Office::class, "ppa_officeId", "office_id");
+    }
 }
