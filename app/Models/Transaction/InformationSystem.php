@@ -6,6 +6,7 @@ use App\Models\DevelopmentStrategy;
 use App\Models\Office;
 use App\Models\SystemStatus;
 use App\Models\SystemType;
+use App\Models\User;
 use App\Models\WorkingEnvironment;
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,6 +28,7 @@ class InformationSystem extends Model
         "infoSys_systemStatusId",
         "infoSys_workEnvId",
         "infoSys_devStrategyId",
+        "infoSys_userId",
         "infoSys_hasPIA",
         "infoSys_datePia",
         "infoSys_initiationYear"
@@ -55,6 +57,11 @@ class InformationSystem extends Model
     public function developmentStrategy()
     {
         return $this->belongsTo(DevelopmentStrategy::class, "infoSys_devStrategyId", "devStrategy_id");
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, "infoSys_userId", "user_id");
     }
 
     // transaction relations

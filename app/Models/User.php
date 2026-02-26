@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Transaction\InformationSystem;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -37,6 +38,11 @@ class User extends Authenticatable
     public function office()
     {
         return $this->belongsTo(Office::class, "user_officeId", "office_id");
+    }
+
+    public function informationSystems()
+    {
+        return $this->hasMany(InformationSystem::class, "infoSys_devStrategyId", "devStrategy_id");
     }
 
     public function setUserPasswordAttribute($value)
