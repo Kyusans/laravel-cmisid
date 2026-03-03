@@ -7,16 +7,17 @@ use App\Http\Middleware\EnsureUserHasRole;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [AuthController::class, "index"])->name("/");
+// Route::get('/', [AuthController::class, "index"])->name("/");
+Route::livewire("/", "pages::auth.login")->name("login");
 Route::post("/user/login", [AuthController::class, "login"])->name("user.login");
 
 Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard");
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::livewire("/dashboard", "pages::dashboard")->name("dashboard");
 Auth::routes();
+
+Route::livewire("/masterfiles", "pages::masterfiles.masterfile_main")->name("masterfiles");
 
 // Users (Revising)
 Route::livewire('/users', 'pages::users.show_users')->name('users');
@@ -31,4 +32,3 @@ Route::put('/update/user/{user}', [App\Http\Controllers\Masterfiles\UserMasterCo
 Route::livewire('/information_system/details', 'pages::infosys.show_infosystems')->name('infosystems');
 //Route::get('/information_system/details', [App\Http\Controllers\Details\InfoSystemController::class,'index']);
 //Route::get('/information_systems', [App\Http\Controllers\Masterfiles\InformationSystemsMasterController::class,'index'])->name('infosystems');
-
