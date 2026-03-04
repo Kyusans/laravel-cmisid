@@ -32,15 +32,15 @@
         <div class="d-flex" id="wrapper">
             <aside id="sidebar-wrapper" class="bg-light border-right">
                 <div class="sidebar-heading p-4">
-                    <span class="fw-bold fs-4">populate</span>
+                    <span class="fw-bold fs-4">{{ config('app.name', 'Laravel') }}</span>
                 </div>
 
                 <div class="list-group list-group-flush flex-grow-1">
-                    <div class="nav-section-title">Patients</div>
-                    <a href="{{ route('dashboard') }}" class="nav-link"><i class="bi bi-grid"></i> Encounters</a>
-                    <a href="{{ route('users') }}" class="nav-link"><i class="bi bi-people"></i> Users</a>
+                    <div class="nav-section-title">Main</div>
+                    <a href="{{ route('dashboard') }}" class="nav-link"><i class="bi bi-grid"></i>Dashboard</a>
+                    {{-- <a href="{{ route('users') }}" class="nav-link"><i class="bi bi-people"></i> Users</a> --}}
 
-                    <div class="nav-section-title">Office</div>
+                    <div class="nav-section-title">Masterfiles</div>
                     <a href="#" class="nav-link active"><i class="bi bi-check2-square"></i> Tasks</a>
                     <a href="{{ route('infosystems') }}" class="nav-link"><i class="bi bi-laptop"></i> Info Systems</a>
                 </div>
@@ -49,7 +49,7 @@
                     <div class="d-flex align-items-center gap-2">
                         <div class="flex-grow-1 min-w-0">
                             <small class="d-block fw-bold text-truncate">{{ Auth::user()->user_firstName }}</small>
-                            <small class="text-muted">Therapist</small>
+                            <small class="text-muted">{{ Auth::user()->user_email }}</small>
                         </div>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
@@ -65,7 +65,6 @@
                     <button class="btn btn-outline-secondary btn-sm" id="menu-toggle">
                         <i class="bi bi-list"></i>
                     </button>
-                    <div class="ms-3 fw-bold">Dashboard</div>
                 </nav>
 
                 <main class="p-4">
