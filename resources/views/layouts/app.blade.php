@@ -4,108 +4,99 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ isset($title) ? $title . ' - ' . config('app.name', 'Laravel') : config('app.name', 'Laravel') }}</title>
 
-    <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/sidebar.css'])
     @livewireStyles
 </head>
 
 <body>
-    <!-- Toast Alert -->
     @if (session('success'))
-        <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3">
-            <div id="success" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive"
-                aria-atomic="true">
+        <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 9999;">
+            <div id="success" class="toast show align-items-center text-bg-success border-0" role="alert">
                 <div class="d-flex">
-                    <div class="toast-body text-center w-100">
-                        {{ session('success') }}
-                    </div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                        aria-label="Close"></button>
+                    <div class="toast-body text-center w-100">{{ session('success') }}</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
                 </div>
             </div>
         </div>
     @endif
 
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="{{ __('Toggle navigation') }}">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    @auth
+        <div class="d-flex" id="wrapper">
+            <aside id="sidebar-wrapper" class="bg-light border-right">
+                <div class="sidebar-heading p-4">
+                    <span class="fw-bold fs-4">{{ config('app.name', 'Laravel') }}</span>
+                </div>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('users') }}">Users</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('infosystems') }}">Information Systems</a>
-                    </li>
-                </ul>
+                <div class="list-group list-group-flush flex-grow-1">
+                    <div class="nav-section-title">Main</div>
+                    <a href="{{ route('dashboard') }}" class="nav-link"><i class="bi bi-grid"></i>Dashboard</a>
+                    {{-- <a href="{{ route('users') }}" class="nav-link"><i class="bi bi-people"></i> Users</a> --}}
 
-                <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ms-auto">
-                    <!-- Authentication Links -->
-                    @guest
-                        @if (Route::has('login'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                        @endif
+                    <div class="nav-section-title">Masterfiles</div>
+                    <a href="#" class="nav-link active"><i class="bi bi-check2-square"></i> Tasks</a>
+                    <a href="{{ route('infosystems') }}" class="nav-link"><i class="bi bi-laptop"></i> Info Systems</a>
+                </div>
 
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @endif
-                    @else
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->user_firstName }} {{ Auth::user()->user_lastName }}
-                            </a>
+                <div class="p-3 border-top mt-auto">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="flex-grow-1 min-w-0">
+                            <small class="d-block fw-bold text-truncate">{{ Auth::user()->user_firstName }}</small>
+                            <small class="text-muted">{{ Auth::user()->user_email }}</small>
+                        </div>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-link p-0 text-danger"><i
+                                    class="bi bi-box-arrow-right"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </aside>
 
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                                                                             document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
+            <div id="page-content-wrapper">
+                <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-3">
+                    <button class="btn btn-outline-secondary btn-sm" id="menu-toggle">
+                        <i class="bi bi-list"></i>
+                    </button>
+                </nav>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                    @endguest
-                </ul>
+                <main class="p-4">
+                    {{ $slot }}
+                </main>
             </div>
         </div>
-    </nav>
-    <div id="app">
-        <main class="py-4">
+    @endauth
+
+    @guest
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
+            </div>
+        </nav>
+
+        <main class="py-5">
             {{ $slot }}
         </main>
-    </div>
+    @endguest
+
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+            const sidebarToggle = document.body.querySelector('#menu-toggle');
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', event => {
+                    event.preventDefault();
+                    document.body.querySelector('#wrapper').classList.toggle('toggled');
+                });
+            }
+        });
+    </script>
 
     @livewireScripts
 </body>
