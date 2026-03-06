@@ -9,18 +9,15 @@ use Illuminate\Support\Facades\Route;
 
 // Route::get('/', [AuthController::class, "index"])->name("/");
 Route::livewire("/", "pages::auth.login")->name("login");
-Route::post("/user/login", [AuthController::class, "login"])->name("user.login");
-
-Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard");
 
 Auth::routes();
 Route::livewire("/dashboard", "pages::dashboard")->name("dashboard");
+Route::livewire("/users", "pages::masterfile.users.user-masterfile")->name("users");
 Auth::routes();
 
-Route::livewire("/masterfiles", "pages::masterfiles.masterfile_main")->name("masterfiles");
+// Route::livewire("/masterfiles", "pages::masterfiles.masterfile_main")->name("masterfiles");
 
 // Users (Revising)
-Route::livewire('/users', 'pages::users.show_users')->name('users');
 Route::get('/create/user', [App\Http\Controllers\Masterfiles\UserMasterController::class, 'create'])->name('create.user');
 Route::post('/create/user', [App\Http\Controllers\Masterfiles\UserMasterController::class, 'addUser'])->name('store.user');
 Route::get('/details/user/{user}', [App\Http\Controllers\Masterfiles\UserMasterController::class, 'details'])->name('details.user');

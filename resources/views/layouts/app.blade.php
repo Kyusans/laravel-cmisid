@@ -41,7 +41,7 @@
                     {{-- <a href="{{ route('users') }}" class="nav-link"><i class="bi bi-people"></i> Users</a> --}}
 
                     <div class="nav-section-title">Masterfiles</div>
-                    <a href="#" class="nav-link active"><i class="bi bi-check2-square"></i> Tasks</a>
+                    <a href="{{ route('users') }}" class="nav-link active"><i class="bi bi-people"></i> Users</a>
                     <a href="{{ route('infosystems') }}" class="nav-link"><i class="bi bi-laptop"></i> Info Systems</a>
                 </div>
 
@@ -75,13 +75,13 @@
     @endauth
 
     @guest
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
             </div>
-        </nav>
+        </nav> --}}
 
-        <main class="py-5">
+        <main>
             {{ $slot }}
         </main>
     @endguest
