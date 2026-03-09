@@ -46,10 +46,11 @@ body {
   display: flex;
   min-height: 100vh;
   transition: all 0.3s ease;
+  position: relative;
 }
 
 /* ================================
-   SIDEBAR
+   SIDEBAR - DESKTOP
 ================================ */
 #sidebar-wrapper {
   min-height: 100vh;
@@ -59,10 +60,55 @@ body {
   background: var(--bg-sidebar);
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
 }
 
 #wrapper.toggled #sidebar-wrapper {
   margin-left: -260px;
+}
+
+/* ================================
+   SIDEBAR - MOBILE OVERLAY
+================================ */
+@media (max-width: 767px) {
+  #sidebar-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1050;
+    margin-left: -260px;
+    transition: margin 0.3s ease-out;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+  }
+
+  /* On mobile, toggled = OPEN (opposite of desktop) */
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  /* Overlay backdrop */
+  #sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+  }
+
+  #wrapper.toggled #sidebar-overlay {
+    display: block;
+  }
+}
+
+/* Hide overlay on desktop */
+@media (min-width: 768px) {
+  #sidebar-overlay {
+    display: none !important;
+  }
 }
 
 .sidebar-heading {
@@ -117,7 +163,6 @@ body {
   opacity: 1;
 }
 
-/* Sidebar bottom user section */
 #sidebar-wrapper .border-top {
   border-top-color: var(--border-color) !important;
 }
@@ -150,10 +195,4 @@ body {
   flex: 1;
   min-width: 0;
   background-color: var(--bg-body);
-}
-
-@media (min-width: 768px) {
-  #page-content-wrapper {
-    min-width: 0;
-  }
 }

@@ -31,6 +31,7 @@
 
     @auth
         <div class="d-flex" id="wrapper">
+            <div id="sidebar-overlay"></div>
             <aside id="sidebar-wrapper" class="border-right">
                 <div class="sidebar-heading p-4">
                     <span class="fw-bold fs-4">{{ config('app.name', 'Laravel') }}</span>
@@ -100,13 +101,58 @@
 
     <script>
         window.addEventListener('DOMContentLoaded', event => {
-            const sidebarToggle = document.body.querySelector('#menu-toggle');
+            const sidebarToggle = document.querySelector('#menu-toggle');
+            const overlay = document.querySelector('#sidebar-overlay');
+            const wrapper = document.querySelector('#wrapper');
+            const isMobile = () => window.innerWidth < 768;
+
             if (sidebarToggle) {
                 sidebarToggle.addEventListener('click', event => {
                     event.preventDefault();
-                    document.body.querySelector('#wrapper').classList.toggle('toggled');
+                    wrapper.classList.toggle('toggled');
                 });
             }
+
+            // Close sidebar when clicking overlay on mobile
+            if (overlay) {
+                overlay.addEventListener('click', () => {
+                    wrapper.classList.remove('toggled');
+                });
+            }
+
+            // On resize, clean up toggled state to avoid stuck states
+            window.addEventListener('resize', () => {
+                if (!isMobile()) {
+                    // Desktop: remove toggled so sidebar is visible by default
+                }
+            });
+        });
+        window.addEventListener('toast', event => {
+            const type = event.detail.type || 'info';
+            const message = event.detail.message || '';
+
+            const toastContainer = document.createElement('div');
+            toastContainer.className = 'toast-container position-fixed top-0 start-50 translate-middle-x p-3';
+            toastContainer.style.zIndex = 9999;
+
+            toastContainer.innerHTML = `
+            <div class="toast show align-items-center text-bg-${type} border-0" role="alert">
+                <div class="d-flex">
+                    <div class="toast-body text-center w-100">${message}</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        `;
+            document.body.appendChild(toastContainer);
+
+            const bsToastEl = toastContainer.querySelector('.toast');
+            const bsToast = new bootstrap.Toast(bsToastEl);
+            bsToast.show();
+
+            // Remove the toast from DOM after hidden
+            bsToastEl.addEventListener('hidden.bs.toast', () => {
+                toastContainer.remove();
+            });
         });
 
         const themeToggle = document.getElementById('themeToggle');

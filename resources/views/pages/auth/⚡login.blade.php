@@ -10,6 +10,13 @@ new class extends Component {
     public $password = '';
     public $isLoading = false;
 
+    public function mount()
+    {
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
+        }
+    }
+
     public function render()
     {
         return $this->view();

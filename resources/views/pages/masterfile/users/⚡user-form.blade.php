@@ -9,6 +9,10 @@ new class extends Component {
     public $roles = [];
     public $offices = [];
 
+    public $isAddData;
+    public $userId;
+
+    // for forms
     public $userFirstName = '';
     public $userMiddleName = '';
     public $userLastName = '';
@@ -25,7 +29,7 @@ new class extends Component {
             'userMiddleName' => 'nullable|string',
             'userLastName' => 'required|string',
             'userEmail' => 'required|email|unique:tblusers,user_email',
-            'userPassword' => 'required|string|min:8',
+            'userPassword' => 'required|string',
             'userOfficeId' => 'required|integer|exists:tbloffices,office_id',
             'userRoleId' => 'required|integer|exists:tblroles,role_id',
         ]);
@@ -38,13 +42,60 @@ new class extends Component {
             'user_officeId' => $validated['userOfficeId'],
             'user_roleId' => $validated['userRoleId'],
         ]);
-        session()->flash('success', 'User added successfully');
+        $this->dispatch('toast', type: 'success', message: 'User added successfully');
+        $this->dispatch('goBack');
+    }
+    public function updateUser()
+    {
+        // {"userId": 3, "userFirstName": "Bea Ysabel", "userMiddleName": "Macalua", "userLastName": "Lacheca", "userOfficeId": 2,"userRoleId": 1}
+        $validated = $this->validate([
+            'userFirstName' => 'required|string',
+            'userMiddleName' => 'nullable|string',
+            'userLastName' => 'required|string',
+            'userEmail' => "required|email|unique:tblusers,user_email,$this->userId,user_id",
+            // "userPassword" => "required|string|min:8",
+            'userOfficeId' => 'required|integer|exists:tbloffices,office_id',
+            'userRoleId' => 'required|integer|exists:tblroles,role_id',
+        ]);
+        User::find($this->userId)->update([
+            'user_firstName' => $validated['userFirstName'],
+            'user_middleName' => $validated['userMiddleName'],
+            'user_lastName' => $validated['userLastName'],
+            // "user_email" => $validated["userEmail"],
+            // "user_password" => $validated["userPassword"],
+            'user_officeId' => $validated['userOfficeId'],
+            'user_roleId' => $validated['userRoleId'],
+        ]);
+        $this->dispatch('toast', type: 'success', message: 'User updated successfully');
+        $this->dispatch('goBack');
     }
 
-    public function mount()
+    public function loadUser($userId)
     {
+        $user = User::find($userId);
+
+        if (!$user) {
+            return;
+        }
+
+        $this->userId = $user->user_id;
+        $this->userFirstName = $user->user_firstName;
+        $this->userMiddleName = $user->user_middleName;
+        $this->userLastName = $user->user_lastName;
+        $this->userEmail = $user->user_email;
+        // $this->userPassword = $user->user_password;
+        $this->userRoleId = $user->user_roleId;
+        $this->userOfficeId = $user->user_officeId;
+    }
+
+    public function mount($isAddData = true, $userId = null)
+    {
+        $this->isAddData = $isAddData;
         $this->roles = Role::all();
         $this->offices = Office::all();
+        if ($userId) {
+            $this->loadUser($userId);
+        }
     }
 
     public function updatedUserLastName($value)
@@ -62,8 +113,13 @@ new class extends Component {
 <div>
     <div>
         <div class="mb-4">
-            <h5 class="fw-semibold mb-1">Create User</h5>
-            <small class="text-muted">Fill in the details to add a new user</small>
+            @if ($isAddData)
+                <h5 class="fw-semibold mb-1">Create User</h5>
+                <small class="text-muted">Fill in the details to add a new user</small>
+            @else
+                <h5 class="fw-semibold mb-1">Edit User</h5>
+                <small class="text-muted">Fill in the details to edit a user</small>
+            @endif
         </div>
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -74,7 +130,7 @@ new class extends Component {
                 </ul>
             </div>
         @endif
-        <form wire:submit="addUser">
+        <form wire:submit="{{ $isAddData ? 'addUser' : 'updateUser' }}">
             @csrf
 
             <div class="mb-3">
@@ -109,18 +165,20 @@ new class extends Component {
                 @enderror
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">
-                    Password *
-                    <small class="text-secondary">
-                        (auto-generated from Last Name)
-                    </small>
-                </label>
-                <input readonly wire:model="userPassword" name="userPassword" type="text" class="form-control">
-                @error('userPassword')
-                    <div class="mt-1" style="color: #f87171; font-size: 0.78rem;">{{ $message }}</div>
-                @enderror
-            </div>
+            @if ($isAddData)
+                <div class="mb-3">
+                    <label class="form-label">
+                        Password *
+                        <small class="text-secondary">
+                            (auto-generated from Last Name)
+                        </small>
+                    </label>
+                    <input readonly wire:model="userPassword" name="userPassword" type="text" class="form-control">
+                    @error('userPassword')
+                        <div class="mt-1" style="color: #f87171; font-size: 0.78rem;">{{ $message }}</div>
+                    @enderror
+                </div>
+            @endif
 
             <div class="row g-3 mb-4">
                 <div class="col-6">
@@ -151,8 +209,10 @@ new class extends Component {
 
             <div class="d-grid">
                 <button type="submit" class="btn btn-primary btn-block" wire:loading.attr="disabled">
-                    <span wire:loading.remove wire:target="addUser">Create User</span>
-                    <span wire:loading wire:target="addUser">
+                    <span wire:loading.remove wire:target={{ $isAddData ? 'addUser' : 'editUser' }}>
+                        {{ $isAddData ? 'Create' : 'Update' }} user
+                    </span>
+                    <span wire:loading wire:target={{ $isAddData ? 'addUser' : 'editUser' }}>
                         <span class="spinner-border spinner-border-sm"></span>
                     </span>
                 </button>

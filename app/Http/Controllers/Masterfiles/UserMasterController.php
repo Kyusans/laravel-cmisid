@@ -11,7 +11,29 @@ use App\Models\Office;
 class UserMasterController extends Controller
 {
 
-
+	public function addUser(Request $request)
+	{
+		// {"userFirstName":"Bea Ysabel", "userMiddleName":"Macalua", "userLastName":"Lachica", "userEmail":"bealachica@gmail.com", "userPassword":"beagwapa", "userOfficeId":"2", "userRoleId":"1"}   
+		$validated = $request->validate([
+			"userFirstName" => "required|string",
+			"userMiddleName" => "nullable|string",
+			"userLastName" => "required|string",
+			"userEmail" => "required|email|unique:tblusers,user_email",
+			"userPassword" => "required|string|min:8",
+			"userOfficeId" => "required|integer|exists:tbloffices,office_id",
+			"userRoleId" => "required|integer|exists:tblroles,role_id",
+		]);
+		User::create([
+			"user_firstName" => $validated["userFirstName"],
+			"user_middleName" => $validated["userMiddleName"],
+			"user_lastName" => $validated["userLastName"],
+			"user_email" => $validated["userEmail"],
+			"user_password" => $validated["userPassword"],
+			"user_officeId" => $validated["userOfficeId"],
+			"user_roleId" => $validated["userRoleId"],
+		]);
+		return redirect('/create/user')->with('success','User added successfully');
+	}
 
 	public function updateUser(Request $request, User $user)
 	{
