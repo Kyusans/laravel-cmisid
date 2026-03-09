@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="light">
 
 <head>
     <meta charset="utf-8">
@@ -22,7 +22,8 @@
             <div id="success" class="toast show align-items-center text-bg-success border-0" role="alert">
                 <div class="d-flex">
                     <div class="toast-body text-center w-100">{{ session('success') }}</div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                        data-bs-dismiss="toast"></button>
                 </div>
             </div>
         </div>
@@ -30,19 +31,30 @@
 
     @auth
         <div class="d-flex" id="wrapper">
-            <aside id="sidebar-wrapper" class="bg-light border-right">
+            <aside id="sidebar-wrapper" class="border-right">
                 <div class="sidebar-heading p-4">
                     <span class="fw-bold fs-4">{{ config('app.name', 'Laravel') }}</span>
                 </div>
 
                 <div class="list-group list-group-flush flex-grow-1">
                     <div class="nav-section-title">Main</div>
-                    <a href="{{ route('dashboard') }}" class="nav-link"><i class="bi bi-grid"></i>Dashboard</a>
+                    <a href="{{ route('dashboard') }}"
+                        class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                        <i class="bi bi-grid"></i> Dashboard
+                    </a>
                     {{-- <a href="{{ route('users') }}" class="nav-link"><i class="bi bi-people"></i> Users</a> --}}
 
                     <div class="nav-section-title">Masterfiles</div>
-                    <a href="{{ route('users') }}" class="nav-link active"><i class="bi bi-people"></i> Users</a>
-                    <a href="{{ route('infosystems') }}" class="nav-link"><i class="bi bi-laptop"></i> Info Systems</a>
+
+
+                    <a href="{{ route('users') }}" class="nav-link {{ request()->routeIs('users') ? 'active' : '' }}">
+                        <i class="bi bi-people"></i> Users
+                    </a>
+
+                    <a href="{{ route('infosystems') }}"
+                        class="nav-link {{ request()->routeIs('infosystems') ? 'active' : '' }}">
+                        <i class="bi bi-laptop"></i> Info Systems
+                    </a>
                 </div>
 
                 <div class="p-3 border-top mt-auto">
@@ -60,11 +72,17 @@
                 </div>
             </aside>
 
-            <div id="page-content-wrapper">
-                <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-3">
+            <div id="page-content-wrapper" class="flex-grow-1">
+                <nav class="navbar navbar-expand-lg px-3">
                     <button class="btn btn-outline-secondary btn-sm" id="menu-toggle">
                         <i class="bi bi-list"></i>
                     </button>
+
+                    <div class="ms-auto">
+                        <button id="themeToggle">
+                            <i class="bi bi-sun-fill" id="theme-icon"></i>
+                        </button>
+                    </div>
                 </nav>
 
                 <main class="p-4">
@@ -75,12 +93,6 @@
     @endauth
 
     @guest
-        {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
-            </div>
-        </nav> --}}
-
         <main>
             {{ $slot }}
         </main>
@@ -95,6 +107,26 @@
                     document.body.querySelector('#wrapper').classList.toggle('toggled');
                 });
             }
+        });
+
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const html = document.documentElement;
+
+        function applyTheme(theme) {
+            html.setAttribute('data-bs-theme', theme);
+            themeIcon.className = theme === 'dark' ? 'bi bi-moon-fill' : 'bi bi-sun-fill';
+            themeToggle.className = theme === 'dark' ?
+                'btn btn-sm btn-outline-light' :
+                'btn btn-sm btn-outline-dark';
+            localStorage.setItem('theme', theme);
+        }
+        // Load saved preference
+        applyTheme(localStorage.getItem('theme') || 'light');
+
+        themeToggle.addEventListener('click', () => {
+            const current = html.getAttribute('data-bs-theme');
+            applyTheme(current === 'dark' ? 'light' : 'dark');
         });
     </script>
 
