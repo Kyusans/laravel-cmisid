@@ -29,7 +29,8 @@ new class extends Component {
 
     public function render()
     {
-        $data = WorkingEnvironment::where('workEnv_name', 'like', '%' . $this->search . '%')->paginate(10);
+        $data = WorkingEnvironment::where('workEnv_name', 'like', '%' . $this->search . '%')
+            ->orWhere("workEnv_description", "like", "%" . $this->search . "%")->paginate(10);
         return $this->view([
             'data' => $data,
         ]);
@@ -74,7 +75,7 @@ new class extends Component {
         <div class="mb-3">
             <div style="max-width: 320px;">
                 <input type="search" wire:model.live.debounce.100ms="search" class="form-control"
-                    placeholder="Search name or email...">
+                    placeholder="Search...">
             </div>
         </div>
 

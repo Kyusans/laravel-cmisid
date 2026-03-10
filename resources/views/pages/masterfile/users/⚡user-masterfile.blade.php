@@ -86,7 +86,7 @@ new class extends Component {
         <div class="mb-3">
             <div style="max-width: 320px;">
                 <input type="search" wire:model.live.debounce.100ms="search" class="form-control"
-                    placeholder="Search name or email...">
+                    placeholder="Search...">
             </div>
         </div>
 

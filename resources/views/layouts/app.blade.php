@@ -68,17 +68,17 @@
                         class="nav-link {{ request()->routeIs('workingEnvironment') ? 'active' : '' }}">
                         <i class="bi-laptop"></i> Working Environment
                     </a>
-
                     <a href="{{ route(name: 'systemStatus') }}"
                         class="nav-link {{ request()->routeIs('systemStatus') ? 'active' : '' }}">
                         <i class="bi-diagram-3"></i> System Status
                     </a>
-
-
-
                     <a href="{{ route(name: 'fundingSource') }}"
                         class="nav-link {{ request()->routeIs('fundingSource') ? 'active' : '' }}">
                         <i class="bi-cash-stack"></i> Funding Source
+                    </a>
+                    <a href="{{ route(name: 'developmentStrategy') }}"
+                        class="nav-link {{ request()->routeIs('developmentStrategy') ? 'active' : '' }}">
+                        <i class="- bi-card-checklist"></i> Development Strategy
                     </a>
                 </div>
 
