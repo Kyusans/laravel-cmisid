@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string("mfo_name");
             $table->foreignId("mfo_officeId")
                 ->constrained("tbloffices", "office_id")
-                ->onDelete("cascade");
+                ->restrictOnDelete();
             $table->timestamps();
         });
     }

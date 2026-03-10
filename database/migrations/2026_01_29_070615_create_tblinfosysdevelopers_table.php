@@ -21,11 +21,11 @@ return new class extends Migration
 
             $table->foreignId("infoDev_devId")
                 ->constrained("tbldevelopers", "dev_id")
-                ->onDelete("cascade");
+                ->restrictOnDelete();
 
             $table->foreignId("infoDev_infoSysId")
                 ->constrained("tblinformationsystems", "infoSys_id")
-                ->onDelete("cascade");
+                ->restrictOnDelete();
                 
             $table->timestamps();
         });

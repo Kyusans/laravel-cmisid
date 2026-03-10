@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string("ppa_name");
             $table->foreignId("ppa_officeId")
                 ->constrained("tbloffices", "office_id")
-                ->onDelete("cascade");
+                ->restrictOnDelete();
             $table->timestamps();
         });
     }

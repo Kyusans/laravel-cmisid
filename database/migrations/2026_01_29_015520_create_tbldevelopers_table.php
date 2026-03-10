@@ -17,13 +17,14 @@ return new class extends Migration
             $table->string("dev_firstName");
             $table->string("dev_middleName")->nullable();
             $table->string("dev_lastName");
+
             $table->foreignId("dev_officeId")
                 ->constrained("tbloffices", "office_id")
-                ->onDelete("cascade");
+                ->restrictOnDelete();
+
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

@@ -11,23 +11,22 @@ return new class extends Migration
      */
 
     // tblinfosysriseagenda
-	// infoAgenda_id
-	// infoAgenda_riseAgendaId
-	// infoAgenda_infoSysId
-	// infoAgenda_connectToRiseAgenda
+    // infoAgenda_id
+    // infoAgenda_riseAgendaId
+    // infoAgenda_infoSysId
+    // infoAgenda_connectToRiseAgenda
     public function up(): void
     {
         Schema::create('tblinfosysriseagenda', function (Blueprint $table) {
             $table->id("infoAgenda_id");
 
             $table->foreignId("infoAgenda_riseAgendaId")
-            ->constrained("tblriseagendas", "riseAgenda_id")
-            ->onDelete("cascade");
-
+                ->constrained("tblriseagendas", "riseAgenda_id")
+                ->restrictOnDelete();
             $table->foreignId("infoAgenda_infoSysId")
-            ->constrained("tblinformationsystems", "infoSys_id")
-            ->onDelete("cascade");
-            
+                ->constrained("tblinformationsystems", "infoSys_id")
+                ->restrictOnDelete();
+
             // $table->text("infoAgenda_connectToRiseAgenda");
             $table->timestamps();
         });

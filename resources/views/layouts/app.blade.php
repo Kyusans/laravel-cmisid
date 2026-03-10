@@ -53,10 +53,14 @@
 
 
                     <a href="{{ route('users') }}" class="nav-link {{ request()->routeIs('users') ? 'active' : '' }}">
-                        <i class="bi bi-people"></i> Users
+                        <i class="bi-people"></i> Users
                     </a>
                     <a href="{{ route(name: 'roles') }}" class="nav-link {{ request()->routeIs('roles') ? 'active' : '' }}">
                         <i class="bi-person-badge"></i> Roles
+                    </a>
+                    <a href="{{ route(name: 'offices') }}"
+                        class="nav-link {{ request()->routeIs('offices') ? 'active' : '' }}">
+                        <i class="bi-buildings"></i> Offices
                     </a>
                 </div>
 

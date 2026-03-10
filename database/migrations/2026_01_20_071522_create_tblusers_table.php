@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string("user_password");
             $table->foreignId("user_roleId")
                 ->constrained("tblroles", "role_id")
-                ->onDelete("cascade");
+                ->restrictOnDelete();
             $table->foreignId("user_officeId")
                 ->constrained("tbloffices", "office_id")
-                ->onDelete("cascade");
+                ->restrictOnDelete();
             $table->rememberToken();
             $table->timestamps();
         });

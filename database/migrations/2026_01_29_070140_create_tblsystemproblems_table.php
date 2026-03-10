@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id("sysprob_id");
             $table->foreignId("sysprob_infoSysId")
                 ->constrained("tblinformationsystems", "infoSys_id")
-                ->onDelete("cascade");
+                ->restrictOnDelete();
             $table->string("sysprob_problem");
             $table->timestamps();
         });

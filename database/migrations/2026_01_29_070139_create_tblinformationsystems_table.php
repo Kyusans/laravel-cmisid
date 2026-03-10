@@ -24,27 +24,27 @@ return new class extends Migration
 
             $table->foreignId("infoSys_systemTypeId")
                 ->constrained("tblsystemtypes", "systemType_id")
-                ->onDelete("cascade");
+                ->restrictOnDelete();
 
             $table->foreignId("infoSys_officeId")
                 ->constrained("tbloffices", "office_id")
-                ->onDelete("cascade");
+                ->restrictOnDelete();
 
             $table->foreignId("infoSys_systemStatusId")
                 ->constrained("tblsystemstatus", "sysStatus_id")
-                ->onDelete("cascade");
+                ->restrictOnDelete();
 
             $table->foreignId("infoSys_workEnvId")
                 ->constrained("tblworkingenvironments", "workEnv_id")
-                ->onDelete("cascade");
+                ->restrictOnDelete();
 
             $table->foreignId("infoSys_devStrategyId")
                 ->constrained("tbldevelopmentstrategies", "devStrategy_id")
-                ->onDelete("cascade");
+                ->restrictOnDelete();
 
             $table->foreignId("infoSys_userId")
                 ->constrained("tblusers", "user_id")
-                ->onDelete("cascade");
+                ->restrictOnDelete();
 
             $table->boolean("infoSys_hasPIA")->default(false);
             $table->date("infoSys_datePia")->nullable();

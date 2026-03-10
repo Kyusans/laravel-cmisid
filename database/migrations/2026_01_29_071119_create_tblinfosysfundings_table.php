@@ -22,11 +22,11 @@ return new class extends Migration
             
             $table->foreignId("infoFund_fundingId")
                 ->constrained("tblfundingsource", "funding_id")
-                ->onDelete("cascade");
+                ->restrictOnDelete();
 
             $table->foreignId("infoFund_infoSysId")
                 ->constrained("tblinformationsystems", "infoSys_id")
-                ->onDelete("cascade");
+                ->restrictOnDelete();
             $table->timestamps();
         });
     }
