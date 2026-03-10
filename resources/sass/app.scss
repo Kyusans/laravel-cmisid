@@ -182,6 +182,28 @@
     }
 }
 
+textarea.form-control {
+    resize: vertical;
+    min-height: 80px;
+    line-height: 1.6;
+    padding: 0.625rem 0.75rem;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+
+    &:focus {
+        background-color: var(--nav-hover);
+        border-color: var(--text-secondary);
+        color: var(--text-primary);
+        box-shadow: none !important;
+    }
+
+    &:disabled,
+    &[readonly] {
+        opacity: 0.5;
+        cursor: not-allowed;
+        resize: none;
+    }
+}
+
 label {
     color: var(--text-primary);
     font-size: 0.85rem;

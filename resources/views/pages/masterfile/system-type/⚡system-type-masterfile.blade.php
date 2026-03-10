@@ -2,7 +2,7 @@
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\Office;
+use App\Models\SystemType;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 
@@ -30,7 +30,8 @@ new class extends Component {
 
     public function render()
     {
-        $data = Office::where('office_name', 'like', '%' . $this->search . '%')->paginate(10);
+        $data = SystemType::where('systemType_name', 'like', '%' . $this->search . '%')
+            ->orWhere("systemType_description", "like", "%" . $this->search . "%")->paginate(10);
 
         return $this->view([
             'data' => $data,
@@ -48,11 +49,11 @@ new class extends Component {
     public function delete($id)
     {
         try {
-            $data = Office::find($id);
+            $data = SystemType::find($id);
             $data->delete();
-            $this->dispatch('toast', type: 'success', message: 'Office deleted successfully');
+            $this->dispatch('toast', type: 'success', message: 'System type deleted successfully');
         } catch (\Throwable $th) {
-            $this->dispatch('toast', type: 'danger', message: 'This office is currently in use and cannot be deleted.');
+            $this->dispatch('toast', type: 'danger', message: 'This system type is currently in use and cannot be deleted.');
         }
     }
 };
@@ -63,11 +64,11 @@ new class extends Component {
     @if (!$this->isAddData && !$this->isEditData)
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
-                <h5 class="fw-semibold mb-0">Offices</h5>
-                <small class="text-muted">List of all offices in the system</small>
+                <h5 class="fw-semibold mb-0">System Types</h5>
+                <small class="text-muted">List of all system types in the system</small>
             </div>
             <button wire:click="set('isAddData', true)" class="btn btn-primary btn-sm">
-                <i class="bi bi-plus-lg"></i> Add Offices
+                <i class="bi bi-plus-lg"></i> Add System Type
             </button>
         </div>
         <hr />
@@ -85,7 +86,8 @@ new class extends Component {
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Office Name</th>
+                        <th>System Type Name</th>
+                        <th>Description</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -93,15 +95,16 @@ new class extends Component {
                     @forelse ($data as $element)
                         <tr>
                             <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</td>
-                            <td>{{ $element->office_name }}</td>
+                            <td>{{ $element->systemType_name }}</td>
+                            <td>{{ $element->systemType_description }}</td>
                             <td class="text-nowrap">
                                 <button type="button" class="btn btn-primary btn-sm"
-                                    wire:click="editData({{ $element->office_id }})">
+                                    wire:click="editData({{ $element->systemType_id }})">
                                     Update
                                 </button>
                                 <button type="button" class="btn btn-danger btn-sm"
-                                    wire:confirm="Are you sure to delete this office?"
-                                    wire:click="delete({{ $element->office_id }})">Delete</button>
+                                    wire:confirm="Are you sure to delete this system type?"
+                                    wire:click="delete({{ $element->systemType_id }})">Delete</button>
                             </td>
                         </tr>
                     @empty
@@ -125,7 +128,8 @@ new class extends Component {
                 <i class="bi bi-arrow-left"></i> Back
             </button>
 
-            <livewire:pages::masterfile.office.office-form :isAddData="$isAddData" :selectedDataId="$selectedDataId" />
+            <livewire:pages::masterfile.system-type.system-type-form :isAddData="$isAddData"
+                :selectedDataId="$selectedDataId" />
         </div>
     @endif
 </div>

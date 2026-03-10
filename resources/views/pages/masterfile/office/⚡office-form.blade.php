@@ -22,7 +22,8 @@ new class extends Component {
                 "office_name" => $validated["officeName"]
             ]);
             $this->dispatch('toast', type: 'success', message: 'Office added successfully');
-            $this->dispatch('goBack');
+            // $this->dispatch('goBack');
+            $this->reset(["officeName"]);
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -78,30 +79,31 @@ new class extends Component {
         <div class="mb-4">
             @if ($isAddData)
                 <h5 class="fw-semibold mb-1">Create Office</h5>
-                <small class="text-muted">Fill in the details to add a new office</small>
+                    <small class="text-muted">Fill in the details to add a new office</small>
             @else
                 <h5 class="fw-semibold mb-1">Edit Role</h5>
-                <small class="text-muted">Provide the details to edit this office.</small>
+                    <small class="text-muted">Provide the details to edit this office.</small>
             @endif
-        </div>
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
             </div>
-        @endif
-        <form wire:submit="{{ $isAddData ? 'addOffice' : 'updateOffice' }}">
-            @csrf
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                        </div>
+            @endif
+                <form wire:submit="{{ $isAddData ? 'addOffice' : 'updateOffice' }}">
+                    @csrf
 
-            <div class="mb-3">
-                <label class="form-label">Office Name *</label>
-                <input wire:model="officeName" name="officeName" type="text" class="form-control">
-                @error('officeName')
-                    <div class="mt-1" style="color: #f87171; font-size: 0.78rem;">{{ $message }}</div>
-                @enderror
+                    <div class="mb-3">
+                        <label class="form-label">Office Name *</label>
+                        <input wire:model="officeName" name="officeName" type="text" class="form-control">
+                        @error('officeName')
+                                    <div class="mt-1" style="color: #f87171; font-size: 0.78rem;">{{ $message }}
+                            </div>
+                        @enderror
             </div>
 
             <div>
@@ -110,11 +112,11 @@ new class extends Component {
                         {{ $isAddData ? 'Create' : 'Update' }} office
                     </span>
                     <span wire:loading wire:target={{ $isAddData ? 'addOffice' : 'updateOffice' }}>
-                        <span class="spinner-border spinner-border-sm"></span>
+                        <span class=" spinner-border spinner-border-sm"></span>
                     </span>
                 </button>
             </div>
 
-        </form>
+            </form>
     </div>
 </div>

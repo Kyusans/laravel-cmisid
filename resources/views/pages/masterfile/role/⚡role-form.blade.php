@@ -23,7 +23,8 @@ new class extends Component {
                 "role_name" => $validated["roleName"]
             ]);
             $this->dispatch('toast', type: 'success', message: 'Role added successfully');
-            $this->dispatch('goBack');
+            // $this->dispatch('goBack');
+            $this->reset(["roleName"]);
         } catch (\Exception $e) {
             return $e->getMessage();
         }

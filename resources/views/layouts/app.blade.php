@@ -47,7 +47,6 @@
                         class="nav-link {{ request()->routeIs('infosystems') ? 'active' : '' }}">
                         <i class="bi bi-laptop"></i> Info Systems
                     </a>
-                    {{-- <a href="{{ route('users') }}" class="nav-link"><i class="bi bi-people"></i> Users</a> --}}
 
                     <div class="nav-section-title">Masterfiles</div>
 
@@ -61,6 +60,10 @@
                     <a href="{{ route(name: 'offices') }}"
                         class="nav-link {{ request()->routeIs('offices') ? 'active' : '' }}">
                         <i class="bi-buildings"></i> Offices
+                    </a>
+                    <a href="{{ route(name: 'systemTypes') }}"
+                        class="nav-link {{ request()->routeIs('systemTypes') ? 'active' : '' }}">
+                        <i class="bi-hdd-network"></i> System Types
                     </a>
                 </div>
 

@@ -47,9 +47,13 @@ new class extends Component {
 
     public function delete($id)
     {
-        $data = Role::find($id);
-        $data->delete();
-        $this->dispatch('toast', type: 'success', message: 'Role deleted successfully');
+        try {
+            $data = Role::find($id);
+            $data->delete();
+            $this->dispatch('toast', type: 'success', message: 'Role deleted successfully');
+        } catch (\Throwable $th) {
+            $this->dispatch('toast', type: 'danger', message: 'This role is currently in use and cannot be deleted.');
+        }
     }
 };
 ?>

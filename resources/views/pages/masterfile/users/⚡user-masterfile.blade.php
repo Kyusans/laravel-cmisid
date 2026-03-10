@@ -55,9 +55,15 @@ new class extends Component {
 
     public function delete($id)
     {
-        $user = User::find($id);
-        $user->delete();
-        $this->dispatch('toast', type: 'success', message: 'User deleted successfully');
+
+        try {
+            $user = User::find($id);
+            $user->delete();
+            $this->dispatch('toast', type: 'success', message: 'User deleted successfully');
+        } catch (\Throwable $th) {
+            $this->dispatch('toast', type: 'danger', message: 'This user is currently in use and cannot be deleted.');
+        }
+
     }
 };
 ?>

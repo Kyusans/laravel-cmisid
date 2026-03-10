@@ -43,7 +43,17 @@ new class extends Component {
             'user_roleId' => $validated['userRoleId'],
         ]);
         $this->dispatch('toast', type: 'success', message: 'User added successfully');
-        $this->dispatch('goBack');
+        // $this->dispatch('goBack');
+        $this->reset([
+            'userFirstName',
+            'userMiddleName',
+            'userLastName',
+            'userEmail',
+            'userPassword',
+            'userOfficeId',
+            'userRoleId',
+        ]);
+
     }
     public function updateUser()
     {
@@ -61,7 +71,7 @@ new class extends Component {
             'user_firstName' => $validated['userFirstName'],
             'user_middleName' => $validated['userMiddleName'],
             'user_lastName' => $validated['userLastName'],
-            // "user_email" => $validated["userEmail"],
+            "user_email" => $validated["userEmail"],
             // "user_password" => $validated["userPassword"],
             'user_officeId' => $validated['userOfficeId'],
             'user_roleId' => $validated['userRoleId'],
