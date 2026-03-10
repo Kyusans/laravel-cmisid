@@ -2,7 +2,7 @@
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\User;
+use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 
@@ -13,10 +13,10 @@ new class extends Component {
     public $isEditData = false;
     public $selectedDataId = null;
 
-    public function editData($userId)
+    public function editData($dataId)
     {
         $this->isAddData = false;
-        $this->selectedDataId = $userId;
+        $this->selectedDataId = $dataId;
         $this->isEditData = true;
     }
 
@@ -30,18 +30,10 @@ new class extends Component {
 
     public function render()
     {
-        $users = User::with(['office', 'role'])
-            ->where('user_id', '!=', Auth::user()->user_id)
-            ->where(function ($query) {
-                $query
-                    ->where('user_firstName', 'like', '%' . $this->search . '%')
-                    ->orWhere('user_lastName', 'like', '%' . $this->search . '%')
-                    ->orWhere('user_email', 'like', '%' . $this->search . '%');
-            })
-            ->paginate(10);
+        $data = Role::where('role_name', 'like', '%' . $this->search . '%')->paginate(10);
 
         return $this->view([
-            'users' => $users,
+            'data' => $data,
         ]);
     }
 
@@ -55,9 +47,9 @@ new class extends Component {
 
     public function delete($id)
     {
-        $user = User::find($id);
-        $user->delete();
-        $this->dispatch('toast', type: 'success', message: 'User deleted successfully');
+        $data = Role::find($id);
+        $data->delete();
+        $this->dispatch('toast', type: 'success', message: 'Role deleted successfully');
     }
 };
 ?>
@@ -67,11 +59,11 @@ new class extends Component {
     @if (!$this->isAddData && !$this->isEditData)
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
-                <h5 class="fw-semibold mb-0">Users</h5>
-                <small class="text-muted">List of all users in the system</small>
+                <h5 class="fw-semibold mb-0">Roles</h5>
+                <small class="text-muted">List of all roles in the system</small>
             </div>
             <button wire:click="set('isAddData', true)" class="btn btn-primary btn-sm">
-                <i class="bi bi-plus-lg"></i> Add User
+                <i class="bi bi-plus-lg"></i> Add Role
             </button>
         </div>
         <hr />
@@ -89,31 +81,23 @@ new class extends Component {
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Full Name</th>
-                        <th>Office</th>
-                        <th>Role</th>
-                        <th>Email</th>
+                        <th>Role Name</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($users as $user)
+                    @forelse ($data as $element)
                         <tr>
-                            <td>{{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}</td>
-                            <td>{{ $user->user_lastName }}, {{ $user->user_firstName }}
-                                {{ $user->user_middleName ?? '' }}
-                            </td>
-                            <td>{{ $user->office->office_name }}</td>
-                            <td>{{ $user->role->role_name }}</td>
-                            <td class="text-nowrap">{{ $user->user_email }}</td>
+                            <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</td>
+                            <td>{{ $element->role_name }}</td>
                             <td class="text-nowrap">
                                 <button type="button" class="btn btn-primary btn-sm"
-                                    wire:click="editData({{ $user->user_id }})">
+                                    wire:click="editData({{ $element->role_id }})">
                                     Update
                                 </button>
                                 <button type="button" class="btn btn-danger btn-sm"
-                                    wire:confirm="Are you sure to delete this user?"
-                                    wire:click="delete({{ $user->user_id }})">Delete</button>
+                                    wire:confirm="Are you sure to delete this role?"
+                                    wire:click="delete({{ $element->role_id }})">Delete</button>
                             </td>
                         </tr>
                     @empty
@@ -129,7 +113,7 @@ new class extends Component {
 
         {{-- Pagination --}}
         <div class="mt-3">
-            {{ $users->links() }}
+            {{ $data->links() }}
         </div>
     @elseif ($isAddData || $isEditData)
         <div>
@@ -137,7 +121,7 @@ new class extends Component {
                 <i class="bi bi-arrow-left"></i> Back
             </button>
 
-            <livewire:pages::masterfile.users.user-form :isAddData="$isAddData" :userId="$selectedDataId" />
+            <livewire:pages::masterfile.role.role-form :isAddData="$isAddData" :selectedDataId="$selectedDataId" />
         </div>
     @endif
 </div>

@@ -22,8 +22,7 @@
             <div id="success" class="toast show align-items-center text-bg-success border-0" role="alert">
                 <div class="d-flex">
                     <div class="toast-body text-center w-100">{{ session('success') }}</div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto"
-                        data-bs-dismiss="toast"></button>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
                 </div>
             </div>
         </div>
@@ -43,6 +42,11 @@
                         class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                         <i class="bi bi-grid"></i> Dashboard
                     </a>
+
+                    <a href="{{ route('infosystems') }}"
+                        class="nav-link {{ request()->routeIs('infosystems') ? 'active' : '' }}">
+                        <i class="bi bi-laptop"></i> Info Systems
+                    </a>
                     {{-- <a href="{{ route('users') }}" class="nav-link"><i class="bi bi-people"></i> Users</a> --}}
 
                     <div class="nav-section-title">Masterfiles</div>
@@ -51,17 +55,16 @@
                     <a href="{{ route('users') }}" class="nav-link {{ request()->routeIs('users') ? 'active' : '' }}">
                         <i class="bi bi-people"></i> Users
                     </a>
-
-                    <a href="{{ route('infosystems') }}"
-                        class="nav-link {{ request()->routeIs('infosystems') ? 'active' : '' }}">
-                        <i class="bi bi-laptop"></i> Info Systems
+                    <a href="{{ route(name: 'roles') }}" class="nav-link {{ request()->routeIs('roles') ? 'active' : '' }}">
+                        <i class="bi-person-badge"></i> Roles
                     </a>
                 </div>
 
                 <div class="p-3 border-top mt-auto">
                     <div class="d-flex align-items-center gap-2">
                         <div class="flex-grow-1 min-w-0">
-                            <small class="d-block fw-bold text-truncate">{{ Auth::user()->user_firstName }}</small>
+                            <small
+                                class="d-block fw-bold text-truncate">{{ Auth::user()->user_firstName . ' ' . Auth::user()->user_lastName }}</small>
                             <small class="text-muted">{{ Auth::user()->user_email }}</small>
                         </div>
                         <form action="{{ route('logout') }}" method="POST">

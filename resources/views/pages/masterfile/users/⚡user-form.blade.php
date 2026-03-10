@@ -118,7 +118,7 @@ new class extends Component {
                 <small class="text-muted">Fill in the details to add a new user</small>
             @else
                 <h5 class="fw-semibold mb-1">Edit User</h5>
-                <small class="text-muted">Fill in the details to edit a user</small>
+                <small class="text-muted">Provide the details to edit this role.</small>
             @endif
         </div>
         @if ($errors->any())
@@ -207,12 +207,12 @@ new class extends Component {
                 </div>
             </div>
 
-            <div class="d-grid">
-                <button type="submit" class="btn btn-primary btn-block" wire:loading.attr="disabled">
-                    <span wire:loading.remove wire:target={{ $isAddData ? 'addUser' : 'editUser' }}>
+            <div>
+                <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">
+                    <span wire:loading.remove wire:target={{ $isAddData ? 'addUser' : 'updateUser' }}>
                         {{ $isAddData ? 'Create' : 'Update' }} user
                     </span>
-                    <span wire:loading wire:target={{ $isAddData ? 'addUser' : 'editUser' }}>
+                    <span wire:loading wire:target={{ $isAddData ? 'addUser' : 'updateUser' }}>
                         <span class="spinner-border spinner-border-sm"></span>
                     </span>
                 </button>
