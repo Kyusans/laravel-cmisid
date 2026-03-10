@@ -49,8 +49,7 @@
                     </a>
 
                     <div class="nav-section-title">Masterfiles</div>
-
-
+                    
                     <a href="{{ route('users') }}" class="nav-link {{ request()->routeIs('users') ? 'active' : '' }}">
                         <i class="bi-people"></i> Users
                     </a>
@@ -64,6 +63,10 @@
                     <a href="{{ route(name: 'systemTypes') }}"
                         class="nav-link {{ request()->routeIs('systemTypes') ? 'active' : '' }}">
                         <i class="bi-hdd-network"></i> System Types
+                    </a>
+                    <a href="{{ route(name: 'workingEnvironment') }}"
+                        class="nav-link {{ request()->routeIs('workingEnvironment') ? 'active' : '' }}">
+                        <i class="bi-laptop"></i> Working Environment
                     </a>
                 </div>
 

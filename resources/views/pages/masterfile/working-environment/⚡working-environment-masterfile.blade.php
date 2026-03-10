@@ -2,7 +2,7 @@
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\Role;
+use App\Models\WorkingEnvironment;
 use Livewire\Attributes\On;
 
 new class extends Component {
@@ -29,8 +29,7 @@ new class extends Component {
 
     public function render()
     {
-        $data = Role::where('role_name', 'like', '%' . $this->search . '%')->paginate(10);
-
+        $data = WorkingEnvironment::where('workEnv_name', 'like', '%' . $this->search . '%')->paginate(10);
         return $this->view([
             'data' => $data,
         ]);
@@ -47,11 +46,11 @@ new class extends Component {
     public function delete($id)
     {
         try {
-            $data = Role::find($id);
+            $data = WorkingEnvironment::find($id);
             $data->delete();
-            $this->dispatch('toast', type: 'success', message: 'Role deleted successfully');
+            $this->dispatch('toast', type: 'success', message: 'Working environment deleted successfully');
         } catch (\Throwable $th) {
-            $this->dispatch('toast', type: 'danger', message: 'This role is currently in use and cannot be deleted.');
+            $this->dispatch('toast', type: 'danger', message: 'This working environment is currently in use and cannot be deleted.');
         }
     }
 };
@@ -62,11 +61,11 @@ new class extends Component {
     @if (!$this->isAddData && !$this->isEditData)
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
-                <h5 class="fw-semibold mb-0">Roles</h5>
-                <small class="text-muted">List of all roles in the system</small>
+                <h5 class="fw-semibold mb-0">Working Environment</h5>
+                <small class="text-muted">List of all working environment in the system</small>
             </div>
             <button wire:click="set('isAddData', true)" class="btn btn-primary btn-sm">
-                <i class="bi bi-plus-lg"></i> Add Role
+                <i class="bi bi-plus-lg"></i> Add Working Environment
             </button>
         </div>
         <hr />
@@ -84,7 +83,8 @@ new class extends Component {
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Role Name</th>
+                        <th>Working Environment Name</th>
+                        <th>Description</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -92,15 +92,16 @@ new class extends Component {
                     @forelse ($data as $element)
                         <tr>
                             <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</td>
-                            <td>{{ $element->role_name }}</td>
+                            <td>{{ $element->workEnv_name }}</td>
+                            <td>{{ $element->workEnv_description }}</td>
                             <td class="text-nowrap">
                                 <button type="button" class="btn btn-primary btn-sm"
-                                    wire:click="editData({{ $element->role_id }})">
+                                    wire:click="editData({{ $element->workEnv_id }})">
                                     Update
                                 </button>
                                 <button type="button" class="btn btn-danger btn-sm"
-                                    wire:confirm="Are you sure to delete this role?"
-                                    wire:click="delete({{ $element->role_id }})">Delete</button>
+                                    wire:confirm="Are you sure to delete this working environment?"
+                                    wire:click="delete({{ $element->workEnv_id }})">Delete</button>
                             </td>
                         </tr>
                     @empty
@@ -124,7 +125,8 @@ new class extends Component {
                 <i class="bi bi-arrow-left"></i> Back
             </button>
 
-            <livewire:pages::masterfile.role.role-form :isAddData="$isAddData" :selectedDataId="$selectedDataId" />
+            <livewire:pages::masterfile.working-environment.working-environment-form :isAddData="$isAddData"
+                :selectedDataId="$selectedDataId" />
         </div>
     @endif
 </div>

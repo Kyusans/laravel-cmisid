@@ -3,7 +3,6 @@
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\SystemType;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 
 new class extends Component {
