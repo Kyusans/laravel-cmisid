@@ -73,6 +73,13 @@
                         class="nav-link {{ request()->routeIs('systemStatus') ? 'active' : '' }}">
                         <i class="bi-diagram-3"></i> System Status
                     </a>
+
+
+
+                    <a href="{{ route(name: 'fundingSource') }}"
+                        class="nav-link {{ request()->routeIs('fundingSource') ? 'active' : '' }}">
+                        <i class="bi-cash-stack"></i> Funding Source
+                    </a>
                 </div>
 
                 <div class="p-3 border-top mt-auto">
