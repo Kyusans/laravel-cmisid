@@ -49,7 +49,7 @@
                     </a>
 
                     <div class="nav-section-title">Masterfiles</div>
-                    
+
                     <a href="{{ route('users') }}" class="nav-link {{ request()->routeIs('users') ? 'active' : '' }}">
                         <i class="bi-people"></i> Users
                     </a>
@@ -67,6 +67,11 @@
                     <a href="{{ route(name: 'workingEnvironment') }}"
                         class="nav-link {{ request()->routeIs('workingEnvironment') ? 'active' : '' }}">
                         <i class="bi-laptop"></i> Working Environment
+                    </a>
+
+                    <a href="{{ route(name: 'systemStatus') }}"
+                        class="nav-link {{ request()->routeIs('systemStatus') ? 'active' : '' }}">
+                        <i class="bi-diagram-3"></i> System Status
                     </a>
                 </div>
 
