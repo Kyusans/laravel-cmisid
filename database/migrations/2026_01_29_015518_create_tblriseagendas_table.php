@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('tblriseagendas', function (Blueprint $table) {
             $table->id("riseAgenda_id");
             $table->string("riseAgenda_name")->unique();
+            $table->text("riseAgenda_description");
+            $table->foreignId("riseAgenda_agendaTypeId")
+                ->constrained("tblriseagendatypes", "agendaType_id")
+                ->restrictOnDelete();
             $table->timestamps();
         });
-
     }
 
     /**
