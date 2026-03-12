@@ -53,7 +53,10 @@ body {
    SIDEBAR - DESKTOP
 ================================ */
 #sidebar-wrapper {
-  min-height: 100vh;
+  height: 100vh;
+  /* changed from min-height */
+  overflow: hidden;
+  /* add this */
   width: 260px;
   transition: margin 0.3s ease-out;
   border-right: 1px solid var(--border-color);
@@ -61,6 +64,36 @@ body {
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+}
+
+#sidebar-wrapper .list-group {
+  overflow-y: auto;
+  min-height: 0;
+  /* critical — lets flex children shrink below content size */
+}
+
+/* Hide default scrollbar, use custom */
+#sidebar-wrapper .list-group::-webkit-scrollbar {
+  width: 4px;
+}
+
+#sidebar-wrapper .list-group::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#sidebar-wrapper .list-group::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 99px;
+}
+
+#sidebar-wrapper .list-group::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Firefox */
+#sidebar-wrapper .list-group {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) transparent;
 }
 
 #wrapper.toggled #sidebar-wrapper {

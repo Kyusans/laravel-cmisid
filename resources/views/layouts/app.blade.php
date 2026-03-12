@@ -36,7 +36,7 @@
                     <span class="fw-bold fs-4">{{ config('app.name', 'Laravel') }}</span>
                 </div>
 
-                <div class="list-group list-group-flush flex-grow-1">
+                <div class="list-group list-group-flush flex-grow-1 overflow-y-auto">
                     <div class="nav-section-title">Main</div>
                     <a href="{{ route('dashboard') }}"
                         class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
@@ -97,6 +97,9 @@
                         <i class="bi-check2-square"></i> MFO
                     </a>
 
+                    <a href="{{ route(name: 'ppa') }}" class="nav-link {{ request()->routeIs('ppa') ? 'active' : '' }}">
+                        <i class="bi-ui-checks"></i> PPA
+                    </a>
                 </div>
                 <div class="p-3 border-top mt-auto">
                     <div class="d-flex align-items-center gap-2">

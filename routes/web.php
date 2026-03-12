@@ -20,5 +20,6 @@ Route::middleware("auth")->group(function () {
   Route::livewire("/masterfiles/development-strategy", "pages::masterfile.development-strategy.development-strategy-masterfile")->name("developmentStrategy");
   Route::livewire("/masterfiles/funding-source", "pages::masterfile.funding-source.funding-source-masterfile")->name("fundingSource");
   Route::livewire("/masterfiles/mfo", "pages::masterfile.mfo.mfo-masterfile")->name("mfo");
+  Route::livewire("/masterfiles/ppa", "pages::masterfile.ppa.ppa-masterfiles")->name("ppa");
   Route::livewire('/information_system/details', 'pages::infosys.show_infosystems')->name('infosystems');
 });
