@@ -78,7 +78,7 @@ new class extends Component {
         <div class="mb-4">
             @if ($isAddData)
                 <h5 class="fw-semibold mb-1">Create Development Strategy</h5>
-                <small class="text-muted">Fill in the details to add a new development strategy</small>
+                <small class="text-muted">Fill in the details to add a new development strategy.</small>
             @else
                 <h5 class="fw-semibold mb-1">Edit Development Strategy</h5>
                 <small class="text-muted">Provide the details to edit this development strategy.</small>

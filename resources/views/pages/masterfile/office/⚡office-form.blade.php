@@ -39,7 +39,7 @@ new class extends Component {
             Office::where("office_id", $this->selectedDataId)->update([
                 "office_name" => $validated["officeName"]
             ]);
-            $this->dispatch('toast', type: 'success', message: 'Role updated successfully');
+            $this->dispatch('toast', type: 'success', message: 'Office updated successfully');
             $this->dispatch('goBack');
         } catch (\Exception $e) {
             return $e->getMessage();
@@ -79,9 +79,9 @@ new class extends Component {
         <div class="mb-4">
             @if ($isAddData)
                 <h5 class="fw-semibold mb-1">Create Office</h5>
-                    <small class="text-muted">Fill in the details to add a new office</small>
+                    <small class="text-muted">Fill in the details to add a new office.</small>
             @else
-                <h5 class="fw-semibold mb-1">Edit Role</h5>
+                <h5 class="fw-semibold mb-1">Edit Office</h5>
                     <small class="text-muted">Provide the details to edit this office.</small>
             @endif
             </div>

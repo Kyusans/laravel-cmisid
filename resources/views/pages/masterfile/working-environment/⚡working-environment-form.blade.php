@@ -87,7 +87,7 @@ new class extends Component {
         <div class="mb-4">
             @if ($isAddData)
                 <h5 class="fw-semibold mb-1">Create Working Environment</h5>
-                <small class="text-muted">Fill in the details to add a new working environment</small>
+                <small class="text-muted">Fill in the details to add a new working environment.</small>
             @else
                 <h5 class="fw-semibold mb-1">Edit Working Environment</h5>
                 <small class="text-muted">Provide the details to edit this working environment.</small>

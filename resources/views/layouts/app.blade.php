@@ -29,104 +29,104 @@
     @endif
 
     @auth
-        <div class="d-flex" id="wrapper">
-            <div id="sidebar-overlay"></div>
-            <aside id="sidebar-wrapper" class="border-right">
-                <div class="sidebar-heading p-4">
-                    <span class="fw-bold fs-4">{{ config('app.name', 'Laravel') }}</span>
-                </div>
+            <div class="d-flex" id="wrapper">
+                <div id="sidebar-overlay"></div>
+                <aside id="sidebar-wrapper" class="border-right">
+                    <div class="sidebar-heading p-4">
+                        <span class="fw-bold fs-4">{{ config('app.name', 'Laravel') }}</span>
+                    </div>
 
-                <div class="list-group list-group-flush flex-grow-1">
-                    <div class="nav-section-title">Main</div>
-                    <a href="{{ route('dashboard') }}"
-                        class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                        <i class="bi bi-grid"></i> Dashboard
-                    </a>
+                    <div class="list-group list-group-flush flex-grow-1">
+                        <div class="nav-section-title">Main</div>
+                        <a href="{{ route('dashboard') }}"
+                            class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                            <i class="bi bi-grid"></i> Dashboard
+                        </a>
 
-                    <a href="{{ route('infosystems') }}"
-                        class="nav-link {{ request()->routeIs('infosystems') ? 'active' : '' }}">
-                        <i class="bi bi-laptop"></i> Info Systems
-                    </a>
+                        <a href="{{ route('infosystems') }}"
+                            class="nav-link {{ request()->routeIs('infosystems') ? 'active' : '' }}">
+                            <i class="bi bi-laptop"></i> Info Systems
+                        </a>
 
-                    <div class="nav-section-title">Masterfiles</div>
+                        <div class="nav-section-title">Masterfiles</div>
 
-                    <a href="{{ route('users') }}" class="nav-link {{ request()->routeIs('users') ? 'active' : '' }}">
-                        <i class="bi-people"></i> Users
-                    </a>
-                    <a href="{{ route(name: 'roles') }}" class="nav-link {{ request()->routeIs('roles') ? 'active' : '' }}">
-                        <i class="bi-person-badge"></i> Roles
-                    </a>
-                    <a href="{{ route(name: 'offices') }}"
-                        class="nav-link {{ request()->routeIs('offices') ? 'active' : '' }}">
-                        <i class="bi-buildings"></i> Offices
-                    </a>
-                    <a href="{{ route(name: 'systemTypes') }}"
-                        class="nav-link {{ request()->routeIs('systemTypes') ? 'active' : '' }}">
-                        <i class="bi-hdd-network"></i> System Types
-                    </a>
-                    <a href="{{ route(name: 'workingEnvironment') }}"
-                        class="nav-link {{ request()->routeIs('workingEnvironment') ? 'active' : '' }}">
-                        <i class="bi-laptop"></i> Working Environment
-                    </a>
-                    <a href="{{ route(name: 'systemStatus') }}"
-                        class="nav-link {{ request()->routeIs('systemStatus') ? 'active' : '' }}">
-                        <i class="bi-diagram-3"></i> System Status
-                    </a>
-                    <a href="{{ route(name: 'fundingSource') }}"
-                        class="nav-link {{ request()->routeIs('fundingSource') ? 'active' : '' }}">
-                        <i class="bi-cash-stack"></i> Funding Source
-                    </a>
-                    <a href="{{ route(name: 'developmentStrategy') }}"
-                        class="nav-link {{ request()->routeIs('developmentStrategy') ? 'active' : '' }}">
-                        <i class="bi-card-checklist"></i> Development Strategy
-                    </a>
-
-                    <a href="{{ route(name: 'riseAgendaType') }}"
-                        class="nav-link {{ request()->routeIs('riseAgendaType') ? 'active' : '' }}">
-                        <i class="bi-list-check"></i> Rise agenda type
-                    </a>
-
-                    <a href="{{ route(name: 'riseAgenda') }}"
-                        class="nav-link {{ request()->routeIs('riseAgenda') ? 'active' : '' }}">
-                        <i class="bi-card-list"></i> Rise agenda
-                    </a>
-
-                </div>
-
-                <div class="p-3 border-top mt-auto">
-                    <div class="d-flex align-items-center gap-2">
-                        <div class="flex-grow-1 min-w-0">
-                            <small
-                                class="d-block fw-bold text-truncate">{{ Auth::user()->user_firstName . ' ' . Auth::user()->user_lastName }}</small>
-                            <small class="text-muted">{{ Auth::user()->user_email }}</small>
+                        <a href="{{ route('users') }}" class="nav-link {{ request()->routeIs('users') ? 'active' : '' }}">
+                            <i class="bi-people"></i> Users
+                        </a>
+                        <a href="{{ route(name: 'roles') }}" class="nav-link {{ request()->routeIs('roles') ? 'active' : '' }}">
+                            <i class="bi-person-badge"></i> Roles
+                        </a>
+                        <a href="{{ route(name: 'offices') }}"
+                            class="nav-link {{ request()->routeIs('offices') ? 'active' : '' }}">
+                            <i class="bi-buildings"></i> Offices
+                        </a>
+                        <a href="{{ route(name: 'systemTypes') }}"
+                            class="nav-link {{ request()->routeIs('systemTypes') ? 'active' : '' }}">
+                            <i class="bi-hdd-network"></i> System Types
+                        </a>
+                        <a href="{{ route(name: 'workingEnvironment') }}"
+                            class="nav-link {{ request()->routeIs('workingEnvironment') ? 'active' : '' }}">
+                            <i class="bi-laptop"></i> Working Environment
+                        </a>
+                        <a href="{{ route(name: 'systemStatus') }}"
+                            class="nav-link {{ request()->routeIs('systemStatus') ? 'active' : '' }}">
+                            <i class="bi-diagram-3"></i> System Status
+                        </a>
+                        <a href="{{ route(name: 'fundingSource') }}"
+                            class="nav-link {{ request()->routeIs('fundingSource') ? 'active' : '' }}">
+                            <i class="bi-cash-stack"></i> Funding Source
+                        </a>
+                        <a href="{{ route(name: 'developmentStrategy') }}"
+                            class="nav-link {{ request()->routeIs('developmentStrategy') ? 'active' : '' }}">
+                            <i class="bi-card-checklist"></i> Development Strategy
+                        </a>
+                        <a href="{{ route(name: 'riseAgendaType') }}"
+                            class="nav-link {{ request()->routeIs('riseAgendaType') ? 'active' : '' }}">
+                            <i class="bi-list-check"></i> Rise agenda type
+                        </a>
+                        <a href="{{ route(name: 'riseAgenda') }}"
+                            class="nav-link {{ request()->routeIs('riseAgenda') ? 'active' : '' }}">
+                            <i class="bi-card-list"></i> Rise agenda
+                        </a>
+                        <a href="{{ route(name: 'developer') }}"
+                            class="nav-link {{ request()->routeIs('developer') ? 'active' : '' }}">
+                            <i class="bi-person-workspace"></i> Developer
+                        </a>
+                    </div>
+                    <div class="p-3 border-top mt-auto">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="flex-grow-1 min-w-0">
+                                <small
+                                    class="d-block fw-bold text-truncate">{{ Auth::user()->user_firstName . ' ' . Auth::user()->user_lastName }}</small>
+                                <small class="text-muted">{{ Auth::user()->user_email }}</small>
+                            </div>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-link p-0 text-danger"><i
+                                        class="bi bi-box-arrow-right"></i></button>
+                            </form>
                         </div>
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-link p-0 text-danger"><i
-                                    class="bi bi-box-arrow-right"></i></button>
-                        </form>
                     </div>
-                </div>
-            </aside>
+                </aside>
 
-            <div id="page-content-wrapper" class="flex-grow-1">
-                <nav class="navbar navbar-expand-lg px-3">
-                    <button class="btn btn-outline-secondary btn-sm" id="menu-toggle">
-                        <i class="bi bi-list"></i>
-                    </button>
-
-                    <div class="ms-auto">
-                        <button id="themeToggle">
-                            <i class="bi bi-sun-fill" id="theme-icon"></i>
+                <div id="page-content-wrapper" class="flex-grow-1">
+                    <nav class="navbar navbar-expand-lg px-3">
+                        <button class="btn btn-outline-secondary btn-sm" id="menu-toggle">
+                            <i class="bi bi-list"></i>
                         </button>
-                    </div>
-                </nav>
 
-                <main class="p-4">
-                    {{ $slot }}
-                </main>
+                        <div class="ms-auto">
+                            <button id="themeToggle">
+                                <i class="bi bi-sun-fill" id="theme-icon"></i>
+                            </button>
+                        </div>
+                    </nav>
+
+                    <main class="p-4">
+                        {{ $slot }}
+                    </main>
+                </div>
             </div>
-        </div>
     @endauth
 
     @guest

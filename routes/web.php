@@ -19,8 +19,6 @@ Route::middleware("auth")->group(function () {
   Route::livewire("/masterfiles/developer", "pages::masterfile.developer.developer-masterfile")->name("developer");
   Route::livewire("/masterfiles/development-strategy", "pages::masterfile.development-strategy.development-strategy-masterfile")->name("developmentStrategy");
   Route::livewire("/masterfiles/funding-source", "pages::masterfile.funding-source.funding-source-masterfile")->name("fundingSource");
-  Route::livewire("/masterfiles/external-user", "pages::masterfile.external-user.external-user-masterfile")->name("externalUser");
-  Route::livewire("/masterfiles/internal-user", "pages::masterfile.internal-user.internal-user-masterfile")->name("internalUser");
   Route::livewire("/masterfiles/mfo", "pages::masterfile.mfo.mfo-masterfile")->name("mfo");
   Route::livewire('/information_system/details', 'pages::infosys.show_infosystems')->name('infosystems');
 });

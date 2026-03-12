@@ -95,7 +95,7 @@ new class extends Component {
         <div class="mb-4">
             @if ($isAddData)
                 <h5 class="fw-semibold mb-1">Create rise agenda</h5>
-                <small class="text-muted">Fill in the details to add a new rise agenda</small>
+                <small class="text-muted">Fill in the details to add a new rise agenda.</small>
             @else
                 <h5 class="fw-semibold mb-1">Edit rise agenda</h5>
                 <small class="text-muted">Provide the details to edit this rise agenda.</small>

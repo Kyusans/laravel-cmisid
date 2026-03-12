@@ -125,10 +125,10 @@ new class extends Component {
         <div class="mb-4">
             @if ($isAddData)
                 <h5 class="fw-semibold mb-1">Create User</h5>
-                <small class="text-muted">Fill in the details to add a new user</small>
+                <small class="text-muted">Fill in the details to add a new user.</small>
             @else
                 <h5 class="fw-semibold mb-1">Edit User</h5>
-                <small class="text-muted">Provide the details to edit this role.</small>
+                <small class="text-muted">Provide the details to edit this user.</small>
             @endif
         </div>
         @if ($errors->any())
