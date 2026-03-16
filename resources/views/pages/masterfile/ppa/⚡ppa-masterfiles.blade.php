@@ -2,7 +2,7 @@
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\Mfo;
+use App\Models\ppa;
 use Livewire\Attributes\On;
 
 new class extends Component {
@@ -29,7 +29,9 @@ new class extends Component {
 
     public function render()
     {
-        $data = Mfo::with("office")->where('mfo_name', 'like', '%' . $this->search . '%')->paginate(10);
+        $data = Ppa::with('office')
+            ->where('ppa_name', 'like', '%' . $this->search . '%')
+            ->paginate(10);
 
         return $this->view([
             'data' => $data,
@@ -47,11 +49,11 @@ new class extends Component {
     public function delete($id)
     {
         try {
-            $data = Mfo::find($id);
+            $data = Ppa::find($id);
             $data->delete();
-            $this->dispatch('toast', type: 'success', message: 'Mfo deleted successfully');
+            $this->dispatch('toast', type: 'success', message: 'Ppa deleted successfully');
         } catch (\Throwable $th) {
-            $this->dispatch('toast', type: 'danger', message: 'This mfo is currently in use and cannot be deleted.');
+            $this->dispatch('toast', type: 'danger', message: 'This ppa is currently in use and cannot be deleted.');
         }
     }
 };
@@ -62,11 +64,11 @@ new class extends Component {
     @if (!$this->isAddData && !$this->isEditData)
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
-                <h5 class="fw-semibold mb-0">MFO</h5>
-                <small class="text-muted">List of all MFO in the system</small>
+                <h5 class="fw-semibold mb-0">PPA</h5>
+                <small class="text-muted">List of all PPA in the system</small>
             </div>
             <button wire:click="set('isAddData', true)" class="btn btn-primary btn-sm">
-                <i class="bi bi-plus-lg"></i> Add MFO
+                <i class="bi bi-plus-lg"></i> Add PPA
             </button>
         </div>
         <hr />
@@ -74,7 +76,8 @@ new class extends Component {
         {{-- Search --}}
         <div class="mb-3">
             <div style="max-width: 320px;">
-                <input type="search" wire:model.live.debounce.100ms="search" class="form-control" placeholder="Search...">
+                <input type="search" wire:model.live.debounce.100ms="search" class="form-control"
+                    placeholder="Search...">
             </div>
         </div>
 
@@ -83,7 +86,7 @@ new class extends Component {
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>MFO</th>
+                        <th>PPA</th>
                         <th>Office</th>
                         <th>Actions</th>
                     </tr>
@@ -92,16 +95,16 @@ new class extends Component {
                     @forelse ($data as $element)
                         <tr>
                             <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</td>
-                            <td>{{ $element->mfo_name }}</td>
+                            <td>{{ $element->ppa_name }}</td>
                             <td>{{ $element->office->office_name }}</td>
                             <td class="text-nowrap">
                                 <button type="button" class="btn btn-primary btn-sm"
-                                    wire:click="editData({{ $element->mfo_id }})">
+                                    wire:click="editData({{ $element->ppa_id }})">
                                     Update
                                 </button>
                                 <button type="button" class="btn btn-danger btn-sm"
-                                    wire:confirm="Are you sure to delete this MFO by the {{ $element->office->office_name }}?"
-                                    wire:click="delete({{ $element->mfo_id }})">Delete</button>
+                                    wire:confirm="Are you sure to delete this PPA by the {{ $element->office->office_name }}?"
+                                    wire:click="delete({{ $element->ppa_id }})">Delete</button>
                             </td>
                         </tr>
                     @empty
@@ -125,7 +128,7 @@ new class extends Component {
                 <i class="bi bi-arrow-left"></i> Back
             </button>
 
-            <livewire:pages::masterfile.mfo.mfo-form :isAddData="$isAddData" :selectedDataId="$selectedDataId" />
+            <livewire:pages::masterfile.ppa.ppa-form :isAddData="$isAddData" :selectedDataId="$selectedDataId" />
         </div>
     @endif
 </div>

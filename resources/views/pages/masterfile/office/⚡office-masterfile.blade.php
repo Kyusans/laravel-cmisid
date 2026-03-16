@@ -11,6 +11,31 @@ new class extends Component {
     public $isAddData = false;
     public $isEditData = false;
     public $selectedDataId = null;
+    public $search = '';
+
+    // For Modal Details
+    public $viewingDetails = null;
+
+    public function render()
+    {
+        // withCount adds mfos_count and ppas_count to your model results
+        $data = Office::withCount(['mfos', 'ppas'])
+            ->where('office_name', 'like', '%' . $this->search . '%')
+            ->paginate(10);
+
+        return $this->view(['data' => $data]);
+    }
+
+    public function showDetails($id)
+    {
+        // Fetch the office with the actual child records for the modal
+        $this->viewingDetails = Office::with(['mfos', 'ppas'])->find($id);
+    }
+
+    public function closeDetails()
+    {
+        $this->viewingDetails = null;
+    }
 
     public function editData($dataId)
     {
@@ -19,7 +44,6 @@ new class extends Component {
         $this->isEditData = true;
     }
 
-    public $search = '';
     protected $paginationTheme = 'bootstrap';
 
     public function updatingSearch()
@@ -27,14 +51,14 @@ new class extends Component {
         $this->resetPage();
     }
 
-    public function render()
-    {
-        $data = Office::where('office_name', 'like', '%' . $this->search . '%')->paginate(10);
+    // public function render()
+    // {
+    //     $data = Office::where('office_name', 'like', '%' . $this->search . '%')->paginate(10);
 
-        return $this->view([
-            'data' => $data,
-        ]);
-    }
+    //     return $this->view([
+    //         'data' => $data,
+    //     ]);
+    // }
 
     #[On('goBack')]
     public function handleBack()
@@ -80,11 +104,13 @@ new class extends Component {
         </div>
 
         <div class="table-responsive">
-            <table class="table">
+            <table class="table align-middle">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>Office Name</th>
+                        <th class="text-center">MFOs</th>
+                        <th class="text-center">PPAs</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -93,22 +119,20 @@ new class extends Component {
                         <tr>
                             <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</td>
                             <td>{{ $element->office_name }}</td>
+                            <td class="text-center">{{ $element->mfos_count }}</td>
+                            <td class="text-center">{{ $element->ppas_count }}</td>
                             <td class="text-nowrap">
-                                <button type="button" class="btn btn-primary btn-sm"
-                                    wire:click="editData({{ $element->office_id }})">
-                                    Update
+                                <button title="View Details" wire:click="showDetails({{ $element->office_id }})"
+                                    class="btn btn-outline-info btn-sm">
+                                    Details
                                 </button>
-                                <button type="button" class="btn btn-danger btn-sm"
-                                    wire:confirm="Are you sure to delete this office?"
-                                    wire:click="delete({{ $element->office_id }})">Delete</button>
+                                <button wire:click="editData({{ $element->office_id }})"
+                                    class="btn btn-primary btn-sm">Update</button>
+                                <button wire:click="delete({{ $element->office_id }})" wire:confirm="Are you sure?"
+                                    class="btn btn-danger btn-sm">Delete</button>
                             </td>
                         </tr>
                     @empty
-                        <tr>
-                            <td colspan="6" class="text-center py-4 text-muted">
-                                No data found.
-                            </td>
-                        </tr>
                     @endforelse
                 </tbody>
             </table>
@@ -125,6 +149,42 @@ new class extends Component {
             </button>
 
             <livewire:pages::masterfile.office.office-form :isAddData="$isAddData" :selectedDataId="$selectedDataId" />
+        </div>
+    @endif
+
+    @if ($viewingDetails)
+        <div class="modal fade show d-block" tabindex="-1" style="background: rgba(0,0,0,0.5);">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ $viewingDetails->office_name }}</h5>
+                        <button type="button" class="btn-close" wire:click="closeDetails"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col">
+                            <div class="row-md-6">
+                                <h6 class="fw-bold border-bottom pb-2">MFO</h6>
+                                @forelse($viewingDetails->mfos as $mfo)
+                                    <p class="text-muted">{{ $mfo->mfo_name }}</p>
+                                @empty
+                                    <p>No MFOs found.</p>
+                                @endforelse
+                            </div>
+                            <div class="row-md-6">
+                                <h6 class="fw-bold border-bottom pb-2">PPA</h6>
+                                @forelse($viewingDetails->ppas as $ppa)
+                                    <p class="text-muted">{{ $ppa->ppa_name }}</p>
+                                @empty
+                                    <p>No PPAs found.</p>
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" wire:click="closeDetails">Close</button>
+                    </div>
+                </div>
+            </div>
         </div>
     @endif
 </div>

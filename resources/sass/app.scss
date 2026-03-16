@@ -230,3 +230,59 @@ label {
         color: var(--text-primary);
     }
 }
+
+// Shadcn-like Modal
+.modal-content {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+
+    .modal-header {
+        border-bottom: 1px solid var(--border-color);
+        padding: 1.25rem 1.5rem;
+
+        .modal-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: -0.025em;
+        }
+    }
+
+    .modal-body {
+        padding: 1.5rem;
+    }
+
+    .modal-footer {
+        border-top: 1px solid var(--border-color);
+        padding: 1rem 1.5rem;
+    }
+}
+
+// Dark mode overrides for Modal
+[data-bs-theme="dark"] .modal-content {
+    background-color: #09090b; // Shadcn Zinc-950
+    border-color: #27272a; // Shadcn Zinc-800
+}
+
+// Change .btn-outline-info to match Shadcn 'Outline' style
+.btn-outline-info {
+    --bs-btn-color: var(--text-primary);
+    --bs-btn-border-color: var(--border-color);
+    --bs-btn-hover-color: var(--text-primary);
+    --bs-btn-hover-bg: var(--nav-hover);
+    --bs-btn-hover-border-color: var(--border-color);
+    --bs-btn-active-bg: var(--nav-active);
+    --bs-btn-focus-shadow-rgb: none;
+    font-weight: 500;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+    box-shadow: none !important;
+}
+
+.btn-danger {
+    --bs-btn-bg: #ef4444; // Shadcn Destructive
+    --bs-btn-border-color: #ef4444;
+    --bs-btn-hover-bg: #dc2626;
+    box-shadow: none !important;
+}
