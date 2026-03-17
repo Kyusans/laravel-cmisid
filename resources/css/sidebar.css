@@ -64,10 +64,13 @@ body {
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+  position: sticky;
+  top: 0;
 }
 
 #sidebar-wrapper .list-group {
   overflow-y: auto;
+  flex: 1;  
   min-height: 0;
   /* critical — lets flex children shrink below content size */
 }

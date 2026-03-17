@@ -2,15 +2,17 @@
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\Role;
+use App\Models\transaction\InformationSystem;
 use Livewire\Attributes\On;
 
 new class extends Component {
     use WithPagination;
 
     public $isAddData = false;
+    public $isSeeDetails = true;
     public $isEditData = false;
     public $selectedDataId = null;
+    public $selectedDetails = null;
 
     public function editData($dataId)
     {
@@ -29,11 +31,66 @@ new class extends Component {
 
     public function render()
     {
-        $data = Role::where('role_name', 'like', '%' . $this->search . '%')->paginate(10);
+        $this->selectedDetails = InformationSystem::with(
+            "systemType",
+            "office",
+            "systemStatus",
+            "workEnvironment",
+            "developmentStrategy",
+            "user",
+            "systemProblems",
+            "infoSysDevelopers",
+            "infoSysFundingSources",
+            "infoSysInternalUsers",
+            "infoSysExternalUsers",
+            "infoSysRiseAgendas",
+            "infoSysDevelopers.developer",
+            "infoSysFundingSources.fundingSource",
+            "infoSysInternalUsers.infoInternal",
+            "infoSysExternalUsers.infoExternal",
+            "infoSysRiseAgendas.riseAgenda",
+        )->find(3);
 
+        $data = InformationSystem::with(
+            "systemType",
+            "office",
+            "systemStatus",
+            "workEnvironment",
+            "developmentStrategy",
+            "user",
+            "systemProblems",
+            "infoSysDevelopers",
+            "infoSysFundingSources",
+            "infoSysInternalUsers",
+            "infoSysExternalUsers",
+            "infoSysRiseAgendas"
+        )
+            ->where('infoSys_systemName', 'like', '%' . $this->search . '%')->paginate(10);
+
+        // dd($data->toArray());
         return $this->view([
             'data' => $data,
         ]);
+    }
+
+    public function seeDetails($id)
+    {
+        $this->isSeeDetails = true;
+
+        $this->selectedDetails = InformationSystem::with(
+            "systemType",
+            "office",
+            "systemStatus",
+            "workEnvironment",
+            "developmentStrategy",
+            "user",
+            "systemProblems",
+            "infoSysDevelopers",
+            "infoSysFundingSources",
+            "infoSysInternalUsers",
+            "infoSysExternalUsers",
+            "infoSysRiseAgendas"
+        )->find($id);
     }
 
     #[On('goBack')]
@@ -47,11 +104,11 @@ new class extends Component {
     public function delete($id)
     {
         try {
-            $data = Role::find($id);
+            $data = InformationSystem::find($id);
             $data->delete();
-            $this->dispatch('toast', type: 'success', message: 'Role deleted successfully');
+            $this->dispatch('toast', type: 'success', message: 'System deleted successfully');
         } catch (\Throwable $th) {
-            $this->dispatch('toast', type: 'danger', message: 'This role is currently in use and cannot be deleted.');
+            $this->dispatch('toast', type: 'danger', message: 'This system is currently in use and cannot be deleted.');
         }
     }
 };
@@ -59,14 +116,18 @@ new class extends Component {
 
 <div class="container-fluid">
 
-    @if (!$this->isAddData && !$this->isEditData)
+    @if($this->isSeeDetails)
+        <livewire:pages::transaction.information-system.information-system-details :data="$this->selectedDetails" />
+    @endif
+
+    @if (!$this->isAddData && !$this->isEditData && !$this->isSeeDetails)
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
-                <h5 class="fw-semibold mb-0">Roles</h5>
-                <small class="text-muted">List of all roles in the system</small>
+                <h5 class="fw-semibold mb-0">Information systems</h5>
+                <small class="text-muted">List of all information systems in the system</small>
             </div>
             <button wire:click="set('isAddData', true)" class="btn btn-primary btn-sm">
-                <i class="bi bi-plus-lg"></i> Add Role
+                <i class="bi bi-plus-lg"></i> Add Information Sytem
             </button>
         </div>
         <hr />
@@ -74,8 +135,7 @@ new class extends Component {
         {{-- Search --}}
         <div class="mb-3">
             <div style="max-width: 320px;">
-                <input type="search" wire:model.live.debounce.100ms="search" class="form-control"
-                    placeholder="Search...">
+                <input type="search" wire:model.live.debounce.100ms="search" class="form-control" placeholder="Search...">
             </div>
         </div>
 
@@ -83,24 +143,34 @@ new class extends Component {
             <table class="table">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Role Name</th>
+                        <th>Rank</th>
+                        <th>System Name</th>
+                        <th>Type of system</th>
+                        <th>Office</th>
+                        <th>Initiation Year</th>
+                        <th>PIA Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($data as $element)
                         <tr>
-                            <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</td>
-                            <td>{{ $element->role_name }}</td>
+                            <td>{{ $element->infoSys_rank }}</td>
+                            <td>{{ $element->infoSys_systemName }}</td>
+                            <td>{{ $element->systemType->systemType_name }}</td>
+                            <td>{{ $element->office->office_name }}</td>
+                            <td>{{ $element->infoSys_initiationYear }}</td>
+                            <td>{{ $element->infoSys_hasPIA ? 'Yes' : 'No' }}</td>
                             <td class="text-nowrap">
+                                <button class="btn btn-outline-dark"
+                                    wire:click="seeDetails({{ $element->infoSys_id }})">Details</button>
                                 <button type="button" class="btn btn-primary btn-sm"
-                                    wire:click="editData({{ $element->role_id }})">
+                                    wire:click="editData({{ $element->infoSys_id }})">
                                     Update
                                 </button>
                                 <button type="button" class="btn btn-danger btn-sm"
-                                    wire:confirm="Are you sure to delete this role?"
-                                    wire:click="delete({{ $element->role_id }})">Delete</button>
+                                    wire:confirm="Are you sure to delete this system?"
+                                    wire:click="delete({{ $element->infoSys_id }})">Delete</button>
                             </td>
                         </tr>
                     @empty

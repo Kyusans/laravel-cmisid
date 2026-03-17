@@ -2,8 +2,11 @@
 
 namespace App\Models\Transaction;
 
+use App\Models\Developer;
 use App\Models\DevelopmentStrategy;
+use App\Models\FundingSource;
 use App\Models\Office;
+use App\Models\RiseAgenda;
 use App\Models\SystemStatus;
 use App\Models\SystemType;
 use App\Models\User;
@@ -78,7 +81,7 @@ class InformationSystem extends Model
 
     public function infoSysFundingSources()
     {
-        return $this->hasMany(InfoSysFunding::class, "infoFund_id", "infoSys_id");
+        return $this->hasMany(InfoSysFunding::class, "infoFund_infoSysId", "infoSys_id");
     }
 
     public function infoSysInternalUsers()
@@ -91,18 +94,38 @@ class InformationSystem extends Model
         return $this->hasMany(InfoSysExternalUser::class, "infoExternal_infoSysId", "infoSys_id");
     }
 
-    public function infoSysMfos()
-    {
-        return $this->hasMany(InfoSysMfo::class, "infoMfo_infoSysId", "infoSys_id");
-    }
-
-    public function infoSysPpas()
-    {
-        return $this->hasMany(InfoSysPpa::class, "infoPpa_infoSysId", "infoSys_id");
-    }
-
     public function infoSysRiseAgendas()
     {
         return $this->hasMany(InfoSysRiseAgenda::class, "infoAgenda_infoSysId", "infoSys_id");
+    }
+
+    // InfoSysDeveloper.php
+    public function developer()
+    {
+        return $this->belongsTo(Developer::class, "infodev_devId", "dev_id");
+    }
+
+    // InfoSysFunding.php
+    public function fundingSource()
+    {
+        return $this->belongsTo(FundingSource::class, "infoFund_fundingId", "funding_id");
+    }
+
+    // InfoSysInternalUser.php
+    public function infoInternal()
+    {
+        return $this->belongsTo(Office::class, "infoInternal_officeId", "office_id");
+    }
+
+    // InfoSysExternalUser.php
+    public function infoExternal()
+    {
+        return $this->belongsTo(Office::class, "infoExternal_officeId", "office_id");
+    }
+
+    // InfoSysRiseAgenda.php
+    public function riseAgenda()
+    {
+        return $this->belongsTo(RiseAgenda::class, "infoAgenda_riseAgendaId", "riseAgenda_id");
     }
 }

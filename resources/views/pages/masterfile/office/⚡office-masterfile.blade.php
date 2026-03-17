@@ -18,7 +18,6 @@ new class extends Component {
 
     public function render()
     {
-        // withCount adds mfos_count and ppas_count to your model results
         $data = Office::withCount(['mfos', 'ppas'])
             ->where('office_name', 'like', '%' . $this->search . '%')
             ->paginate(10);
@@ -28,7 +27,6 @@ new class extends Component {
 
     public function showDetails($id)
     {
-        // Fetch the office with the actual child records for the modal
         $this->viewingDetails = Office::with(['mfos', 'ppas'])->find($id);
     }
 
@@ -50,15 +48,6 @@ new class extends Component {
     {
         $this->resetPage();
     }
-
-    // public function render()
-    // {
-    //     $data = Office::where('office_name', 'like', '%' . $this->search . '%')->paginate(10);
-
-    //     return $this->view([
-    //         'data' => $data,
-    //     ]);
-    // }
 
     #[On('goBack')]
     public function handleBack()

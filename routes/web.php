@@ -22,4 +22,5 @@ Route::middleware("auth")->group(function () {
   Route::livewire("/masterfiles/mfo", "pages::masterfile.mfo.mfo-masterfile")->name("mfo");
   Route::livewire("/masterfiles/ppa", "pages::masterfile.ppa.ppa-masterfiles")->name("ppa");
   Route::livewire('/information-systems', 'pages::transaction.information-system.information-system-page')->name('infosystems');
+  Route::livewire('/information-systems2', 'pages::infosys.show_infosystems')->name('infosystems');
 });
