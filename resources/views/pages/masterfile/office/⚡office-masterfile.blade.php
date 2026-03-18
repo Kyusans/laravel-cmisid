@@ -142,36 +142,56 @@ new class extends Component {
     @endif
 
     @if ($viewingDetails)
-        <div class="modal fade show d-block" tabindex="-1" style="background: rgba(0,0,0,0.5);">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">{{ $viewingDetails->office_name }}</h5>
+        <div class="modal fade show d-block" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content border-0 shadow-lg">
+
+                    <div class="modal-header border-bottom-0 pb-0">
+                        <div>
+                            <h3 class="modal-title fw-bold mb-0">{{ $viewingDetails->office_name }}</h3>
+                            <small class="text-muted">Office Details</small>
+                        </div>
                         <button type="button" class="btn-close" wire:click="closeDetails"></button>
                     </div>
-                    <div class="modal-body">
-                        <div class="col">
-                            <div class="row-md-6">
-                                <h6 class="fw-bold border-bottom pb-2">MFO</h6>
+
+                    <div class="modal-body pt-3">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center gap-2 mb-3">
+                                    <span class="fw-semibold">MFOs</span>    
+                                </div>
                                 @forelse($viewingDetails->mfos as $mfo)
-                                    <p class="text-muted">{{ $mfo->mfo_name }}</p>
+                                    <div class="d-flex align-items-center gap-2 py-2 border-bottom">
+                                        <i class="bi bi-dot text-primary fs-5"></i>
+                                        <span class="text-muted small">{{ $mfo->mfo_name }}</span>
+                                    </div>
                                 @empty
-                                    <p>No MFOs found.</p>
+                                    <p class="text-muted small fst-italic">No MFOs added.</p>
                                 @endforelse
                             </div>
-                            <div class="row-md-6">
-                                <h6 class="fw-bold border-bottom pb-2">PPA</h6>
+
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center gap-2 mb-3">
+                                    <span class="fw-semibold">PPAs</span>
+                                </div>
                                 @forelse($viewingDetails->ppas as $ppa)
-                                    <p class="text-muted">{{ $ppa->ppa_name }}</p>
+                                    <div class="d-flex align-items-center gap-2 py-2 border-bottom">
+                                        <i class="bi bi-dot text-success fs-5"></i>
+                                        <span class="text-muted small">{{ $ppa->ppa_name }}</span>
+                                    </div>
                                 @empty
-                                    <p>No PPAs found.</p>
+                                    <p class="text-muted small fst-italic">No PPAs added.</p>
                                 @endforelse
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" wire:click="closeDetails">Close</button>
+
+                    <div class="modal-footer border-top-0 pt-0">
+                        <button type="button" class="btn btn-primary btn-sm px-4" wire:click="closeDetails">
+                            Close
+                        </button>
                     </div>
+
                 </div>
             </div>
         </div>

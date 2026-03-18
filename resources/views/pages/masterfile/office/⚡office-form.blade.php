@@ -14,6 +14,9 @@ new class extends Component {
     public $mfo = [];
     public $ppa = [];
 
+    public $deletedMfoIds = [];
+    public $deletedPpaIds = [];
+
     public function addMfo()
     {
         $this->mfo[] = ['mfo_id' => null, 'mfoName' => ''];
@@ -21,6 +24,9 @@ new class extends Component {
 
     public function removeMfo($index)
     {
+        if (!empty($this->mfo[$index]['mfo_id'])) {
+            $this->deletedMfoIds[] = $this->mfo[$index]['mfo_id'];
+        }
         unset($this->mfo[$index]);
         $this->mfo = array_values($this->mfo);
     }
@@ -32,6 +38,9 @@ new class extends Component {
 
     public function removePpa($index)
     {
+        if (!empty($this->ppa[$index]['ppa_id'])) {
+            $this->deletedPpaIds[] = $this->ppa[$index]['ppa_id'];
+        }
         unset($this->ppa[$index]);
         $this->ppa = array_values($this->ppa);
     }
@@ -67,31 +76,17 @@ new class extends Component {
 
     public function saveMfo($officeId, $mfo)
     {
+        Mfo::whereIn('mfo_id', $this->deletedMfoIds)->delete();
         foreach ($mfo as $element) {
-            Mfo::updateOrCreate(
-                [
-                    'mfo_id' => $element['mfo_id'] ?? null,
-                ],
-                [
-                    'mfo_name' => $element['mfoName'],
-                    'mfo_officeId' => $officeId,
-                ],
-            );
+            Mfo::updateOrCreate(['mfo_id' => $element['mfo_id'] ?? null], ['mfo_name' => $element['mfoName'], 'mfo_officeId' => $officeId]);
         }
     }
 
     public function savePpa($officeId, $ppa)
     {
+        Ppa::whereIn('ppa_id', $this->deletedPpaIds)->delete();
         foreach ($ppa as $element) {
-            Ppa::updateOrCreate(
-                [
-                    'ppa_id' => $element['ppa_id'] ?? null,
-                ],
-                [
-                    'ppa_name' => $element['ppaName'],
-                    'ppa_officeId' => $officeId,
-                ],
-            );
+            Ppa::updateOrCreate(['ppa_id' => $element['ppa_id'] ?? null], ['ppa_name' => $element['ppaName'], 'ppa_officeId' => $officeId]);
         }
     }
 
@@ -189,51 +184,63 @@ new class extends Component {
                     <span class="text-danger small">{{ $message }}</span>
                 @enderror
             </div>
-
             <hr>
-
             <div class="mb-4">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <label class="form-label fw-bold mb-0">MFOs</label>
-                    <button type="button" wire:click="addMfo" class="btn btn-sm btn-outline-primary">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <span class="fw-semibold">MFOs</span>
+                    </div>
+                    <button type="button" wire:click="addMfo"
+                        class="btn btn-sm btn-primary d-flex align-items-center gap-1">
                         <i class="bi bi-plus-lg"></i> Add MFO
                     </button>
                 </div>
 
+                @if (count($mfo) === 0)
+                    <p class="text-muted small fst-italic">No MFOs added yet.</p>
+                @endif
+
                 @foreach ($mfo as $index => $item)
-                    <div class="input-group mb-2" key="mfo-{{ $index }}">
-                        <input type="text" wire:model="mfo.{{ $index }}.mfoName" class="form-control"
-                            placeholder="Enter MFO name">
-                        <button type="button" wire:click="removeMfo({{ $index }})"
-                            class="btn btn-outline-danger">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <input type="text" wire:model="mfo.{{ $index }}.mfoName"
+                            class="form-control form-control-sm" placeholder="Enter MFO name">
+                        <button type="button" wire:confirm="Are you sure to delete this MFO?" wire:click="removeMfo({{ $index }})"
+                            class="btn btn-link p-0 text-danger">
                             <i class="bi bi-x-lg"></i>
                         </button>
                     </div>
                     @error("mfo.$index.mfoName")
-                        <span class="text-danger small">{{ $message }}</span>
+                        <span class="text-danger small d-block mb-1">{{ $message }}</span>
                     @enderror
                 @endforeach
             </div>
 
             <div class="mb-4">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <label class="form-label fw-bold mb-0">PPAs</label>
-                    <button type="button" wire:click="addPpa" class="btn btn-sm btn-outline-primary">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <span class="fw-semibold">PPAs</span>
+                    </div>
+                    <button type="button" wire:click="addPpa"
+                        class="btn btn-sm btn-primary d-flex align-items-center gap-1">
                         <i class="bi bi-plus-lg"></i> Add PPA
                     </button>
                 </div>
 
+                @if (count($ppa) === 0)
+                    <p class="text-muted small fst-italic">No PPAs added yet.</p>
+                @endif
+
                 @foreach ($ppa as $index => $item)
-                    <div class="input-group mb-2" key="ppa-{{ $index }}">
-                        <input type="text" wire:model="ppa.{{ $index }}.ppaName" class="form-control"
-                            placeholder="Enter PPA name">
-                        <button type="button" wire:click="removePpa({{ $index }})"
-                            class="btn btn-outline-danger">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <input type="text" wire:model="ppa.{{ $index }}.ppaName"
+                            class="form-control form-control-sm" placeholder="Enter PPA name">
+                        <button type="button" wire:confirm="Are you sure to delete this PPA?" wire:click="removePpa({{ $index }})"
+                            class="btn btn-link p-0 text-danger">
                             <i class="bi bi-x-lg"></i>
                         </button>
                     </div>
                     @error("ppa.$index.ppaName")
-                        <span class="text-danger small">{{ $message }}</span>
+                        <span class="text-danger small d-block mb-1">{{ $message }}</span>
                     @enderror
                 @endforeach
             </div>
