@@ -18,7 +18,7 @@ class InfoSysInternalUser extends Model
         return $this->belongsTo(InformationSystem::class, "infoInternal_infoSysId", "infoSys_id");
     }
 
-    public function officeId()
+    public function office()
     {
         return $this->belongsTo(Office::class, "infoInternal_officeId", "office_id");
     }

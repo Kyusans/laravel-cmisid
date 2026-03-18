@@ -85,3 +85,4 @@ Route::post("/update-development-strategy", [DevelopmentStrategyMasterController
 // information system transaction
 Route::post("/add-information-system", [InformationSystemController::class, "addInformationSystem"])->name("add-information-system");
 Route::post("/update-information-system", [InformationSystemController::class, "updateInformationSystem"])->name("update-information-system");
+Route::get("/get-information-system", [InformationSystemController::class, "getInfomationSystem"])->name("get-information-system");

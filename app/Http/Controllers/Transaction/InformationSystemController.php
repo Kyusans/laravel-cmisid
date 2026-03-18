@@ -193,4 +193,10 @@ class InformationSystemController extends Controller
 
         session()->flash("success", "Information System updated successfully");
     }
+
+    public function getInfomationSystem()
+    {
+        $informationSystems = InformationSystem::with(['systemType', 'office', 'systemStatus', 'workEnvironment', 'developmentStrategy', 'user', 'systemProblems', 'infoSysDevelopers.developer', 'infoSysFundingSources.fundingSource', 'infoSysInternalUsers.office', 'infoSysExternalUsers.office', 'infoSysRiseAgendas.riseAgenda'])->get();
+        return response()->json($informationSystems);
+    }
 }

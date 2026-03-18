@@ -98,34 +98,4 @@ class InformationSystem extends Model
     {
         return $this->hasMany(InfoSysRiseAgenda::class, "infoAgenda_infoSysId", "infoSys_id");
     }
-
-    // InfoSysDeveloper.php
-    public function developer()
-    {
-        return $this->belongsTo(Developer::class, "infodev_devId", "dev_id");
-    }
-
-    // InfoSysFunding.php
-    public function fundingSource()
-    {
-        return $this->belongsTo(FundingSource::class, "infoFund_fundingId", "funding_id");
-    }
-
-    // InfoSysInternalUser.php
-    public function infoInternal()
-    {
-        return $this->belongsTo(Office::class, "infoInternal_officeId", "office_id");
-    }
-
-    // InfoSysExternalUser.php
-    public function infoExternal()
-    {
-        return $this->belongsTo(Office::class, "infoExternal_officeId", "office_id");
-    }
-
-    // InfoSysRiseAgenda.php
-    public function riseAgenda()
-    {
-        return $this->belongsTo(RiseAgenda::class, "infoAgenda_riseAgendaId", "riseAgenda_id");
-    }
 }
