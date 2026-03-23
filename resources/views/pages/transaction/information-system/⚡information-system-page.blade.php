@@ -69,7 +69,6 @@ new class extends Component {
 
 <div class="container-fluid py-3 px-4">
 
-    {{-- ── Detail view ──────────────────────────────────────────── --}}
     @if ($this->isSeeDetails && $this->selectedDetails)
         <div>
             <button wire:click="handleBack" class="is-back-btn mb-4">
@@ -82,7 +81,6 @@ new class extends Component {
             <livewire:pages::transaction.information-system.information-system-details :data="$this->selectedDetails" />
         </div>
 
-        {{-- ── Add / Edit form ──────────────────────────────────────── --}}
     @elseif ($isAddData || $isEditData)
         <div>
             <button wire:click="handleBack" class="is-back-btn mb-4">
@@ -95,9 +93,7 @@ new class extends Component {
             <livewire:pages::transaction.information-system.information-system-form :isAddData="$isAddData" :selectedDataId="$selectedDataId" />
         </div>
 
-        {{-- ── List view ────────────────────────────────────────────── --}}
     @else
-        {{-- Page header --}}
         <div class="d-flex justify-content-between align-items-start mb-4">
             <div>
                 <h5 class="fw-semibold mb-1" style="letter-spacing: -0.02em;">Information Systems</h5>
@@ -113,7 +109,6 @@ new class extends Component {
             </button>
         </div>
 
-        {{-- Search --}}
         <div class="mb-3" style="max-width: 300px;">
             <div style="max-width: 320px;">
                 <input type="search" wire:model.live.debounce.100ms="search" class="form-control"
@@ -121,7 +116,6 @@ new class extends Component {
             </div>
         </div>
 
-        {{-- Table --}}
         <div class="table-responsive">
             <table class="table">
                 <thead>
@@ -166,13 +160,13 @@ new class extends Component {
                                 @endif
                             </td>
                             <td class="text-nowrap">
-                                <button class="btn btn-outline-secondary btn-sm"
+                                <button class="btn btn-outline-dark btn-sm"
                                     wire:click="seeDetails({{ $element->infoSys_id }})">
                                     Details
                                 </button>
-                                <button class="btn btn-outline-dark btn-sm"
+                                <button class="btn btn-primary btn-sm"
                                     wire:click="editData({{ $element->infoSys_id }})">
-                                    Edit
+                                    Update
                                 </button>
                                 <button class="btn btn-danger btn-sm"
                                     wire:confirm="Are you sure you want to delete this system?"

@@ -175,7 +175,7 @@ new class extends Component {
 
             <div class="detail-card">
                 <div class="detail-card-header">
-                    <span class="detail-card-title">Managed By</span>
+                    <span class="detail-card-title">Added By</span>
                 </div>
                 <div class="detail-card-body">
                     <div class="d-flex align-items-center gap-3">

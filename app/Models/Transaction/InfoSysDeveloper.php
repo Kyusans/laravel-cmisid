@@ -11,17 +11,17 @@ class InfoSysDeveloper extends Model
     protected $primaryKey = 'infodev_id';
 
     protected $fillable = [
-        "infodev_devId",
-        "infodev_infoSysId"
+        'infoDev_devId',
+        'infoDev_infoSysId'
     ];
 
     public function developer()
     {
-        return $this->belongsTo(Developer::class, "infodev_devId", "dev_id");
+        return $this->belongsTo(Developer::class, "infoDev_devId", "dev_id");
     }
 
     public function informationSystem()
     {
-        return $this->belongsTo(InformationSystem::class, "infodev_infoSysId", "infoSys_id");
+        return $this->belongsTo(InformationSystem::class, "infoDev_infoSysId", "infoSys_id");
     }
 }

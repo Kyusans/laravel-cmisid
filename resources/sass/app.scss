@@ -621,10 +621,9 @@ label {
 }
 
 .isf-root {
-    max-width: 820px;
+    // max-width: 820px;
     margin: 0 auto;
     padding: 2rem 1.25rem 5rem;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     color: var(--text-primary);
 }
 
@@ -1034,6 +1033,79 @@ label {
 .isf-btn-loading {
     opacity: .65;
     cursor: not-allowed;
+}
+
+.isf-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.isf-switch input[type="checkbox"] {
+    display: none;
+}
+
+.isf-switch-track {
+    position: relative;
+    width: 36px;
+    height: 20px;
+    background: var(--border-color);
+    border-radius: 10px;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+
+.isf-switch input:checked~.isf-switch-track {
+    background: var(--text-primary);
+}
+
+[data-bs-theme="dark"] .isf-switch input:checked~.isf-switch-track {
+    background: #fafafa;
+}
+
+.isf-switch-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.2s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.isf-switch input:checked~.isf-switch-track .isf-switch-thumb {
+    transform: translateX(16px);
+}
+
+[data-bs-theme="dark"] .isf-switch-thumb {
+    background: #09090b;
+}
+
+.isf-switch-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    min-width: 24px;
+}
+
+.isf-slide-enter {
+    transition: opacity 0.2s ease, transform 0.2s ease, max-height 0.25s ease;
+    overflow: hidden;
+}
+
+.isf-slide-enter-start {
+    opacity: 0;
+    transform: translateY(-6px);
+    max-height: 0;
+}
+
+.isf-slide-enter-end {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 80px;
 }
 
 /* ── Spinner ──────────────────────────────────────────────── */
