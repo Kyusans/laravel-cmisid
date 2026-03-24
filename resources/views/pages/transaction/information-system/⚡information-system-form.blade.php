@@ -139,6 +139,11 @@ new class extends Component {
         }
     }
 
+    public function toggleSmartCity()
+    {
+        $this->isSmartCityInitiative = $this->isSmartCityInitiative === '1' ? '0' : '1';
+    }
+
     public function toggleHasPIA()
     {
         $this->hasPIA = $this->hasPIA === '1' ? '0' : '1';
@@ -378,7 +383,6 @@ new class extends Component {
 
     <div class="isf-page-header">
         <div>
-            <p class="isf-breadcrumb">Information Systems &rsaquo; <span>{{ $isAddData ? 'New' : 'Edit' }}</span></p>
             <h1 class="isf-page-title">{{ $isAddData ? 'Add Information System' : 'Edit Information System' }}</h1>
             <p class="isf-page-sub">
                 {{ $isAddData ? 'Register a new government information system.' : 'Update the details of this information system.' }}
@@ -580,8 +584,9 @@ new class extends Component {
 
                 <div class="isf-field">
                     <label class="isf-label">Smart City Initiative <span class="isf-req">*</span></label>
-                    <label class="isf-switch">
-                        <input type="checkbox" wire:model="isSmartCityInitiative" value="1"
+                   <label class="isf-switch">
+                        <input type="checkbox"
+                            wire:click="toggleSmartCity"
                             {{ $isSmartCityInitiative === '1' ? 'checked' : '' }}>
                         <span class="isf-switch-track">
                             <span class="isf-switch-thumb"></span>
@@ -597,7 +602,7 @@ new class extends Component {
                     <label class="isf-switch" x-data="{ busy: false }">
                         <input type="checkbox" x-bind:disabled="busy" wire:click="toggleHasPIA"
                             x-on:click="busy = true; setTimeout(() => busy = false, 750)"
-                            {{ $hasPIA === '1' ? 'checked' : '' }}>
+                            {{ $hasPIA === '1' ? 'checked' : '0' }}>
                         <span class="isf-switch-track" x-bind:style="busy ? 'opacity:0.6;' : ''">
                             <span class="isf-switch-thumb"></span>
                         </span>

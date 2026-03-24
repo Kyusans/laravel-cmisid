@@ -74,8 +74,7 @@ new class extends Component {
         {{-- Search --}}
         <div class="mb-3">
             <div style="max-width: 320px;">
-                <input type="search" wire:model.live.debounce.100ms="search" class="form-control"
-                    placeholder="Search...">
+                <input type="search" wire:model.live.debounce.100ms="search" class="form-control" placeholder="Search...">
             </div>
         </div>
 
@@ -120,11 +119,16 @@ new class extends Component {
         </div>
     @elseif ($isAddData || $isEditData)
         <div>
-            <button wire:click="handleBack()" class="btn btn-outline-secondary btn-sm mb-3">
-                <i class="bi bi-arrow-left"></i> Back
+            <button wire:click="handleBack" class="is-back-btn mb-4">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 2L4 7l5 5" />
+                </svg>
+                Back
             </button>
 
-            <livewire:pages::masterfile.funding-source.funding-source-form :isAddData="$isAddData" :selectedDataId="$selectedDataId" />
+            <livewire:pages::masterfile.funding-source.funding-source-form :isAddData="$isAddData"
+                :selectedDataId="$selectedDataId" />
         </div>
     @endif
 </div>
