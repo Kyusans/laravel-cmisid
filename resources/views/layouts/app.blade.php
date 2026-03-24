@@ -92,14 +92,14 @@
                         class="nav-link {{ request()->routeIs('developer') ? 'active' : '' }}">
                         <i class="bi-person-workspace"></i> Developer
                     </a>
-
+                    {{--
                     <a href="{{ route(name: 'mfo') }}" class="nav-link {{ request()->routeIs('mfo') ? 'active' : '' }}">
                         <i class="bi-check2-square"></i> MFO
                     </a>
 
                     <a href="{{ route(name: 'ppa') }}" class="nav-link {{ request()->routeIs('ppa') ? 'active' : '' }}">
                         <i class="bi-ui-checks"></i> PPA
-                    </a>
+                    </a> --}}
                 </div>
                 <div class="p-3 border-top mt-auto">
                     <div class="d-flex align-items-center gap-2">
@@ -110,13 +110,17 @@
                         </div>
 
                         <div class="dropdown">
-                            <button class="btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-link dropdown-toggle no-caret" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
                                 <i class="bi bi-three-dots-vertical"></i>
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
                                     <form action="{{ route('logout') }}" method="POST">
                                         @csrf
+                                        <h6 class="dropdown-header">Settings</h6>
+                                        <a href="{{ route('change-password') }}" class="dropdown-item">Change Password</a>
+                                        <div class="dropdown-divider"></div>
                                         <button type="submit" class="dropdown-item">Logout</button>
                                     </form>
                                 </li>

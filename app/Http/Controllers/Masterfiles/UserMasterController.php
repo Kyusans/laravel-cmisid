@@ -13,7 +13,7 @@ class UserMasterController extends Controller
 
 	public function addUser(Request $request)
 	{
-		// {"userFirstName":"Bea Ysabel", "userMiddleName":"Macalua", "userLastName":"Lachica", "userEmail":"bealachica@gmail.com", "userPassword":"beagwapa", "userOfficeId":"2", "userRoleId":"1"}   
+		// {"userFirstName":"Bea Ysabel", "userMiddleName":"Macalua", "userLastName":"Lachica", "userEmail":"bea@gmail.com", "userPassword":"beagwapa", "userOfficeId":"1", "userRoleId":"1"}   
 		$validated = $request->validate([
 			"userFirstName" => "required|string",
 			"userMiddleName" => "nullable|string",

@@ -364,7 +364,7 @@ new class extends Component {
     {{-- ── Page Header ──────────────────────────────────────── --}}
     <div class="isr-header">
         <div>
-            <h1 class="isf-page-title" style="margin-bottom:4px;">Information Systems</h1>
+            <h1 class="isf-page-title" style="margin-bottom:4px;">Dashboard</h1>
             <p class="isf-page-sub">Overview of information systems across city government offices.</p>
         </div>
         <button wire:click="exportExcel" wire:loading.attr="disabled" wire:target="exportExcel" class="isf-btn-submit">
@@ -399,29 +399,31 @@ new class extends Component {
                 <p class="isr-card-value">{{ $this->totalSystems }}</p>
             </div>
         </div>
+
         <div class="isr-card">
-            <div class="isr-card-icon" style="color:#d97706;">
+            <div class="isr-card-icon" style="color:#0d9488;">
                 <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                    <polyline points="14 2 14 8 20 8" />
-                    <line x1="16" y1="13" x2="8" y2="13" />
-                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polygon
+                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                 </svg>
             </div>
             <div>
-                <p class="isr-card-label">In Planning</p>
-                <p class="isr-card-value">{{ $this->totalPlanned }}</p>
+                <p class="isr-card-label">Smart City Initiatives</p>
+                <p class="isr-card-value">{{ $this->systems->where('infoSys_isSmartCityInitiative', 1)->count() }}</p>
             </div>
         </div>
+
         <div class="isr-card">
-            <div class="isr-card-icon" style="color:#16a34a;">
+            <div class="isr-card-icon" style="color:#dc2626;">
                 <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <line x1="12" y1="16" x2="12.01" y2="16" />
                 </svg>
             </div>
             <div>
-                <p class="isr-card-label">Up &amp; Running</p>
-                <p class="isr-card-value">{{ $this->totalRunning }}</p>
+                <p class="isr-card-label">No PIA Conducted</p>
+                <p class="isr-card-value">{{ $this->systems->where('infoSys_hasPIA', 0)->count() }}</p>
             </div>
         </div>
         <div class="isr-card">
@@ -438,7 +440,6 @@ new class extends Component {
         </div>
     </div>
 
-    {{-- ── Filters ───────────────────────────────────────────── --}}
     <div class="isr-filters">
         <div class="isr-filters-row">
 
@@ -504,7 +505,6 @@ new class extends Component {
         </p>
     </div>
 
-    {{-- ── Table ────────────────────────────────────────────── --}}
     <div class="isr-table-wrap" wire:loading.class="isr-table-dim">
 
         <div wire:loading wire:target="filterOffice,filterStatus,filterYear,filterPia,resetFilters"

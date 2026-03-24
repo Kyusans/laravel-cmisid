@@ -1171,7 +1171,7 @@ label {
 }
 
 [data-bs-theme="dark"] .isr-card {
-    background: #09090b;
+    background: #0a0a0a;
     border-color: #27272a;
 }
 
@@ -1280,6 +1280,334 @@ label {
     width: 55%;
     background: var(--text-primary);
     animation: isr-slide 1s ease infinite;
+}
+
+
+
+.no-caret::after {
+    display: none !important;
+}
+
+/* ── Root ──────────────────────────────────────────────────── */
+.cpw-root {
+    padding: 2rem 1.5rem 4rem;
+    max-width: 1000px;
+}
+
+/* ── Header ────────────────────────────────────────────────── */
+.cpw-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.cpw-breadcrumb {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin: 0 0 0.3rem;
+}
+
+.cpw-breadcrumb span {
+    color: var(--text-primary);
+}
+
+.cpw-title {
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--text-primary);
+    margin: 0 0 0.3rem;
+}
+
+.cpw-sub {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* ── Two-column layout ─────────────────────────────────────── */
+.cpw-layout {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+/* ── Alert ─────────────────────────────────────────────────── */
+.cpw-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    background: rgba(239, 68, 68, .06);
+    border: 1px solid rgba(239, 68, 68, .25);
+    border-radius: 7px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.25rem;
+    color: #b91c1c;
+    font-size: 0.83rem;
+}
+
+[data-bs-theme="dark"] .cpw-alert {
+    color: #f87171;
+}
+
+.cpw-alert-list {
+    margin: 0;
+    padding-left: 1rem;
+}
+
+.cpw-alert-list li+li {
+    margin-top: 0.2rem;
+}
+
+/* ── Form ──────────────────────────────────────────────────── */
+.cpw-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+.cpw-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.cpw-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.cpw-req {
+    color: #ef4444;
+    margin-left: 1px;
+}
+
+/* ── Input ─────────────────────────────────────────────────── */
+.cpw-input-wrap {
+    position: relative;
+}
+
+.cpw-input {
+    width: 100%;
+    padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-family: inherit;
+    color: var(--text-primary);
+    background: var(--nav-hover);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    box-sizing: border-box;
+}
+
+.cpw-input::placeholder {
+    color: var(--text-muted);
+}
+
+.cpw-input:focus {
+    border-color: var(--text-secondary);
+    box-shadow: 0 0 0 3px rgba(113, 113, 122, .12);
+}
+
+.cpw-input-error {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, .1) !important;
+}
+
+.cpw-eye {
+    position: absolute;
+    right: 0.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    padding: 0.2rem;
+    border-radius: 4px;
+    transition: color 0.15s;
+}
+
+.cpw-eye:hover {
+    color: var(--text-primary);
+}
+
+.cpw-error {
+    font-size: 0.775rem;
+    color: #ef4444;
+    margin: 0;
+}
+
+.cpw-actions {
+    padding-top: 0.4rem;
+}
+
+/* ── Right col ─────────────────────────────────────────────── */
+.cpw-req-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding-top: 0.25rem;
+}
+
+/* ── Progress ──────────────────────────────────────────────── */
+.cpw-prog-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.cpw-prog-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cpw-prog-heading {
+    font-size: 0.775rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+}
+
+.cpw-prog-score {
+    font-size: 0.775rem;
+    font-weight: 700;
+    transition: color 0.25s;
+}
+
+.cpw-score-red {
+    color: #ef4444;
+}
+
+.cpw-score-amber {
+    color: #f59e0b;
+}
+
+.cpw-score-green {
+    color: #16a34a;
+}
+
+[data-bs-theme="dark"] .cpw-score-green {
+    color: #4ade80;
+}
+
+.cpw-prog-track {
+    height: 5px;
+    background: var(--border-color);
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.cpw-prog-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.3s ease, background 0.3s ease;
+    min-width: 0;
+}
+
+.cpw-fill-red {
+    background: #ef4444;
+}
+
+.cpw-fill-amber {
+    background: #f59e0b;
+}
+
+.cpw-fill-green {
+    background: #16a34a;
+}
+
+.cpw-prog-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* ── Requirements list ─────────────────────────────────────── */
+.cpw-req-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.cpw-req-item {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--border-color);
+    transition: color 0.2s;
+}
+
+[data-bs-theme="dark"] .cpw-req-item {
+    border-color: #27272a;
+}
+
+.cpw-req-item:last-child {
+    border-bottom: none;
+}
+
+.cpw-item-unmet {
+    color: var(--text-muted);
+}
+
+.cpw-item-met {
+    color: #16a34a;
+}
+
+[data-bs-theme="dark"] .cpw-item-met {
+    color: #4ade80;
+}
+
+.cpw-req-badge {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.cpw-badge-unmet {
+    background: transparent;
+    border: 1.5px solid var(--border-color);
+    color: var(--text-muted);
+}
+
+.cpw-badge-met {
+    background: rgba(22, 163, 74, .12);
+    border: 1.5px solid rgba(22, 163, 74, .3);
+    color: #16a34a;
+}
+
+[data-bs-theme="dark"] .cpw-badge-met {
+    background: rgba(74, 222, 128, .12);
+    border-color: rgba(74, 222, 128, .3);
+    color: #4ade80;
+}
+
+.cpw-req-text {
+    font-size: 0.845rem;
+    font-weight: 500;
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 720px) {
+    .cpw-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
 }
 
 @keyframes isr-slide {
