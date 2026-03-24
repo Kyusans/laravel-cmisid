@@ -584,7 +584,7 @@ new class extends Component {
 
                 <div class="isf-field">
                     <label class="isf-label">Smart City Initiative <span class="isf-req">*</span></label>
-                   <label class="isf-switch">
+                    <label class="isf-switch">
                         <input type="checkbox"
                             wire:click="toggleSmartCity"
                             {{ $isSmartCityInitiative === '1' ? 'checked' : '' }}>
