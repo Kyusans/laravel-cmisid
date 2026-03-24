@@ -78,8 +78,6 @@ Route::post("/update-ppa", [PpaMasterController::class, "updatePpa"])->name("upd
 Route::post("/add-development-strategy", [DevelopmentStrategyMasterController::class, "addDevelopmentStrategy"])->name("add-development-strategy");
 Route::post("/update-development-strategy", [DevelopmentStrategyMasterController::class, "updateDevelopmentStrategy"])->name("update-development-strategy");
 
-
-
 // -- transactions
 
 // information system transaction

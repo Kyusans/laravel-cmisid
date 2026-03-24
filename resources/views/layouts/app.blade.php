@@ -108,11 +108,20 @@
                                 class="d-block fw-bold text-truncate">{{ Auth::user()->user_firstName . ' ' . Auth::user()->user_lastName }}</small>
                             <small class="text-muted">{{ Auth::user()->user_email }}</small>
                         </div>
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-link p-0 text-danger"><i
-                                    class="bi bi-box-arrow-right"></i></button>
-                        </form>
+
+                        <div class="dropdown">
+                            <button class="btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item">Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </aside>

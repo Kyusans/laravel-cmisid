@@ -30,7 +30,7 @@ new class extends Component {
             <p class="isd-description">{{ $this->data->infoSys_description }}</p>
         </div>
         <div class="isd-header-actions">
-            <button class="btn btn-outline-secondary btn-sm">Edit</button>
+            {{-- <button class="btn btn-outline-secondary btn-sm">Edit</button> --}}
             {{-- <button class="btn btn-primary btn-sm">View Report</button> --}}
         </div>
     </div>
@@ -146,7 +146,6 @@ new class extends Component {
                 </div>
             </div>
 
-            {{-- Developers --}}
             <div class="detail-card">
                 <div class="detail-card-header">
                     <span class="detail-card-title">Developers</span>
@@ -160,7 +159,7 @@ new class extends Component {
                             </div>
                             <div>
                                 <div class="person-name">{{ $row->developer->dev_firstName }} {{ $row->developer->dev_lastName }}</div>
-                                <div class="person-sub">Developer</div>
+                                {{-- <div class="person-sub">Developer</div> --}}
                             </div>
                         </div>
                     @empty
