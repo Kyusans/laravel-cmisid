@@ -159,7 +159,7 @@ new class extends Component {
                             </div>
                             <div>
                                 <div class="person-name">{{ $row->developer->dev_firstName }} {{ $row->developer->dev_lastName }}</div>
-                                {{-- <div class="person-sub">Developer</div> --}}
+                                <div class="person-sub">{{ $row->developer->office->office_name }}</div>
                             </div>
                         </div>
                     @empty

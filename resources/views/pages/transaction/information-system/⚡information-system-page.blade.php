@@ -25,7 +25,7 @@ new class extends Component {
     public function seeDetails($id)
     {
         $this->isSeeDetails = true;
-        $this->selectedDetails = InformationSystem::with(['systemType', 'office', 'systemStatus', 'workEnvironment', 'developmentStrategy', 'user', 'systemProblems', 'infoSysDevelopers.developer', 'infoSysFundingSources.fundingSource', 'infoSysInternalUsers.office', 'infoSysExternalUsers.office', 'infoSysRiseAgendas.riseAgenda'])->find($id);
+        $this->selectedDetails = InformationSystem::with(['systemType', 'office', 'systemStatus', 'workEnvironment', 'developmentStrategy', 'user', 'systemProblems', 'infoSysDevelopers.developer.office', 'infoSysFundingSources.fundingSource', 'infoSysInternalUsers.office', 'infoSysExternalUsers.office', 'infoSysRiseAgendas.riseAgenda'])->find($id);
     }
 
     public function editData($dataId)
