@@ -50,12 +50,14 @@
 
                     <div class="nav-section-title">Masterfiles</div>
 
-                    <a href="{{ route('users') }}" class="nav-link {{ request()->routeIs('users') ? 'active' : '' }}">
-                        <i class="bi-people"></i> Users
-                    </a>
-                    <a href="{{ route(name: 'roles') }}" class="nav-link {{ request()->routeIs('roles') ? 'active' : '' }}">
-                        <i class="bi-person-badge"></i> Roles
-                    </a>
+                    @if (auth()->user()->user_roleId == 1)
+                        <a href="{{ route('users') }}" class="nav-link {{ request()->routeIs('users') ? 'active' : '' }}">
+                            <i class="bi-people"></i> Users
+                        </a>
+                        <a href="{{ route(name: 'roles') }}" class="nav-link {{ request()->routeIs('roles') ? 'active' : '' }}">
+                            <i class="bi-person-badge"></i> Roles
+                        </a>
+                    @endif
                     <a href="{{ route(name: 'offices') }}"
                         class="nav-link {{ request()->routeIs('offices') ? 'active' : '' }}">
                         <i class="bi-buildings"></i> Offices

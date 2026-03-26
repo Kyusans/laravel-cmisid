@@ -93,18 +93,22 @@ new class extends Component {
                             <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</td>
                             <td>{{ $element->role_name }}</td>
                             <td class="text-nowrap">
-                                <button type="button" class="btn btn-primary btn-sm"
-                                    wire:click="editData({{ $element->role_id }})">
-                                    Update
-                                </button>
-                                {{-- <button type="button" class="btn btn-primary btn-sm"
-                                    wire:click="editData({{ $element->role_id }})" {{ $element->role_id == 1 ? 'disabled' : ''
-                                    }}>
-                                    Update
-                                </button> --}}
-                                <button type="button" class="btn btn-danger btn-sm"
-                                    wire:confirm="Are you sure to delete this role?"
-                                    wire:click="delete({{ $element->role_id }})">Delete</button>
+                                @if ($element->role_id == 1 || $element->role_id == 2)
+                                    <p class="text-muted">Cannot be updated or deleted</p>
+                                @else
+                                    <button type="button" class="btn btn-primary btn-sm"
+                                        wire:click="editData({{ $element->role_id }})">
+                                        Update
+                                    </button>
+                                    {{-- <button type="button" class="btn btn-primary btn-sm"
+                                        wire:click="editData({{ $element->role_id }})" {{ $element->role_id == 1 ? 'disabled' : ''
+                                        }}>
+                                        Update
+                                    </button> --}}
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                        wire:confirm="Are you sure to delete this role?"
+                                        wire:click="delete({{ $element->role_id }})">Delete</button>
+                                @endif
                             </td>
                         </tr>
                     @empty
