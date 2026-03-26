@@ -94,7 +94,7 @@ new class extends Component {
                         <tr>
                             <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</td>
                             <td>{{ $element->systemType_name }}</td>
-                            <td>{{ $element->systemType_description }}</td>
+                            <td class="cell-text">{{ $element->systemType_description }}</td>
                             <td class="text-nowrap">
                                 <button type="button" class="btn btn-primary btn-sm"
                                     wire:click="editData({{ $element->systemType_id }})">

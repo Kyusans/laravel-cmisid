@@ -1845,16 +1845,6 @@ label {
     gap: 0.45rem;
 }
 
-.lgn-spinner {
-    width: 13px;
-    height: 13px;
-    border: 2px solid rgba(255, 255, 255, .3);
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: lgn-spin .65s linear infinite;
-    flex-shrink: 0;
-}
-
 [data-bs-theme="dark"] .lgn-spinner {
     border-color: rgba(9, 9, 11, .25);
     border-top-color: #09090b;
@@ -1878,4 +1868,14 @@ label {
     .isf-section-body {
         grid-template-columns: 1fr;
     }
+}
+
+.cell-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    white-space: normal;
+    word-break: break-word;
 }

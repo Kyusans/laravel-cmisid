@@ -79,7 +79,7 @@ new class extends Component {
     {{-- ── Header ──────────────────────────────────────────── --}}
     <div class="cpw-header">
         <div>
-            <p class="cpw-breadcrumb">Settings &rsaquo; <span>Security</span></p>
+            {{-- <p class="cpw-breadcrumb">Settings &rsaquo; <span>Security</span></p> --}}
             <h1 class="cpw-title">Change Password</h1>
             <p class="cpw-sub">Keep your account secure by using a strong, unique password.</p>
         </div>

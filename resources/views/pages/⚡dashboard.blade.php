@@ -532,7 +532,7 @@ new class extends Component {
                             <th style="min-width:160px;">RISE Agenda Connection</th>
                             <th style="min-width:120px;">Type</th>
                             <th style="min-width:120px;">Status</th>
-                            <th style="width:72px;">Year</th>
+                            <th style="width:72px;">Initiation Year</th>
                             <th style="min-width:130px;">Dev. Strategy</th>
                             <th style="min-width:120px;">Work Environment</th>
                             <th style="min-width:150px;">Owner</th>
@@ -591,14 +591,14 @@ new class extends Component {
                                     </div>
                                 </td>
                                 <td>
-                                    <div
+                                    <div class="cell-text"
                                         style="font-size:.79rem;color:var(--text-secondary);max-width:220px;white-space:normal;line-height:1.4;">
                                         {{ $sys->infoSys_description ?? '—' }}
                                     </div>
                                 </td>
                                 <td style="font-size:.82rem;color:var(--text-secondary);">{{ $riseAgendas }}</td>
                                 <td>
-                                    <div
+                                    <div class="cell-text"
                                         style="font-size:.79rem;color:var(--text-secondary);max-width:180px;white-space:normal;line-height:1.4;">
                                         {{ $sys->infoSys_riseAgendaConnection ?? '—' }}
                                     </div>
@@ -631,6 +631,7 @@ new class extends Component {
                                 <td style="font-size:.79rem;color:var(--text-secondary);">{{ $externalUsers }}</td>
                                 <td>
                                     <div
+                                    class="cell-text"
                                         style="font-size:.79rem;color:var(--text-secondary);max-width:160px;white-space:normal;line-height:1.4;">
                                         {{ $sys->infoSys_mfoConnection ?? '—' }}
                                     </div>

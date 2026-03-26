@@ -33,6 +33,7 @@ new class extends Component {
                 'password' => $validated['password'],
             ])
         ) {
+            $this->dispatch("toast", type: "success", message: "Login successful.");
             request()->session()->regenerate();
             return redirect()->route('dashboard');
         }
@@ -49,7 +50,7 @@ new class extends Component {
 };
 ?>
 
-<div >
+<div>
 
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="lgn-form-wrap">
@@ -118,7 +119,6 @@ new class extends Component {
                     wire:loading.class="lgn-submit-loading">
                     <span wire:loading.remove wire:target="login">Sign in</span>
                     <span wire:loading wire:target="login" class="lgn-loading-inner" style="display:none;">
-                        <span class="lgn-spinner"></span>
                         Signing in…
                     </span>
                 </button>

@@ -97,7 +97,7 @@ new class extends Component {
                             <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</td>
                             <td>{{ $element->riseAgenda_name }}</td>
                             <td>{{ $element->riseAgendaType->agendaType_name }}</td>
-                            <td>{{ $element->riseAgenda_description }}</td>
+                            <td class="cell-text">{{ $element->riseAgenda_description }}</td>
                             <td class="text-nowrap">
                                 <button type="button" class="btn btn-primary btn-sm"
                                     wire:click="editData({{ $element->riseAgenda_id }})">

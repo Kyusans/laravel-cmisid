@@ -93,7 +93,7 @@ new class extends Component {
                         <tr>
                             <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</td>
                             <td>{{ $element->workEnv_name }}</td>
-                            <td>{{ $element->workEnv_description }}</td>
+                            <td class="cell-text">{{ $element->workEnv_description }}</td>
                             <td class="text-nowrap">
                                 <button type="button" class="btn btn-primary btn-sm"
                                     wire:click="editData({{ $element->workEnv_id }})">
