@@ -54,11 +54,9 @@ new class extends Component {
 
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="lgn-form-wrap">
-
-            {{-- Header --}}
             <div class="lgn-form-header">
-                <h1 class="lgn-title">Welcome back</h1>
-                <p class="lgn-sub">Sign in to your account to continue.</p>
+                <h1 class="lgn-title text-center">Welcome to CGISMS</h1>
+                <p class="text-center text-muted">Sign in to your account to continue.</p>
             </div>
 
             @error('credentials')
@@ -73,11 +71,8 @@ new class extends Component {
                 </div>
             @enderror
 
-            {{-- Form --}}
             <form wire:submit="login" class="lgn-form">
                 @csrf
-
-                {{-- Email --}}
                 <div class="lgn-field">
                     <label class="lgn-label" for="lgn-email">Email address</label>
                     <input wire:model="email" id="lgn-email" type="email"
@@ -87,8 +82,6 @@ new class extends Component {
                         <p class="lgn-error">{{ $message }}</p>
                     @enderror
                 </div>
-
-                {{-- Password --}}
                 <div class="lgn-field">
                     <label class="lgn-label" for="lgn-password">Password</label>
                     <div class="lgn-input-wrap" x-data="{ show: false }">
@@ -115,7 +108,7 @@ new class extends Component {
                     @enderror
                 </div>
 
-                <button type="submit" class="lgn-submit" wire:loading.attr="disabled"
+                <button type="submit" class="lgn-submit mt-2" wire:loading.attr="disabled"
                     wire:loading.class="lgn-submit-loading">
                     <span wire:loading.remove wire:target="login">Sign in</span>
                     <span wire:loading wire:target="login" class="lgn-loading-inner" style="display:none;">
