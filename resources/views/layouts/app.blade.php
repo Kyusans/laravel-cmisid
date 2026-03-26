@@ -104,9 +104,11 @@
                 <div class="p-3 border-top mt-auto">
                     <div class="d-flex align-items-center gap-2">
                         <div class="flex-grow-1 min-w-0">
-                            <small
-                                class="d-block fw-bold text-truncate">{{ Auth::user()->user_firstName . ' ' . Auth::user()->user_lastName }}</small>
-                            <small class="text-muted">{{ Auth::user()->user_email }}</small>
+                            <a href="{{ route('profile') }}" style="text-decoration: none;">
+                                <small
+                                    class="d-block fw-bold text-truncate">{{ Auth::user()->user_firstName . ' ' . Auth::user()->user_lastName }}</small>
+                                <small class="text-muted">{{ Auth::user()->user_email }}</small>
+                            </a>
                         </div>
 
                         <div class="dropdown">

@@ -23,4 +23,5 @@ Route::middleware("auth")->group(function () {
   Route::livewire("/masterfiles/ppa", "pages::masterfile.ppa.ppa-masterfiles")->name("ppa");
   Route::livewire('/information-systems', 'pages::transaction.information-system.information-system-page')->name('infosystems');
   Route::livewire("/change-password", "pages::account.change-password")->name("change-password");
+  Route::livewire("/profile", "pages::account.my-profile")->name("profile");
   });

@@ -21,7 +21,6 @@ class UserTableSeeder extends Seeder
             "user_password" => "admin",
             'user_officeId' => 1,
             "user_roleId" => 1,
-
         ]);
     }
 }
