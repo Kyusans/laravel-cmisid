@@ -1,14 +1,13 @@
 <?php
 
 use Livewire\Component;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 new class extends Component {
-    public $email = '';
-    public $password = '';
-    public $isLoading = false;
+    public string $email = '';
+    public string $password = '';
+    public bool $showPassword = false;
 
     public function mount()
     {
@@ -17,16 +16,15 @@ new class extends Component {
         }
     }
 
-    public function render()
-    {
-        return $this->view();
-    }
-
     public function login()
     {
         $validated = $this->validate([
             'email' => 'required|email',
             'password' => 'required|string',
+        ], [
+            'email.required' => 'Email address is required.',
+            'email.email' => 'Please enter a valid email address.',
+            'password.required' => 'Password is required.',
         ]);
 
         if (
@@ -36,65 +34,98 @@ new class extends Component {
             ])
         ) {
             request()->session()->regenerate();
-            session()->flash('success', 'Login successful');
             return redirect()->route('dashboard');
         }
 
         throw ValidationException::withMessages([
-            'credentials' => 'Invalid credentials',
+            'credentials' => 'Invalid email or password. Please try again.',
         ]);
+    }
+
+    public function render()
+    {
+        return $this->view();
     }
 };
 ?>
 
-<div>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="d-flex justify-content-center align-items-center vh-100">
-                <div class="card" style="width: 24rem;">
+<div >
 
-                    <div class="card-body">
+    <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="lgn-form-wrap">
 
-                        <div class="mb-4">
-                            <h5 class="fw-bold">Login to your account</h5>
-                            <h6 class="text-muted">Enter your email below to login to your account</h6>
-                        </div>
-
-                        <form wire:submit="login">
-                            @csrf
-                            <div class="form-group mb-3">
-                                <label class="mb-2">Email address</label>
-                                <input wire:model="email" type="email" class="form-control" placeholder="Enter email">
-                            </div>
-                            <div class="form-group mb-4">
-                                <label class="mb-2">Password</label>
-                                <input wire:model="password" type="password" class="form-control"
-                                    placeholder="Password">
-                            </div>
-                            <div class="d-grid">
-
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
-
-                                <button type="submit" class="btn btn-primary btn-block" wire:loading.attr="disabled">
-                                    <span wire:loading.remove wire:target="login">Login</span>
-                                    <span wire:loading wire:target="login">
-                                        <span class="spinner-border spinner-border-sm"></span>
-                                    </span>
-                                </button>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
+            {{-- Header --}}
+            <div class="lgn-form-header">
+                <h1 class="lgn-title">Welcome back</h1>
+                <p class="lgn-sub">Sign in to your account to continue.</p>
             </div>
+
+            @error('credentials')
+                <div class="lgn-alert">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 14 14"
+                        class="flex-shrink-0">
+                        <circle cx="7" cy="7" r="6" />
+                        <line x1="7" y1="4" x2="7" y2="7" />
+                        <line x1="7" y1="9.5" x2="7" y2="10" stroke-linecap="round" stroke-width="2" />
+                    </svg>
+                    {{ $message }}
+                </div>
+            @enderror
+
+            {{-- Form --}}
+            <form wire:submit="login" class="lgn-form">
+                @csrf
+
+                {{-- Email --}}
+                <div class="lgn-field">
+                    <label class="lgn-label" for="lgn-email">Email address</label>
+                    <input wire:model="email" id="lgn-email" type="email"
+                        class="lgn-input @error('email') lgn-input-error @enderror" placeholder="you@example.com"
+                        autocomplete="email" autofocus>
+                    @error('email')
+                        <p class="lgn-error">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                {{-- Password --}}
+                <div class="lgn-field">
+                    <label class="lgn-label" for="lgn-password">Password</label>
+                    <div class="lgn-input-wrap" x-data="{ show: false }">
+                        <input wire:model="password" id="lgn-password" x-bind:type="show ? 'text' : 'password'"
+                            class="lgn-input @error('password') lgn-input-error @enderror"
+                            placeholder="Enter your password" autocomplete="current-password">
+                        <button type="button" class="lgn-eye" x-on:click="show = !show" tabindex="-1">
+                            <svg x-show="!show" width="15" height="15" fill="none" stroke="currentColor"
+                                stroke-width="1.8" viewBox="0 0 24 24">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                            <svg x-show="show" width="15" height="15" fill="none" stroke="currentColor"
+                                stroke-width="1.8" viewBox="0 0 24 24" style="display:none;">
+                                <path
+                                    d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
+                                <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
+                                <line x1="1" y1="1" x2="23" y2="23" />
+                            </svg>
+                        </button>
+                    </div>
+                    @error('password')
+                        <p class="lgn-error">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <button type="submit" class="lgn-submit" wire:loading.attr="disabled"
+                    wire:loading.class="lgn-submit-loading">
+                    <span wire:loading.remove wire:target="login">Sign in</span>
+                    <span wire:loading wire:target="login" class="lgn-loading-inner" style="display:none;">
+                        <span class="lgn-spinner"></span>
+                        Signing in…
+                    </span>
+                </button>
+
+            </form>
+
         </div>
     </div>
+
 </div>

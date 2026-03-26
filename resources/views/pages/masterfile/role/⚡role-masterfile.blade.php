@@ -97,6 +97,11 @@ new class extends Component {
                                     wire:click="editData({{ $element->role_id }})">
                                     Update
                                 </button>
+                                {{-- <button type="button" class="btn btn-primary btn-sm"
+                                    wire:click="editData({{ $element->role_id }})" {{ $element->role_id == 1 ? 'disabled' : ''
+                                    }}>
+                                    Update
+                                </button> --}}
                                 <button type="button" class="btn btn-danger btn-sm"
                                     wire:confirm="Are you sure to delete this role?"
                                     wire:click="delete({{ $element->role_id }})">Delete</button>

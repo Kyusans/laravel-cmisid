@@ -1619,6 +1619,254 @@ label {
     }
 }
 
+.lgn-root {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+/* ── Left panel ─────────────────────────────────────────────── */
+.lgn-left {
+    background: #09090b;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.lgn-left::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(255, 255, 255, .04) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.lgn-brand {
+    display: flex;
+    align-items: center;
+}
+
+.lgn-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: #fafafa;
+}
+
+.lgn-logo-text {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fafafa;
+    letter-spacing: 0.08em;
+}
+
+/* ── Right panel ────────────────────────────────────────────── */
+.lgn-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem;
+    background: var(--bs-body-bg, #ffffff);
+}
+
+[data-bs-theme="dark"] .lgn-right {
+    background: #09090b;
+}
+
+.lgn-form-wrap {
+    width: 100%;
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* ── Form header ────────────────────────────────────────────── */
+.lgn-form-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.lgn-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text-primary, #09090b);
+    margin: 0;
+}
+
+.lgn-sub {
+    font-size: 0.875rem;
+    color: var(--text-muted, #71717a);
+    margin: 0;
+}
+
+/* ── Alert ──────────────────────────────────────────────────── */
+.lgn-alert {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    background: rgba(239, 68, 68, .06);
+    border: 1px solid rgba(239, 68, 68, .25);
+    border-radius: 7px;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.84rem;
+    color: #b91c1c;
+}
+
+[data-bs-theme="dark"] .lgn-alert {
+    color: #f87171;
+}
+
+/* ── Form ───────────────────────────────────────────────────── */
+.lgn-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.lgn-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.lgn-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-primary, #09090b);
+}
+
+/* ── Inputs ─────────────────────────────────────────────────── */
+.lgn-input-wrap {
+    position: relative;
+}
+
+.lgn-input {
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.875rem;
+    font-family: inherit;
+    color: var(--text-primary, #09090b);
+    background: var(--nav-hover, #f4f4f5);
+    border: 1px solid var(--border-color, #e4e4e7);
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    box-sizing: border-box;
+}
+
+.lgn-input::placeholder {
+    color: var(--text-muted, #a1a1aa);
+}
+
+.lgn-input:focus {
+    border-color: var(--text-secondary, #71717a);
+    box-shadow: 0 0 0 3px rgba(113, 113, 122, .12);
+}
+
+.lgn-input-error {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, .1) !important;
+}
+
+/* password field gets extra padding for eye button */
+#lgn-password {
+    padding-right: 2.5rem;
+}
+
+.lgn-eye {
+    position: absolute;
+    right: 0.65rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted, #a1a1aa);
+    display: flex;
+    align-items: center;
+    padding: 0.15rem;
+    border-radius: 4px;
+    transition: color 0.15s;
+}
+
+.lgn-eye:hover {
+    color: var(--text-primary, #09090b);
+}
+
+.lgn-error {
+    font-size: 0.775rem;
+    color: #ef4444;
+    margin: 0;
+}
+
+.lgn-submit {
+    width: 100%;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    font-family: inherit;
+    color: #fff;
+    background: #09090b;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: opacity 0.15s, background 0.15s;
+    margin-top: 0.25rem;
+}
+
+[data-bs-theme="dark"] .lgn-submit {
+    background: #fafafa;
+    color: #09090b;
+}
+
+.lgn-submit:hover:not(:disabled) {
+    opacity: 0.88;
+}
+
+.lgn-submit:disabled,
+.lgn-submit-loading {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.lgn-loading-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.lgn-spinner {
+    width: 13px;
+    height: 13px;
+    border: 2px solid rgba(255, 255, 255, .3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: lgn-spin .65s linear infinite;
+    flex-shrink: 0;
+}
+
+[data-bs-theme="dark"] .lgn-spinner {
+    border-color: rgba(9, 9, 11, .25);
+    border-top-color: #09090b;
+}
+
+@keyframes lgn-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
 /* ── Responsive ───────────────────────────────────────────── */
 @media (max-width: 640px) {
     .isf-section {
