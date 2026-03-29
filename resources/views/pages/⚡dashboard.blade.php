@@ -289,7 +289,8 @@ new class extends Component {
             <h1 class="isf-page-title" style="margin-bottom:4px;">Dashboard</h1>
             <p class="isf-page-sub">Overview of information systems across city government offices.</p>
         </div>
-        <button wire:click="exportExcel" wire:loading.attr="disabled" wire:target="exportExcel" class="isf-btn-submit">
+        <button wire:click="exportExcel" wire:loading.attr="disabled" wire:target="exportExcel"
+            @disabled($this->systems->isEmpty()) class="isf-btn-submit">
             <span wire:loading.remove wire:target="exportExcel" style="display:inline-flex;align-items:center;gap:6px;">
                 <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"
                     viewBox="0 0 24 24">
