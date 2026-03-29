@@ -29,35 +29,24 @@ new class extends Component {
 
     protected function baseQuery()
     {
-        $q = InformationSystem::query()->with([
-            'office',
-            'systemStatus',
-            'systemType',
-            'workEnvironment',
-            'developmentStrategy',
-            'infoSysRiseAgendas.riseAgenda.riseAgendaType',
-            'infoSysDevelopers.developer',
-            'infoSysFundingSources.fundingSource',
-            'infoSysInternalUsers.office',
-            'infoSysExternalUsers.office',
-            'office.mfos',
-            'office.ppas',
-            'systemProblems',
-            'infoSysDevelopers.developer',
-        ]);
+        // dd(Auth::user()->toArray());
+        $q = InformationSystem::query()->with(['office', 'systemStatus', 'systemType', 'workEnvironment', 'developmentStrategy', 'infoSysRiseAgendas.riseAgenda.riseAgendaType', 'infoSysDevelopers.developer', 'infoSysFundingSources.fundingSource', 'infoSysInternalUsers.office', 'infoSysExternalUsers.office', 'office.mfos', 'office.ppas', 'systemProblems', 'infoSysDevelopers.developer']);
 
-        if (Auth::user()->role->role_name === 'Office User') {
+        if (Auth::user()->user_roleId === 2) {
             $q->where('infoSys_officeId', Auth::user()->user_officeId);
         } elseif ($this->filterOffice) {
             $q->where('infoSys_officeId', $this->filterOffice);
         }
 
-        if ($this->filterStatus)
+        if ($this->filterStatus) {
             $q->where('infoSys_systemStatusId', $this->filterStatus);
-        if ($this->filterYear)
+        }
+        if ($this->filterYear) {
             $q->where('infoSys_initiationYear', $this->filterYear);
-        if ($this->filterPia !== '')
+        }
+        if ($this->filterPia !== '') {
             $q->where('infoSys_hasPIA', (bool) $this->filterPia);
+        }
 
         return $q;
     }
@@ -77,19 +66,13 @@ new class extends Component {
     #[Computed]
     public function totalPlanned(): int
     {
-        return $this->baseQuery()
-            ->whereHas('systemStatus', fn($q) => $q->where('sysStatus_name', 'like', '%Plan%'))
-            ->count();
+        return $this->baseQuery()->whereHas('systemStatus', fn($q) => $q->where('sysStatus_name', 'like', '%Plan%'))->count();
     }
 
     #[Computed]
     public function totalRunning(): int
     {
-        return $this->baseQuery()
-            ->whereHas('systemStatus', fn($q) => $q
-                ->where('sysStatus_name', 'like', '%Running%')
-                ->orWhere('sysStatus_name', 'like', '%Active%'))
-            ->count();
+        return $this->baseQuery()->whereHas('systemStatus', fn($q) => $q->where('sysStatus_name', 'like', '%Running%')->orWhere('sysStatus_name', 'like', '%Active%'))->count();
     }
 
     #[Computed]
@@ -119,77 +102,52 @@ new class extends Component {
     #[Computed]
     public function years()
     {
-        return InformationSystem::selectRaw('DISTINCT infoSys_initiationYear as year')
-            ->whereNotNull('infoSys_initiationYear')
-            ->orderByDesc('year')
-            ->pluck('year');
+        return InformationSystem::selectRaw('DISTINCT infoSys_initiationYear as year')->whereNotNull('infoSys_initiationYear')->orderByDesc('year')->pluck('year');
     }
 
     // ── helpers ──────────────────────────────────────────────
     protected function riseAgendas($sys): string
     {
-        return $sys->infoSysRiseAgendas
-            ->map(fn($r) => $r->riseAgenda?->riseAgenda_name)
-            ->filter()->implode("\n") ?: '—';
+        return $sys->infoSysRiseAgendas->map(fn($r) => $r->riseAgenda?->riseAgenda_name)->filter()->implode("\n") ?: '—';
     }
 
     protected function internalUsers($sys): string
     {
-        return $sys->infoSysInternalUsers
-            ->map(fn($u) => $u->office?->office_name)
-            ->filter()->unique()->implode("\n") ?: '—';
+        return $sys->infoSysInternalUsers->map(fn($u) => $u->office?->office_name)->filter()->unique()->implode("\n") ?: '—';
     }
 
     protected function externalUsers($sys): string
     {
-        return $sys->infoSysExternalUsers
-            ->map(fn($u) => $u->office?->office_name)
-            ->filter()->unique()->implode("\n") ?: '—';
+        return $sys->infoSysExternalUsers->map(fn($u) => $u->office?->office_name)->filter()->unique()->implode("\n") ?: '—';
     }
 
     protected function problems($sys): string
     {
-        return $sys->systemProblems
-            ->map(fn($p) => $p->sysprob_problem)
-            ->filter()->implode("\n") ?: '—';
+        return $sys->systemProblems->map(fn($p) => $p->sysprob_problem)->filter()->implode("\n") ?: '—';
     }
     protected function fundingSources($sys): string
     {
-        return $sys->infoSysFundingSources
-            ->map(fn($f) => $f->fundingSource?->funding_name)
-            ->filter()->implode("\n") ?: '—';
+        return $sys->infoSysFundingSources->map(fn($f) => $f->fundingSource?->funding_name)->filter()->implode("\n") ?: '—';
     }
 
     protected function mfos($sys): string
     {
-        return $sys->office?->mfos
-            ->map(fn($m) => $m->mfo_name)
-            ->filter()
-            ->implode("\n") ?: '—';
+        return $sys->office?->mfos->map(fn($m) => $m->mfo_name)->filter()->implode("\n") ?: '—';
     }
 
     protected function ppas($sys): string
     {
-        return $sys->office?->ppas
-            ->map(fn($p) => $p->ppa_name)
-            ->filter()
-            ->implode("\n") ?: '—';
+        return $sys->office?->ppas->map(fn($p) => $p->ppa_name)->filter()->implode("\n") ?: '—';
     }
 
     protected function riseAgendaTypes($sys): string
     {
-        return $sys->infoSysRiseAgendas
-            ->map(fn($r) => $r->riseAgenda?->riseAgendaType?->agendaType_name)
-            ->filter()
-            ->unique()
-            ->implode("\n") ?: '—';
+        return $sys->infoSysRiseAgendas->map(fn($r) => $r->riseAgenda?->riseAgendaType?->agendaType_name)->filter()->unique()->implode("\n") ?: '—';
     }
 
     protected function developers($sys): string
     {
-        return $sys->infoSysDevelopers
-            ->map(fn($d) => $d->developer?->dev_lastName . ', ' . $d->developer?->dev_firstName . ' ' . $d->developer?->dev_middleName)
-            ->filter()->implode("\n") ?: '—';
+        return $sys->infoSysDevelopers->map(fn($d) => $d->developer?->dev_lastName . ', ' . $d->developer?->dev_firstName . ' ' . $d->developer?->dev_middleName)->filter()->implode("\n") ?: '—';
     }
 
     // ── Excel export ─────────────────────────────────────────
@@ -221,29 +179,7 @@ new class extends Component {
         $sheet->getRowDimension(3)->setRowHeight(6);
 
         // Headers
-        $headers = [
-            'Rank',
-            'Smart City?',
-            'Name of Information System / Sub-System',
-            'Description (if for enhancement please include components to be added)',
-            'RISE Agenda',
-            "",
-            'Connection to RISE Agenda',
-            'Type of System',
-            'Status',
-            'Initiation Year',
-            'Development Strategy',
-            'Working Environment',
-            'Owner',
-            'Internal Users',
-            'External Users',
-            'MFO',
-            'PPA',
-            'Issues / Problems',
-            'How System Connects with MFO',
-            'Sources of Funding',
-            'Developers',
-        ];
+        $headers = ['Rank', 'Smart City?', 'Name of Information System / Sub-System', 'Description (if for enhancement please include components to be added)', 'RISE Agenda', '', 'Connection to RISE Agenda', 'Type of System', 'Status', 'Initiation Year', 'Development Strategy', 'Working Environment', 'Owner', 'Internal Users', 'External Users', 'MFO', 'PPA', 'Issues / Problems', 'How System Connects with MFO', 'Sources of Funding', 'Developers'];
 
         $col = 'A';
         foreach ($headers as $h) {
@@ -257,7 +193,7 @@ new class extends Component {
             'alignment' => [
                 'vertical' => Alignment::VERTICAL_CENTER,
                 'horizontal' => Alignment::HORIZONTAL_LEFT,
-                'wrapText' => true
+                'wrapText' => true,
             ],
         ]);
         $sheet->getRowDimension(4)->setRowHeight(30);
@@ -265,29 +201,7 @@ new class extends Component {
         // Data
         $row = 5;
         foreach ($systems as $sys) {
-            $values = [
-                $sys->infoSys_rank,
-                $sys->infoSys_isSmartCityInitiative ? 'Yes' : 'No',
-                $sys->infoSys_systemName,
-                $sys->infoSys_description ?? '—',
-                $this->riseAgendaTypes($sys),
-                $this->riseAgendas($sys),
-                $sys->infoSys_riseAgendaConnection ?? '—',
-                $sys->systemType?->systemType_name ?? '—',
-                $sys->systemStatus?->sysStatus_name ?? '—',
-                $sys->infoSys_initiationYear ?? '—',
-                $sys->developmentStrategy?->devStrategy_name ?? '—',
-                $sys->workEnvironment?->workEnv_name ?? '—',
-                $sys->office?->office_name ?? '—',
-                $this->internalUsers($sys),
-                $this->externalUsers($sys),
-                $this->mfos($sys),
-                $this->ppas($sys),
-                $this->problems($sys),
-                $sys->infoSys_mfoConnection ?? '—',
-                $this->fundingSources($sys),
-                $this->developers($sys),
-            ];
+            $values = [$sys->infoSys_rank, $sys->infoSys_isSmartCityInitiative ? 'Yes' : 'No', $sys->infoSys_systemName, $sys->infoSys_description ?? '—', $this->riseAgendaTypes($sys), $this->riseAgendas($sys), $sys->infoSys_riseAgendaConnection ?? '—', $sys->systemType?->systemType_name ?? '—', $sys->systemStatus?->sysStatus_name ?? '—', $sys->infoSys_initiationYear ?? '—', $sys->developmentStrategy?->devStrategy_name ?? '—', $sys->workEnvironment?->workEnv_name ?? '—', $sys->office?->office_name ?? '—', $this->internalUsers($sys), $this->externalUsers($sys), $this->mfos($sys), $this->ppas($sys), $this->problems($sys), $sys->infoSys_mfoConnection ?? '—', $this->fundingSources($sys), $this->developers($sys)];
 
             $col = 'A';
             foreach ($values as $val) {
@@ -295,7 +209,7 @@ new class extends Component {
                 $col++;
             }
 
-            $fill = ($row % 2 === 0) ? 'FFF9F9F9' : 'FFFFFFFF';
+            $fill = $row % 2 === 0 ? 'FFF9F9F9' : 'FFFFFFFF';
             $sheet->getStyle("A{$row}:{$lastCol}{$row}")->applyFromArray([
                 'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['argb' => $fill]],
                 'font' => ['size' => 9],
@@ -308,33 +222,37 @@ new class extends Component {
         // Borders
         $lastRow = $row - 1;
         if ($lastRow >= 4) {
-            $sheet->getStyle("A4:{$lastCol}{$lastRow}")->getBorders()->getAllBorders()
+            $sheet
+                ->getStyle("A4:{$lastCol}{$lastRow}")
+                ->getBorders()
+                ->getAllBorders()
                 ->setBorderStyle(Border::BORDER_THIN)
-                ->getColor()->setARGB('FFE4E4E7');
+                ->getColor()
+                ->setARGB('FFE4E4E7');
         }
 
         $widths = [
-            'A' => 6,   // Rank
-            'B' => 10,  // Smart City
-            'C' => 38,  // Name
-            'D' => 45,  // Description
-            'E' => 25,  // Rise Type
-            'F' => 30,  // Rise Agenda
-            'G' => 40,  // Connection to Rise Agenda
-            'H' => 18,  // Type
-            'I' => 18,  // Status
-            'J' => 12,  // Year
-            'K' => 22,  // Dev Strategy
-            'L' => 22,  // Work Env
-            'M' => 28,  // Owner
-            'N' => 30,  // Internal Users
-            'O' => 30,  // External Users
-            'P' => 30,  // MFO
-            'Q' => 30,  // PPA
-            'R' => 40,  // Problems
-            'S' => 45,  // MFO Connection
-            'T' => 45,  // Funding Sources
-            'U' => 30,  // Developers
+            'A' => 6, // Rank
+            'B' => 10, // Smart City
+            'C' => 38, // Name
+            'D' => 45, // Description
+            'E' => 25, // Rise Type
+            'F' => 30, // Rise Agenda
+            'G' => 40, // Connection to Rise Agenda
+            'H' => 18, // Type
+            'I' => 18, // Status
+            'J' => 12, // Year
+            'K' => 22, // Dev Strategy
+            'L' => 22, // Work Env
+            'M' => 28, // Owner
+            'N' => 30, // Internal Users
+            'O' => 30, // External Users
+            'P' => 30, // MFO
+            'Q' => 30, // PPA
+            'R' => 40, // Problems
+            'S' => 45, // MFO Connection
+            'T' => 45, // Funding Sources
+            'U' => 30, // Developers
         ];
 
         foreach ($widths as $c => $w) {
@@ -348,13 +266,17 @@ new class extends Component {
 
         $filename = 'is-report-' . now()->format('Y-m-d') . '.xlsx';
 
-        return response()->streamDownload(function () use ($spreadsheet) {
-            $writer = new Xlsx($spreadsheet);
-            $writer->save('php://output');
-        }, $filename, [
-            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'Content-Disposition' => "attachment; filename=\"{$filename}\"",
-        ]);
+        return response()->streamDownload(
+            function () use ($spreadsheet) {
+                $writer = new Xlsx($spreadsheet);
+                $writer->save('php://output');
+            },
+            $filename,
+            [
+                'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'Content-Disposition' => "attachment; filename=\"{$filename}\"",
+            ],
+        );
     }
 };
 ?>
@@ -369,7 +291,8 @@ new class extends Component {
         </div>
         <button wire:click="exportExcel" wire:loading.attr="disabled" wire:target="exportExcel" class="isf-btn-submit">
             <span wire:loading.remove wire:target="exportExcel" style="display:inline-flex;align-items:center;gap:6px;">
-                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"
+                    viewBox="0 0 24 24">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                     <polyline points="7 10 12 15 17 10" />
                     <line x1="12" y1="15" x2="12" y2="3" />
@@ -389,7 +312,8 @@ new class extends Component {
     <div class="isr-cards">
         <div class="isr-card">
             <div class="isr-card-icon" style="color:#2563eb;">
-                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"
+                    viewBox="0 0 24 24">
                     <rect x="3" y="3" width="18" height="18" rx="2" />
                     <path d="M3 9h18M9 21V9" />
                 </svg>
@@ -402,7 +326,8 @@ new class extends Component {
 
         <div class="isr-card">
             <div class="isr-card-icon" style="color:#0d9488;">
-                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"
+                    viewBox="0 0 24 24">
                     <polygon
                         points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                 </svg>
@@ -415,7 +340,8 @@ new class extends Component {
 
         <div class="isr-card">
             <div class="isr-card-icon" style="color:#dc2626;">
-                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"
+                    viewBox="0 0 24 24">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                     <line x1="12" y1="8" x2="12" y2="12" />
                     <line x1="12" y1="16" x2="12.01" y2="16" />
@@ -428,7 +354,8 @@ new class extends Component {
         </div>
         <div class="isr-card">
             <div class="isr-card-icon" style="color:#7c3aed;">
-                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"
+                    viewBox="0 0 24 24">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                     <polyline points="9 12 11 14 15 10" />
                 </svg>
@@ -443,12 +370,12 @@ new class extends Component {
     <div class="isr-filters">
         <div class="isr-filters-row">
 
-            @if($this->isAdmin)
+            @if ($this->isAdmin)
                 <div class="isf-field" style="flex:1;min-width:150px;">
                     <label class="isf-label">Office</label>
                     <select wire:model.live="filterOffice" class="isf-select">
                         <option value="">All Offices</option>
-                        @foreach($this->offices as $office)
+                        @foreach ($this->offices as $office)
                             <option value="{{ $office->office_id }}">{{ $office->office_name }}</option>
                         @endforeach
                     </select>
@@ -459,7 +386,7 @@ new class extends Component {
                 <label class="isf-label">Status</label>
                 <select wire:model.live="filterStatus" class="isf-select">
                     <option value="">All Statuses</option>
-                    @foreach($this->statuses as $s)
+                    @foreach ($this->statuses as $s)
                         <option value="{{ $s->sysStatus_id }}">{{ $s->sysStatus_name }}</option>
                     @endforeach
                 </select>
@@ -469,7 +396,7 @@ new class extends Component {
                 <label class="isf-label">Year</label>
                 <select wire:model.live="filterYear" class="isf-select">
                     <option value="">All Years</option>
-                    @foreach($this->years as $y)
+                    @foreach ($this->years as $y)
                         <option value="{{ $y }}">{{ $y }}</option>
                     @endforeach
                 </select>
@@ -484,7 +411,7 @@ new class extends Component {
                 </select>
             </div>
 
-            @if($filterOffice || $filterStatus || $filterYear || $filterPia !== '')
+            @if ($filterOffice || $filterStatus || $filterYear || $filterPia !== '')
                 <div class="isf-field" style="align-self:flex-end;flex-shrink:0;">
                     <button wire:click="resetFilters" class="isr-reset-btn">
                         <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -510,10 +437,10 @@ new class extends Component {
         <div wire:loading wire:target="filterOffice,filterStatus,filterYear,filterPia,resetFilters"
             class="isr-progress-bar"></div>
 
-        @if($this->systems->isEmpty())
+        @if ($this->systems->isEmpty())
             <div class="empty-state" style="padding:3rem 1rem;">
-                <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
-                    style="display:block;margin:0 auto 0.6rem;color:var(--text-muted);">
+                <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"
+                    viewBox="0 0 24 24" style="display:block;margin:0 auto 0.6rem;color:var(--text-muted);">
                     <circle cx="11" cy="11" r="8" />
                     <line x1="21" y1="21" x2="16.65" y2="16.65" />
                 </svg>
@@ -544,39 +471,54 @@ new class extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($this->systems as $sys)
+                        @foreach ($this->systems as $sys)
                             @php
                                 $sName = $sys->systemStatus?->sysStatus_name ?? '';
-                                $isRun = str_contains(strtolower($sName), 'running')
-                                    || str_contains(strtolower($sName), 'active');
+                                $isRun =
+                                    str_contains(strtolower($sName), 'running') ||
+                                    str_contains(strtolower($sName), 'active');
 
-                                $riseAgendas = $sys->infoSysRiseAgendas
-                                    ->map(fn($r) => $r->riseAgenda?->riseAgenda_name)
-                                    ->filter()->implode(', ') ?: '—';
+                                $riseAgendas =
+                                    $sys->infoSysRiseAgendas
+                                        ->map(fn($r) => $r->riseAgenda?->riseAgenda_name)
+                                        ->filter()
+                                        ->implode(', ') ?:
+                                    '—';
 
-                                $internalUsers = $sys->infoSysInternalUsers
-                                    ->map(fn($u) => $u->office?->office_name)
-                                    ->filter()->unique()->implode(', ') ?: '—';
+                                $internalUsers =
+                                    $sys->infoSysInternalUsers
+                                        ->map(fn($u) => $u->office?->office_name)
+                                        ->filter()
+                                        ->unique()
+                                        ->implode(', ') ?:
+                                    '—';
 
-                                $externalUsers = $sys->infoSysExternalUsers
-                                    ->map(fn($u) => $u->office?->office_name)
-                                    ->filter()->unique()->implode(', ') ?: '—';
+                                $externalUsers =
+                                    $sys->infoSysExternalUsers
+                                        ->map(fn($u) => $u->office?->office_name)
+                                        ->filter()
+                                        ->unique()
+                                        ->implode(', ') ?:
+                                    '—';
 
-                                $problems = $sys->systemProblems
-                                    ->map(fn($p) => $p->sysprob_problem)
-                                    ->filter()->implode('; ') ?: '—';
+                                $problems =
+                                    $sys->systemProblems->map(fn($p) => $p->sysprob_problem)->filter()->implode('; ') ?:
+                                    '—';
 
-                                $fundings = $sys->infoSysFundingSources
-                                    ->map(fn($f) => $f->fundingSource?->funding_name)
-                                    ->filter()->implode(', ') ?: '—';
+                                $fundings =
+                                    $sys->infoSysFundingSources
+                                        ->map(fn($f) => $f->fundingSource?->funding_name)
+                                        ->filter()
+                                        ->implode(', ') ?:
+                                    '—';
                             @endphp
                             <tr>
                                 <td><span class="list-index">{{ $sys->infoSys_rank }}</span></td>
                                 <td>
-                                    @if($sys->infoSys_isSmartCityInitiative)
+                                    @if ($sys->infoSys_isSmartCityInitiative)
                                         <span class="status-badge badge-smart">
-                                            <svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5"
-                                                viewBox="0 0 24 24">
+                                            <svg width="9" height="9" fill="none" stroke="currentColor"
+                                                stroke-width="2.5" viewBox="0 0 24 24">
                                                 <polyline points="20 6 9 17 4 12" />
                                             </svg>
                                             Yes
@@ -630,8 +572,7 @@ new class extends Component {
                                 <td style="font-size:.79rem;color:var(--text-secondary);">{{ $internalUsers }}</td>
                                 <td style="font-size:.79rem;color:var(--text-secondary);">{{ $externalUsers }}</td>
                                 <td>
-                                    <div
-                                    class="cell-text"
+                                    <div class="cell-text"
                                         style="font-size:.79rem;color:var(--text-secondary);max-width:160px;white-space:normal;line-height:1.4;">
                                         {{ $sys->infoSys_mfoConnection ?? '—' }}
                                     </div>
