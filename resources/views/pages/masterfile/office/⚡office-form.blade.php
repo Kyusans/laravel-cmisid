@@ -112,6 +112,8 @@ new class extends Component {
             $this->dispatch('toast', type: 'success', message: 'Office added successfully');
             // $this->dispatch('goBack');
             $this->reset(['officeName']);
+            $this->reset(['mfo']);
+            $this->reset(['ppa']);
         } catch (\Exception $e) {
             return $e->getMessage();
         }
